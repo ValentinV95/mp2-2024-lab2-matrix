@@ -31,7 +31,8 @@ public:
     }
     TDynamicVector(T* arr, size_t s) : sz(s)
     {
-        if (sz > MAX_VECTOR_SIZE) throw std::out_of_range("vector size should be less or equal than maximum vector size");
+        if ((sz == 0) || (sz > MAX_VECTOR_SIZE)) 
+            std::out_of_range("vector size should be greater than zero and less or equal than maximum vector size");
 
         assert(arr != nullptr && "TDynamicVector requires non-nullptr arg");
 
@@ -294,7 +295,7 @@ public:
     // матрично-матричные операции
     TDynamicMatrix operator+(const TDynamicMatrix& m)
     {
-        if (sz != m.sz) throw std::out_of_range("matrixs should have equal sizes");
+        if (sz != m.sz) throw std::out_of_range("matrices should have equal sizes");
 
         TDynamicMatrix res(sz);
 
@@ -305,7 +306,7 @@ public:
     }
     TDynamicMatrix operator-(const TDynamicMatrix& m)
     {
-        if (sz != m.sz) throw std::out_of_range("matrixs should have equal sizes");
+        if (sz != m.sz) throw std::out_of_range("matrices should have equal sizes");
 
         TDynamicMatrix res(sz);
 
@@ -316,7 +317,7 @@ public:
     }
     TDynamicMatrix operator*(const TDynamicMatrix& m)
     {
-        if (sz != m.sz) throw std::out_of_range("matrixs should have equal sizes");
+        if (sz != m.sz) throw std::out_of_range("matrices should have equal sizes");
 
         TDynamicMatrix res(sz);
 

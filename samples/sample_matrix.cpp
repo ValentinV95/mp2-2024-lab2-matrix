@@ -14,9 +14,9 @@ int main()
     while (1)
     {
         std::cout << "---------------------------------------" << std::endl;
-        std::cout << "0 - A + B (matrixs)" << std::endl;
-        std::cout << "1 - A - B (matrixs)" << std::endl;
-        std::cout << "2 - A * B (matrixs)" << std::endl;
+        std::cout << "0 - A + B (matrices)" << std::endl;
+        std::cout << "1 - A - B (matrices)" << std::endl;
+        std::cout << "2 - A * B (matrices)" << std::endl;
         std::cout << "3 - alpha * A (scalar, matrix)" << std::endl;
         std::cout << "4 - a + b (vectors)" << std::endl;
         std::cout << "5 - a - b (vectors)" << std::endl;
