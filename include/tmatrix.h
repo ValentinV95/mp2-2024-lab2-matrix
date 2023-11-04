@@ -32,7 +32,7 @@ public:
     TDynamicVector(T* arr, size_t s) : sz(s)
     {
         if ((sz == 0) || (sz > MAX_VECTOR_SIZE)) 
-            std::out_of_range("vector size should be greater than zero and less or equal than maximum vector size");
+            throw std::out_of_range("vector size should be greater than zero and less or equal than maximum vector size");
 
         assert(arr != nullptr && "TDynamicVector requires non-nullptr arg");
 
