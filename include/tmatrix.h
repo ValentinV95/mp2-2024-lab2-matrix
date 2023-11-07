@@ -56,7 +56,7 @@ public:
   }
   TDynamicVector& operator=(const TDynamicVector& v)
   {
-      if (*this == v)
+      if (this == &v)
           return *this;
       if (sz != v.sz)
       {
@@ -75,7 +75,6 @@ public:
   }
 
   size_t size() const noexcept { return sz; }
-  T* GetpMem() const noexcept { return pMem; }
 
   // индексация
   T& operator[](size_t ind)

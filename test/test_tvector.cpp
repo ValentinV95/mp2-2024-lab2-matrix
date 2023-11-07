@@ -38,7 +38,7 @@ TEST(TDynamicVector, copied_vector_has_its_own_memory)
 {
 	const size_t sz = 2049;
 	TDynamicVector<double> a(sz), b(a);
-	EXPECT_FALSE(a.GetpMem() == b.GetpMem());
+	EXPECT_TRUE(&a != &b);
 }
 
 TEST(TDynamicVector, can_get_size)

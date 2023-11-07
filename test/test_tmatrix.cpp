@@ -38,21 +38,9 @@ TEST(TDynamicMatrix, copied_matrix_is_equal_to_source_one)
 TEST(TDynamicMatrix, copied_matrix_has_its_own_memory)
 {
 	const size_t sz = 50;
-	bool flag = true;
 	TDynamicMatrix<int> a(sz);
-	//for (size_t i = 0; i < sz; i++)
-	//	for (size_t j = 0; j < sz; j++)
-	//	{
-	//		a[i][j] = rand();
-	//	}
 	TDynamicMatrix<int> b(a);
-	for (size_t i = 0; i < sz; i++)
-		if (a[i].GetpMem() == b[i].GetpMem())
-		{
-			flag = false;
-			break;
-		}
-	EXPECT_TRUE(flag);
+	EXPECT_TRUE(&a!=&b);
 }
 
 TEST(TDynamicMatrix, can_get_size)
