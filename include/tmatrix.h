@@ -233,6 +233,7 @@ public:
       TDynamicVector<T> tmp(sz)
           for (size_t i = 0; i < sz; i++)
               tmp.pMem[i] = pMem[i] * v;
+      return tmp;
   }
 
   // матрично-матричные операции
