@@ -52,7 +52,7 @@ void main()
                 c = a * b;
                 break;
             default:
-                cout << "Неверный ввод." << endl;
+                throw invalid_argument("Неверный ввод.");
                 continue;
             }
         }

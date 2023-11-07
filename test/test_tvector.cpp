@@ -26,16 +26,13 @@ TEST(TDynamicVector, can_create_copied_vector)
 
 TEST(TDynamicVector, copied_vector_is_equal_to_source_one)
 {
-	int a[4] = { 2, 4, 6, 8 };
-	int a1[4];
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rand() % 10;
+	}
 	TDynamicVector<int> v(a, 4);
 	TDynamicVector<int> v1(v);
-	for (size_t i = 0; i < 4; i++) {
-		a1[i] = v1[i];
-	}
-	for (size_t i = 0; i < 4; i++) {
-		EXPECT_EQ(a[i], a1[i]);
-	}
+	EXPECT_EQ(v, v1);
 }
 
 TEST(TDynamicVector, copied_vector_has_its_own_memory)
@@ -57,26 +54,35 @@ TEST(TDynamicVector, can_set_and_get_element)
   TDynamicVector<int> v(4);
   v[0] = 4;
 
-  EXPECT_EQ(4, v[0]);
+  ASSERT_EQ(4, v[0]);
 }
 
 TEST(TDynamicVector, throws_when_set_element_with_negative_index)
 {
-	int a[4] = { 2, 4, 6, 8 };
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rand() % 10;
+	}
 	TDynamicVector<int> v(a, 4);
 	ASSERT_ANY_THROW(v.at(-1));
 }
 
 TEST(TDynamicVector, throws_when_set_element_with_too_large_index)
 {
-	int a[4] = { 2, 4, 6, 8 };
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rand() % 10;
+	}
 	TDynamicVector<int> v(a, 4);
 	ASSERT_ANY_THROW(v.at(6));
 }
 
 TEST(TDynamicVector, can_assign_vector_to_itself)
 {
-	int a[4] = { 2, 4, 6, 8 };
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rand() % 10;
+	}
 	TDynamicVector<int> v(a, 4);
 	TDynamicVector<int> v1(a, 4);
 	v = v;
@@ -85,7 +91,10 @@ TEST(TDynamicVector, can_assign_vector_to_itself)
 
 TEST(TDynamicVector, can_assign_vectors_of_equal_size)
 {
-	int a[4] = { 2, 4, 6, 8 };
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rand() % 10;
+	}
 	TDynamicVector<int> v(a, 4);
 	TDynamicVector<int> v1(4);
 	v1 = v;
@@ -94,7 +103,10 @@ TEST(TDynamicVector, can_assign_vectors_of_equal_size)
 
 TEST(TDynamicVector, assign_operator_change_vector_size)
 {
-	int a[4] = { 2, 4, 6, 8 };
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rand() % 10;
+	}
 	TDynamicVector<int> v(a, 4);
 	TDynamicVector<int> v1(7);
 	v1 = v;
@@ -103,7 +115,10 @@ TEST(TDynamicVector, assign_operator_change_vector_size)
 
 TEST(TDynamicVector, can_assign_vectors_of_different_size)
 {
-	int a[4] = { 2, 4, 6, 8 };
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rand() % 10;
+	}
 	TDynamicVector<int> v(a, 4);
 	TDynamicVector<int> v1(7);
 	v1 = v;
@@ -112,22 +127,31 @@ TEST(TDynamicVector, can_assign_vectors_of_different_size)
 
 TEST(TDynamicVector, compare_equal_vectors_return_true)
 {
-	int a[4] = { 2, 4, 6, 8 };
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rand() % 10;
+	}
 	TDynamicVector<int> v(a, 4);
 	TDynamicVector<int> v1(a, 4);
-	ASSERT_NE(v == v1, 0);
+	ASSERT_EQ(v, v1);
 }
 
 TEST(TDynamicVector, compare_vector_with_itself_return_true)
 {
-	int a[4] = { 2, 4, 6, 8 };
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rand() % 10;
+	}
 	TDynamicVector<int> v(a, 4);
-	EXPECT_NE(v == v, 0);
+	EXPECT_EQ(v, v);
 }
 
 TEST(TDynamicVector, vectors_with_different_size_are_not_equal)
 {
-	int a[7] = { 2, 4, 6, 8, 0, 0, 0 };
+	int a[7];
+	for (size_t i = 0; i < 7; i++) {
+		a[i] = rand() % 20;
+	}
 	TDynamicVector<int> v(a, 4);
 	TDynamicVector<int> v1(a, 7);
 	ASSERT_NE(v, v1);
@@ -135,59 +159,70 @@ TEST(TDynamicVector, vectors_with_different_size_are_not_equal)
 
 TEST(TDynamicVector, can_add_scalar_to_vector)
 {
-	int a[4] = { 1, 3, 7, 8 };
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rand() % 10;
+	}
 	TDynamicVector<int> v(a, 4);
 	v = v + 4;
-	int a1[4];
 	for (size_t i = 0; i < 4; i++) {
-		a1[i] = a[i] + 4;
+		a[i] += 4;
 	}
 	for (size_t i = 0; i < 4; i++) {
-		EXPECT_EQ(v[i], a1[i]);
+		EXPECT_EQ(v[i], a[i]);
 	}
 }
 
 TEST(TDynamicVector, can_subtract_scalar_from_vector)
 {
-	int a[4] = { 1, 3, 7, 8 };
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rand() % 10;
+	}
 	TDynamicVector<int> v(a, 4);
 	v = v - 4;
-	int a1[4];
 	for (size_t i = 0; i < 4; i++) {
-		a1[i] = a[i] - 4;
+		a[i] -= 4;
 	}
 	for (size_t i = 0; i < 4; i++) {
-		EXPECT_EQ(v[i], a1[i]);
+		EXPECT_EQ(v[i], a[i]);
 	}
 }
 
 TEST(TDynamicVector, can_multiply_scalar_by_vector)
 {
-	int a[4] = { 1, 3, 7, 8 };
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rand() % 10;
+	}
 	TDynamicVector<int> v(a, 4);
 	v = v * 7;
-	int a1[4];
 	for (size_t i = 0; i < 4; i++) {
-		a1[i] = a[i] * 7;
+		a[i] *= 7;
 	}
 	for (size_t i = 0; i < 4; i++) {
-		EXPECT_EQ(v[i], a1[i]);
+		EXPECT_EQ(v[i], a[i]);
 	}
 }
 
 TEST(TDynamicVector, can_add_vectors_with_equal_size)
 {
-	int a[4] = { 1, 3, 7, 8 };
-	int b[4] = { 2, 4, 10, 1 };
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rand() % 20;
+	}
+	int b[4];
+	for (size_t i = 0; i < 4; i++) {
+		b[i] = rand() % 20;
+	}
 	TDynamicVector<int> v(a, 4);
 	TDynamicVector<int> v1(b, 4);
 	v = v + v1;
-	int a1[4];
 	for (size_t i = 0; i < 4; i++) {
-		a1[i] = a[i] + b[i];
+		a[i] += b[i];
 	}
 	for (size_t i = 0; i < 4; i++) {
-		EXPECT_EQ(v[i], a1[i]);
+		EXPECT_EQ(v[i], a[i]);
 	}
 }
 
@@ -202,17 +237,22 @@ TEST(TDynamicVector, cant_add_vectors_with_not_equal_size)
 
 TEST(TDynamicVector, can_subtract_vectors_with_equal_size)
 {
-	int a[4] = { 1, 3, 7, 8 };
-	int b[4] = { 2, 4, 10, 1 };
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rand() % 20;
+	}
+	int b[4];
+	for (size_t i = 0; i < 4; i++) {
+		b[i] = rand() % 20;
+	}
 	TDynamicVector<int> v(a, 4);
 	TDynamicVector<int> v1(b, 4);
 	v = v - v1;
-	int a1[4];
 	for (size_t i = 0; i < 4; i++) {
-		a1[i] = a[i] - b[i];
+		a[i] -= b[i];
 	}
 	for (size_t i = 0; i < 4; i++) {
-		EXPECT_EQ(v[i], a1[i]);
+		EXPECT_EQ(v[i], a[i]);
 	}
 }
 

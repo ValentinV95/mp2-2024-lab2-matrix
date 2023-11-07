@@ -26,7 +26,15 @@ TEST(TDynamicMatrix, can_create_copied_matrix)
 
 TEST(TDynamicMatrix, copied_matrix_is_equal_to_source_one)
 {
-	TDynamicMatrix<int> a(5);
+	int inp[4];
+	for (size_t i = 0; i < 4; i++) {
+		inp[i] = rand() % 20;
+	}
+	TDynamicMatrix<int> a(2);
+	a[0][0] = inp[0];
+	a[0][1] = inp[1];
+	a[1][0] = inp[2];
+	a[1][1] = inp[3];
 	TDynamicMatrix<int> b(a);
 	EXPECT_EQ(a, b);
 }
@@ -46,10 +54,10 @@ TEST(TDynamicMatrix, can_get_size)
 
 TEST(TDynamicMatrix, can_set_and_get_element)
 {
-	int a[4] = { 2, 4, 9, 1 };
+	int a = rand() % 8;
 	TDynamicMatrix<int> mat1(2);
-	mat1[0][0] = a[0];
-	EXPECT_EQ(mat1[0][0], a[0]);
+	mat1[0][0] = a;
+	ASSERT_EQ(mat1[0][0], a);
 }
 
 TEST(TDynamicMatrix, throws_when_set_element_with_negative_index)
@@ -66,7 +74,10 @@ TEST(TDynamicMatrix, throws_when_set_element_with_too_large_index)
 
 TEST(TDynamicMatrix, can_assign_matrix_to_itself)
 {
-	int a[4] = { 2, 4, 9, 1 };
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rand() % 20;
+	}
 	TDynamicMatrix<int> mat1(2);
 	mat1[0][0] = a[0];
 	mat1[0][1] = a[1];
@@ -83,7 +94,10 @@ TEST(TDynamicMatrix, can_assign_matrix_to_itself)
 
 TEST(TDynamicMatrix, can_assign_matrices_of_equal_size)
 {
-	int a[4] = { 2, 4, 9, 1 };
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rand() % 20;
+	}
 	TDynamicMatrix<int> mat1(2);
 	mat1[0][0] = a[0];
 	mat1[0][1] = a[1];
@@ -96,7 +110,10 @@ TEST(TDynamicMatrix, can_assign_matrices_of_equal_size)
 
 TEST(TDynamicMatrix, assign_operator_change_matrix_size)
 {
-	int a[4] = { 2, 4, 9, 1 };
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rand() % 20;
+	}
 	TDynamicMatrix<int> mat1(2);
 	mat1[0][0] = a[0];
 	mat1[0][1] = a[1];
@@ -109,7 +126,10 @@ TEST(TDynamicMatrix, assign_operator_change_matrix_size)
 
 TEST(TDynamicMatrix, can_assign_matrices_of_different_size)
 {
-	int a[4] = { 2, 4, 9, 1 };
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rand() % 20;
+	}
 	TDynamicMatrix<int> mat1(2);
 	mat1[0][0] = a[0];
 	mat1[0][1] = a[1];
@@ -122,7 +142,10 @@ TEST(TDynamicMatrix, can_assign_matrices_of_different_size)
 
 TEST(TDynamicMatrix, compare_equal_matrices_return_true)
 {
-	int a[4] = {2, 4, 9, 1};
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rand() % 20;
+	}
 	TDynamicMatrix<int> mat1(2);
 	mat1[0][0] = a[0];
 	mat1[0][1] = a[1];
@@ -138,7 +161,10 @@ TEST(TDynamicMatrix, compare_equal_matrices_return_true)
 
 TEST(TDynamicMatrix, compare_matrix_with_itself_return_true)
 {
-	int a[4] = { 2, 4, 9, 1 };
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rand() % 20;
+	}
 	TDynamicMatrix<int> mat1(2);
 	mat1[0][0] = a[0];
 	mat1[0][1] = a[1];
@@ -149,7 +175,10 @@ TEST(TDynamicMatrix, compare_matrix_with_itself_return_true)
 
 TEST(TDynamicMatrix, matrices_with_different_size_are_not_equal)
 {
-	int a[4] = { 2, 4, 9, 1 };
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rand() % 20;
+	}
 	TDynamicMatrix<int> mat1(2);
 	mat1[0][0] = a[0];
 	mat1[0][1] = a[1];
@@ -165,8 +194,14 @@ TEST(TDynamicMatrix, matrices_with_different_size_are_not_equal)
 
 TEST(TDynamicMatrix, can_add_matrices_with_equal_size)
 {
-	int a[4] = { 2, 4, 9, 1 };
-	int b[4] = { 3, 9, 0, 1 };
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rand() % 20;
+	}
+	int b[4];
+	for (size_t i = 0; i < 4; i++) {
+		b[i] = rand() % 20;
+	}
 	TDynamicMatrix<int> mat1(2);
 	mat1[0][0] = a[0];
 	mat1[0][1] = a[1];
@@ -178,7 +213,7 @@ TEST(TDynamicMatrix, can_add_matrices_with_equal_size)
 	mat2[1][0] = b[2];
 	mat2[1][1] = b[3];
 	mat1 = mat1 + mat2;
-	int c[4] = { 5, 13, 9, 2 };
+	int c[4] = { a[0]+b[0], a[1]+b[1], a[2]+b[2], a[3]+b[3] };
 	EXPECT_EQ(mat1[0][0], c[0]);
 	EXPECT_EQ(mat1[0][1], c[1]);
 	EXPECT_EQ(mat1[1][0], c[2]);
@@ -187,8 +222,14 @@ TEST(TDynamicMatrix, can_add_matrices_with_equal_size)
 
 TEST(TDynamicMatrix, cant_add_matrices_with_not_equal_size)
 {
-	int a[4] = { 2, 4, 9, 1 };
-	int b[4] = { 3, 9, 0, 1 };
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rand() % 20;
+	}
+	int b[4];
+	for (size_t i = 0; i < 4; i++) {
+		b[i] = rand() % 20;
+	}
 	TDynamicMatrix<int> mat1(2);
 	mat1[0][0] = a[0];
 	mat1[0][1] = a[1];
@@ -204,8 +245,14 @@ TEST(TDynamicMatrix, cant_add_matrices_with_not_equal_size)
 
 TEST(TDynamicMatrix, can_subtract_matrices_with_equal_size)
 {
-	int a[4] = { 2, 4, 9, 1 };
-	int b[4] = { 3, 9, 0, 1 };
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rand() % 20;
+	}
+	int b[4];
+	for (size_t i = 0; i < 4; i++) {
+		b[i] = rand() % 20;
+	}
 	TDynamicMatrix<int> mat1(2);
 	mat1[0][0] = a[0];
 	mat1[0][1] = a[1];
@@ -217,7 +264,7 @@ TEST(TDynamicMatrix, can_subtract_matrices_with_equal_size)
 	mat2[1][0] = b[2];
 	mat2[1][1] = b[3];
 	mat1 = mat1 - mat2;
-	int c[4] = { -1, -5, 9, 0 };
+	int c[4] = { a[0]-b[0], a[1]-b[1], a[2]-b[2], a[3]-b[3] };
 	EXPECT_EQ(mat1[0][0], c[0]);
 	EXPECT_EQ(mat1[0][1], c[1]);
 	EXPECT_EQ(mat1[1][0], c[2]);
@@ -226,8 +273,14 @@ TEST(TDynamicMatrix, can_subtract_matrices_with_equal_size)
 
 TEST(TDynamicMatrix, cant_subtract_matrixes_with_not_equal_size)
 {
-	int a[4] = { 2, 4, 9, 1 };
-	int b[4] = { 3, 9, 0, 1 };
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rand() % 20;
+	}
+	int b[4];
+	for (size_t i = 0; i < 4; i++) {
+		b[i] = rand() % 20;
+	}
 	TDynamicMatrix<int> mat1(2);
 	mat1[0][0] = a[0];
 	mat1[0][1] = a[1];

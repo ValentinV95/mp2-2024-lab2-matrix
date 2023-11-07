@@ -32,7 +32,7 @@ public:
   TDynamicVector(T* arr, size_t s) : sz(s)
   {
       if (arr == nullptr) {
-          throw exception("TDynamicVector ctor requires non-nullptr arg")
+          throw exception("TDynamicVector ctor requires non-nullptr arg");
       }
       if (sz == 0 || sz > MAX_VECTOR_SIZE)
           throw out_of_range("Vector size should be greater than zero and not greater than MAX_VECTOR_SIZE");
@@ -63,9 +63,10 @@ public:
           return *this;
       }
       if (sz != v.sz) {
-          delete[] pMem;
+          T *tmp = pMem;
           sz = v.sz;
           pMem = new T[sz];
+          delete[] tmp;
       }
       std::copy(v.pMem, v.pMem + sz, pMem);
       return *this;
@@ -309,19 +310,15 @@ public:
   // ввод/вывод
   friend istream& operator>>(istream& istr, TDynamicMatrix& v)
   {
-      for (size_t i = 0; i < v.sz; i++)
-          for (size_t j = 0; j < v.sz; j++) {
-              istr >> v.pMem[i][j]; // требуется оператор>> для типа T
-          }
+      for (size_t i = 0; i < v.sz; i++) {
+          istr >> v.pMem[i];
+      }
       return istr;
   }
   friend ostream& operator<<(ostream& ostr, const TDynamicMatrix& v)
   {
       for (size_t i = 0; i < v.sz; i++) {
-          for (size_t j = 0; j < v.sz; j++) {
-              ostr << v.pMem[i][j] << ' ';
-          }
-          ostr << '\n';
+          ostr << v.pMem[i] << '\n';
       }
       return ostr;
   }
