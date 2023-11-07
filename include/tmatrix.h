@@ -152,7 +152,7 @@ public:
           tmp.pMem[i] -= v.pMem[i];
       return tmp;
   }
-  T operator*(const TDynamicVector& v) noexcept(noexcept(T()))
+  T operator*(const TDynamicVector& v)
   {
       if (sz != v.sz) throw invalid_argument("Impossible to multiply two vectors with different sizes");
       T res=0;
