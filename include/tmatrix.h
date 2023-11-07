@@ -8,7 +8,6 @@
 #define __TDynamicMatrix_H__
 
 #include <iostream>
-#include <cassert>
 
 using namespace std;
 
@@ -32,7 +31,9 @@ public:
   }
   TDynamicVector(T* arr, size_t s) : sz(s)
   {
-      assert(arr != nullptr && "TDynamicVector ctor requires non-nullptr arg");
+      if (arr == nullptr) {
+          throw exception("TDynamicVector ctor requires non-nullptr arg")
+      }
       if (sz == 0 || sz > MAX_VECTOR_SIZE)
           throw out_of_range("Vector size should be greater than zero and not greater than MAX_VECTOR_SIZE");
       pMem = new T[sz];
@@ -107,18 +108,18 @@ public:
   bool operator==(const TDynamicVector& v) const noexcept
   {
       if (sz != v.sz) {
-          return 0;
+          return false;
       }
       for (size_t i = 0; i < sz; i++) {
           if (pMem[i] != v.pMem[i]) {
-              return 0;
+              return false;
           }
       }
-      return 1;
+      return true;
   }
   bool operator!=(const TDynamicVector& v) const noexcept
   {
-      return (*this == v) ? 0 : 1;
+      return !(*this == v);
   }
 
   // скалярные операции
@@ -229,14 +230,14 @@ public:
   bool operator==(const TDynamicMatrix& m) const noexcept
   {
       if (sz != m.sz) {
-          return 0;
+          return false;
       }
       for (size_t i = 0; i < sz; i++) {
           if (pMem[i] != m.pMem[i]) {
-              return 0;
+              return false;
           }
       }
-      return 1;
+      return true;
   }
 
   // матрично-скалярные операции
