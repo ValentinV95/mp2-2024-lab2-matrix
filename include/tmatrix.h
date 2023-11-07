@@ -32,7 +32,7 @@ public:
   TDynamicVector(T* arr, size_t s) : sz(s)
   {
       if (arr == nullptr) {
-          throw exception("TDynamicVector ctor requires non-nullptr arg");
+          throw invalid_argument("TDynamicVector ctor requires non-nullptr arg");
       }
       if (sz == 0 || sz > MAX_VECTOR_SIZE)
           throw out_of_range("Vector size should be greater than zero and not greater than MAX_VECTOR_SIZE");

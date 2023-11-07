@@ -53,7 +53,6 @@ void main()
                 break;
             default:
                 throw invalid_argument("Неверный ввод.");
-                continue;
             }
         }
         catch (const exception &e) {
