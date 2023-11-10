@@ -32,7 +32,7 @@ public:
     TDynamicVector(T* arr, size_t s) : sz(s)
     {
         if ((sz == 0) || (sz > MAX_VECTOR_SIZE)) 
-            std::out_of_range("vector size should be greater than zero and less or equal than maximum vector size");
+            throw std::out_of_range("vector size should be greater than zero and less or equal than maximum vector size");
 
         assert(arr != nullptr && "TDynamicVector requires non-nullptr arg");
 
@@ -52,8 +52,6 @@ public:
     {
         pMem = nullptr;
 
-        sz = 0;
-
         swap(*this, v);
     }
     ~TDynamicVector()
@@ -61,10 +59,12 @@ public:
         sz = 0;
 
         delete[] pMem;
+
+        pMem = nullptr;
     }
     TDynamicVector& operator=(const TDynamicVector& v)
     {
-        if (*this == v) return *this;
+        if (this == &v) return *this;
 
         if (sz != v.sz)
         {
@@ -84,12 +84,6 @@ public:
     }
     TDynamicVector& operator=(TDynamicVector&& v) noexcept
     {
-        delete[] pMem;
-
-        pMem = nullptr;
-
-        sz = 0;
-
         swap(*this, v);
 
         return *this;
@@ -110,13 +104,13 @@ public:
     // индексация с контролем
     T& at(size_t ind)
     {
-        if (ind >= sz) throw std::out_of_range("ind should be less than size");
+        if (ind >= sz) throw std::out_of_range("ind should be less than vector size");
 
         return pMem[ind];
     }
     const T& at(size_t ind) const
     {
-        if (ind >= sz) throw std::out_of_range("ind should be less than size");
+        if (ind >= sz) throw std::out_of_range("ind should be less than vector size");
 
         return pMem[ind];
     }
@@ -168,7 +162,7 @@ public:
     // векторные операции
     TDynamicVector operator+(const TDynamicVector& v)
     {
-        if (sz != v.sz) throw std::out_of_range("vectors should have equal sizes");
+        if (sz != v.sz) throw std::invalid_argument("vectors should have equal sizes");
 
         TDynamicVector res(*this);
 
@@ -179,7 +173,7 @@ public:
     }
     TDynamicVector operator-(const TDynamicVector& v)
     {
-        if (sz != v.sz) throw std::out_of_range("vectors should have equal sizes");
+        if (sz != v.sz) throw std::invalid_argument("vectors should have equal sizes");
 
         TDynamicVector res(*this);
 
@@ -190,7 +184,7 @@ public:
     }
     T operator*(const TDynamicVector& v) //Dot product
     {
-        if (sz != v.sz) throw std::out_of_range("vectors should have equal sizes");
+        if (sz != v.sz) throw std::invalid_argument("vectors should have equal sizes");
 
         T res = static_cast<T>(0);
 
@@ -202,7 +196,7 @@ public:
 
     TDynamicVector& operator+=(const TDynamicVector& v)
     {
-        if (sz != v.sz) throw std::out_of_range("vectors should have equal sizes");
+        if (sz != v.sz) throw std::invalid_argument("vectors should have equal sizes");
 
         for (size_t i = 0; i < sz; i++)
             pMem[i] += v[i];
@@ -240,6 +234,7 @@ class TDynamicMatrix : private TDynamicVector<TDynamicVector<T>>
 {
     using TDynamicVector<TDynamicVector<T>>::pMem;
     using TDynamicVector<TDynamicVector<T>>::sz;
+
 public:
     TDynamicMatrix(size_t s = 100) : TDynamicVector<TDynamicVector<T>>(s)
     {
@@ -252,6 +247,7 @@ public:
 
     using TDynamicVector<TDynamicVector<T>>::operator[];
     using TDynamicVector<TDynamicVector<T>>::size;
+    using TDynamicVector<TDynamicVector<T>>::operator=;
 
     T& at(size_t ind1, size_t ind2)
     {
@@ -263,9 +259,7 @@ public:
     // сравнение
     bool operator==(const TDynamicMatrix& m) const noexcept
     {
-        if (sz != m.sz) return false;
-
-        return TDynamicVector<TDynamicVector<T>>::operator==(m);
+         return TDynamicVector<TDynamicVector<T>>::operator==(m);
     }
 
     // матрично-скалярные операции
@@ -282,7 +276,7 @@ public:
     // матрично-векторные операции
     TDynamicVector<T> operator*(const TDynamicVector<T>& v)
     {
-        if (sz != v.size()) throw std::out_of_range("vector and matrix should have equal sizes");
+        if (sz != v.size()) throw std::invalid_argument("vector and matrix should have equal sizes");
 
         TDynamicVector<T> res(sz);
 
@@ -295,7 +289,7 @@ public:
     // матрично-матричные операции
     TDynamicMatrix operator+(const TDynamicMatrix& m)
     {
-        if (sz != m.sz) throw std::out_of_range("matrices should have equal sizes");
+        if (sz != m.sz) throw std::invalid_argument("matrices should have equal sizes");
 
         TDynamicMatrix res(sz);
 
@@ -306,7 +300,7 @@ public:
     }
     TDynamicMatrix operator-(const TDynamicMatrix& m)
     {
-        if (sz != m.sz) throw std::out_of_range("matrices should have equal sizes");
+        if (sz != m.sz) throw std::invalid_argument("matrices should have equal sizes");
 
         TDynamicMatrix res(sz);
 
@@ -317,13 +311,13 @@ public:
     }
     TDynamicMatrix operator*(const TDynamicMatrix& m)
     {
-        if (sz != m.sz) throw std::out_of_range("matrices should have equal sizes");
+        if (sz != m.sz) throw std::invalid_argument("matrices should have equal sizes");
 
         TDynamicMatrix res(sz);
 
         for (size_t i = 0; i < sz; i++)
-            for (size_t j = 0; j < sz; j++)
-                for (size_t k = 0; k < sz; k++)
+            for (size_t k = 0; k < sz; k++)
+                for (size_t j = 0; j < sz; j++)
                     res[i][j] += pMem[i][k] * m[k][j];
 
         return res;
