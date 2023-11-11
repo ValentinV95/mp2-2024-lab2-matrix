@@ -24,7 +24,7 @@ protected:
 public:
     TDynamicVector(size_t size = 1) : sz(size) //конструктор по умолчанию
     {
-        if (sz <= 0 or sz > MAX_VECTOR_SIZE)
+        if (sz <= 0 || sz > MAX_VECTOR_SIZE)
             throw out_of_range("Vector size should be greater than zero and less than MAX_VECTOR_SIZE");
         pMem = new T[sz]();// {}; // У типа T д.б. констуктор по умолчанию
     }
@@ -39,7 +39,7 @@ public:
     TDynamicVector(const TDynamicVector &v) //конструктор копирования
     {
         sz = v.sz;
-        pMem = new T(sz);
+        pMem = new T[sz];
         std::copy(v.pMem, v.pMem + sz, pMem);
     }
 
@@ -71,11 +71,7 @@ public:
 
     TDynamicVector &operator=(TDynamicVector &&v) noexcept  //оператор присваивания перемещения
     {
-        if (this != &v) {
-            pMem = nullptr;
-            sz = 0;
-            swap(*this, v);
-        }
+        swap(*this, v);
         return *this;
     }
 
@@ -99,7 +95,7 @@ public:
     }
 
     const T &at(size_t ind) const {
-        if (ind >= sz) { throw out_of_range("index can't be less than 0 or greater than vector siz"); }
+        if (ind >= sz) { throw out_of_range("index can't be less than 0 or greater than vector size"); }
         return pMem[ind];
     }
 
@@ -186,7 +182,7 @@ public:
 
     friend ostream &operator<<(ostream &ostr, const TDynamicVector &v) {
         for (size_t i = 0; i < v.sz; i++)
-            ostr << v.pMem[i] << ' '; // требуется оператор<< для типа T
+            ostr << v.pMem[i] << " "; // требуется оператор<< для типа T
         return ostr;
     }
 };
@@ -200,7 +196,7 @@ class TDynamicMatrix : private TDynamicVector<TDynamicVector<T> > {
     using TDynamicVector<TDynamicVector<T> >::sz;
 public:
     TDynamicMatrix(size_t s = 1) : TDynamicVector<TDynamicVector<T> >(s) {
-        if (sz <= 0 || sz > MAX_MATRIX_SIZE)
+        if (s <= 0 || s > MAX_MATRIX_SIZE)
             throw out_of_range("Matrix size should be greater than zero and less than MAX_MATRIX_SIZE");
         for (size_t i = 0; i < sz; i++) {
             pMem[i] = TDynamicVector<T>(sz);
@@ -309,7 +305,7 @@ public:
     friend ostream &operator<<(ostream &ostr, const TDynamicMatrix &v) {
         for (int i = 0; i < v.size(); i++) {
             for (int j = 0; j < v.size(); j++) {
-                ostr << v[i][j] << ' ';
+                ostr << v[i][j] << " ";
             }
             ostr << "\n";
         }
