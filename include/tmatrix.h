@@ -246,7 +246,7 @@ public:
   // матрично-скалярные операции
   TDynamicVector<T> operator*(const T& val)
   {
-      TDynamicMatrix tmp(sz);
+      TDynamicMatrix<T> tmp(sz);
       for (int i = 0; i < sz; i++) {
           tmp.pMem[i] = pMem[i] * val;
       }
@@ -268,7 +268,7 @@ public:
   TDynamicMatrix operator+(const TDynamicMatrix& m)
   {
       if (sz != m.sz) throw logic_error("Matrix and vector must be equal size");
-      TDynamicMatrix tmp(sz);
+      TDynamicMatrix<T> tmp(sz);
       for (int i = 0; i < sz; i++) {
           tmp.pMem[i] = pMem[i] + m.pMem[i];
       }
@@ -277,7 +277,7 @@ public:
   TDynamicMatrix operator-(const TDynamicMatrix& m)
   {
       if (sz != m.sz) throw logic_error("Matrix and vector must be equal size");
-      TDynamicMatrix tmp(sz);
+      TDynamicMatrix<T> tmp(sz);
       for (int i = 0; i < sz; i++) {
           tmp.pMem[i] = pMem[i] - m.pMem[i];
       }

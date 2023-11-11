@@ -28,8 +28,7 @@ TEST(TDynamicMatrix, can_create_copied_matrix)
 TEST(TDynamicMatrix, copied_matrix_is_equal_to_source_one)
 {
     TDynamicMatrix<int> m(5);
-    TDynamicMatrix<int> m1(10);
-    m = m1;
+    TDynamicMatrix<int> m1(m);
     EXPECT_EQ(m, m1);
 
 }
@@ -37,7 +36,7 @@ TEST(TDynamicMatrix, copied_matrix_is_equal_to_source_one)
 TEST(TDynamicMatrix, copied_matrix_has_its_own_memory)
 {
     TDynamicMatrix<int> m(5);
-    TDynamicMatrix<int> m1(5);
+    TDynamicMatrix<int> m1(m);
     m[0][0] = 5;
     m1[0][0] = 4;
     EXPECT_NE(m, m1);
