@@ -10,21 +10,98 @@
 
 void main()
 {
-  TDynamicMatrix<int> a(5), b(5), c(5);
-  int i, j;
+	size_t size;
+	char action;
+	int d;
 
-  setlocale(LC_ALL, "Russian");
-  cout << "Тестирование класс работы с матрицами"
-    << endl;
-  for (i = 0; i < 5; i++)
-    for (j = i; j < 5; j++ )
-    {
-      a[i][j] =  i * 10 + j;
-      b[i][j] = (i * 10 + j) * 100;
-    }
-  c = a + b;
-  cout << "Matrix a = " << endl << a << endl;
-  cout << "Matrix b = " << endl << b << endl;
-  cout << "Matrix c = a + b" << endl << c << endl;
+	setlocale(LC_ALL, "Russian");
+	cout << "Матричный калькулятор\n" << endl;
+	cout << "Как вы хотите заполнить данные?\n 1. Вручную\t2. Автоматически" << endl;
+	cin >> d;
+	if (d == 1)
+	{
+		do
+		{
+			cout << "Введите размер двух матриц.\n";
+			cin >> size;
+			TDynamicMatrix<double> A(size), B(size);
+			cout << "Введите матрицу A\n";
+			cin >> A;
+			cout << "Введите матрицу B\n";
+			cin >> B;
+			cout << "Выберите действие:\n1. Сложение (+)\n2. Вычитание (-)\n3. Умножение (*)\n";
+			cin >> action;
+
+			switch (action)
+			{
+			case '1':
+				cout << A + B << "\n";
+				break;
+			case '2':
+				cout << A - B << "\n";
+				break;
+			case '3':
+				cout << A * B << "\n";
+				break;
+			default:
+				cout << "ОШИБКА\n";
+				break;
+			}
+
+			cout << "Продолжить?\n1. Да\t2. Нет" << endl;
+			cin >> action;
+		} while (action != '2');
+	}
+	else if (d == 2)
+	{
+		do
+		{
+			cout << "Введите размер двух матриц.\n";
+			cin >> size;
+			TDynamicMatrix<double> A(size), B(size);
+			cout << "Введите матрицу A\n";
+			for (int i = 0; i < size; i++)
+			{
+				for (int j = 0; j < size; j++)
+				{
+					A[i][j] = rand() % 100;
+				}
+			}
+			for (int i = 0; i < size; i++)
+			{
+				for (int j = 0; j < size; j++)
+				{
+					B[i][j] = rand() % 100;
+				}
+			}
+			cout << A << endl;
+			cout << B << endl;
+			cout << "Выберите действие:\n1. Сложение (+)\n2. Вычитание (-)\n3. Умножение (*)\n";
+			cin >> action;
+
+			switch (action)
+			{
+			case '1':
+				cout << A + B << "\n";
+				break;
+			case '2':
+				cout << A - B << "\n";
+				break;
+			case '3':
+				cout << A * B << "\n";
+				break;
+			default:
+				cout << "ОШИБКА\n";
+				break;
+			}
+
+			cout << "Продолжить?\n1. Да\t2. Нет" << endl;
+			cin >> action;
+		} while (action != '2');
+	}
+	else
+	{
+		cout << "Ошибка!";
+	}
 }
 //---------------------------------------------------------------------------
