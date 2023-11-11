@@ -17,7 +17,7 @@ TEST(TDynamicMatrix, throws_when_create_matrix_with_negative_length)
   ASSERT_ANY_THROW(TDynamicMatrix<int> m(-5));
 }
 
-/*TEST(TDynamicMatrix, can_create_copied_matrix)
+TEST(TDynamicMatrix, can_create_copied_matrix)
 {
   TDynamicMatrix<int> m(2);
   TDynamicMatrix<int> m1(m);
@@ -37,7 +37,7 @@ TEST(TDynamicMatrix, copied_matrix_has_its_own_memory)
     TDynamicMatrix<int> m1(m);
     EXPECT_NE(&m, &m1);
 }
-*/
+
 TEST(TDynamicMatrix, can_get_size)
 {
     TDynamicMatrix<int> m(2);
@@ -155,7 +155,7 @@ TEST(TDynamicMatrix, matrices_with_different_size_are_not_equal)
             c++;
         }
     }
-    EXPECT_EQ(true, m1!=m);
+    EXPECT_EQ(false, m1==m);
 }
 
 TEST(TDynamicMatrix, can_add_matrices_with_equal_size)
