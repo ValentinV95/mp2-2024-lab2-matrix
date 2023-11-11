@@ -26,9 +26,9 @@ public:
   TDynamicVector(size_t size = 1) : sz(size)
   {
     if (sz == 0)
-      throw out_of_range("Vector size should be greater than zero");
+      throw out_of_range("Size should be greater than zero");
     else if (sz > MAX_VECTOR_SIZE)
-      throw out_of_range("Vector size should be less than MAX_VECTOR_SIZE");
+      throw out_of_range("Size should be less than MAX_VECTOR_SIZE");
     pMem = new T[sz]();// {}; // У типа T д.б. констуктор по умолчанию
   }
   TDynamicVector(T* arr, size_t s) : sz(s)
@@ -89,13 +89,13 @@ public:
   T& at(size_t ind)
   {
       if (ind < 0 || ind >= sz)
-          throw out_of_range("Vector doesn't contain the element you're trying to access");
+          throw out_of_range("This object doesn't contain the element you're trying to access");
       return pMem[ind];
   }
   const T& at(size_t ind) const
   {
       if (ind < 0 || ind >= sz)
-          throw out_of_range("Vector doesn't contain the element you're trying to access");
+          throw out_of_range("This object doesn't contain the element you're trying to access");
       return pMem[ind];
   }
 
@@ -139,14 +139,14 @@ public:
   TDynamicVector operator+(const TDynamicVector& v)
   {
       TDynamicVector tmp(*this);
-      if (sz != v.sz) throw invalid_argument("Impossible to add two vectors with different sizes");
+      if (sz != v.sz) throw invalid_argument("Impossible to add two objects with different sizes");
       for (size_t i = 0; i < sz; i++)
           tmp.pMem[i] += v.pMem[i];
       return tmp;
   }
   TDynamicVector operator-(const TDynamicVector& v)
   {
-      if (sz != v.sz) throw invalid_argument("Impossible to subtract two vectors with different sizes");
+      if (sz != v.sz) throw invalid_argument("Impossible to subtract two objects with different sizes");
       TDynamicVector tmp(*this);
       for (size_t i = 0; i < sz; i++)
           tmp.pMem[i] -= v.pMem[i];
@@ -154,7 +154,7 @@ public:
   }
   T operator*(const TDynamicVector& v)
   {
-      if (sz != v.sz) throw invalid_argument("Impossible to multiply two vectors with different sizes");
+      if (sz != v.sz) throw invalid_argument("Impossible to multiply two objects with different sizes");
       T res=0;
       for (size_t i = 0; i < sz; i++)
           res+= pMem[i] * v.pMem[i];
@@ -233,7 +233,6 @@ public:
       TDynamicVector<T> tmp(sz)
           for (size_t i = 0; i < sz; i++)
               tmp.pMem[i] = pMem[i] * v;
-      return tmp;
   }
 
   // матрично-матричные операции
