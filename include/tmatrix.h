@@ -48,11 +48,11 @@ public:
 
         std::copy(v.pMem, v.pMem + sz, pMem);
     }
-    TDynamicVector(TDynamicVector&& v) noexcept
+    TDynamicVector(TDynamicVector&& v) noexcept: pMem(v.pMem), sz(v.sz)
     {
-        pMem = nullptr;
+        v.pMem = nullptr;
 
-        swap(*this, v);
+        v.sz = 0;
     }
     ~TDynamicVector()
     {
@@ -84,7 +84,15 @@ public:
     }
     TDynamicVector& operator=(TDynamicVector&& v) noexcept
     {
-        swap(*this, v);
+        delete[] pMem;
+
+        pMem = v.pMem;
+
+        sz = v.sz;
+
+        v.pMem = nullptr;
+
+        v.sz = 0;
 
         return *this;
     }
