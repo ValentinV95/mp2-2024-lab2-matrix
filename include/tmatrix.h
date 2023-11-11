@@ -120,7 +120,7 @@ public:
   // скалярные операции
   TDynamicVector operator+(T val)
   {
-      TDynamicVector tmp(sz);
+      TDynamicVector<T> tmp(sz);
       for (int i = 0; i < sz; i++) {
           tmp.pMem[i] = pMem[i] + val;
       }
@@ -128,7 +128,7 @@ public:
   }
   TDynamicVector operator-(T val)
   {
-      TDynamicVector tmp(sz);
+      TDynamicVector<T> tmp(sz);
       for (int i = 0; i < sz; i++) {
           tmp.pMem[i] = pMem[i] - val;
       }
@@ -136,7 +136,7 @@ public:
   }
   TDynamicVector operator*(T val)
   {
-      TDynamicVector tmp(sz);
+      TDynamicVector<T> tmp(sz);
       for (int i = 0; i < sz; i++) {
           tmp.pMem[i] = pMem[i] * val;
       }
@@ -150,7 +150,7 @@ public:
           throw logic_error("vectors must be equal size");
 
       }
-      TDynamicVector tmp(sz);
+      TDynamicVector<T> tmp(sz);
       for (int i = 0; i < sz; i++) {
           tmp.pMem[i] = pMem[i] + v.pMem[i];
       }
@@ -162,7 +162,7 @@ public:
           throw logic_error("vectors must be equal size");
 
       }
-      TDynamicVector tmp(sz);
+      TDynamicVector<T> tmp(sz);
       for (int i = 0; i < sz; i++) {
           tmp.pMem[i] = pMem[i] - v.pMem[i];
       }
@@ -286,7 +286,7 @@ public:
   TDynamicMatrix operator*(const TDynamicMatrix& m)
   {
       if (sz != m.sz) throw logic_error("Matrix and vector must be equal size");
-      TDynamicMatrix tmp(sz);
+      TDynamicMatrix<T> tmp(sz);
       for (int i = 0; i < sz; i++)
           for (int j = 0; j < sz; j++)
               tmp.pMem[i][j] = 0;
