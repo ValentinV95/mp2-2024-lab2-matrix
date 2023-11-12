@@ -95,7 +95,7 @@ public:
     }
 
     const T &at(size_t ind) const {
-        if (ind >= sz) { throw out_of_range("index can't be less than 0 or greater than vector size"); }
+        if (ind >= sz) { throw out_of_range("index can't be less than 0 or greater than vector siz"); }
         return pMem[ind];
     }
 
@@ -234,12 +234,13 @@ public:
     }
 
     // матрично-скалярные операции
-    TDynamicMatrix<T> operator*(const T &val) {
+    TDynamicMatrix<T> operator*(T val) {
         TDynamicMatrix<T> res(sz);
         for (int i = 0; i < sz; i++) {
-            for (int j = 0; j < sz; j++) {
-                res[i][j] = val * this[i][j];
+            for(int j = 0; j< sz;j++){
+                res[i][j] = val * pMem[i][j];
             }
+
         }
         return res;
     }
@@ -249,9 +250,7 @@ public:
         if (sz != v.size()) { throw invalid_argument("Sizes must match"); }
         TDynamicMatrix<T> res(sz);
         for (int i = 0; i < sz; i++) {
-            for (int j = 0; j < sz; j++) {
-                res[i][j] += v[i] * this[i][j]; //проверить на бумажке!!!!
-            }
+            res[i] = pMem[i] * v;
         }
         return res;
     }
@@ -261,9 +260,7 @@ public:
         if (sz != m.size()) { throw invalid_argument("Sizes must match"); }
         TDynamicMatrix<T> res(sz);
         for (int i = 0; i < sz; i++) {
-            for (int j = 0; i < sz; i++) {
-                res[i][j] = pMem[i][j] + m[i][j];
-            }
+            res[i] = pMem[i] + m[i];
         }
         return res;
     }
@@ -272,9 +269,7 @@ public:
         if (sz != m.size()) { throw invalid_argument("Sizes must match"); }
         TDynamicMatrix<T> res(sz);
         for (int i = 0; i < sz; i++) {
-            for (int j = 0; i < sz; i++) {
-                res[i][j] = pMem[i][j] + m[i][j];
-            }
+            res[i] = pMem[i] + m[i];
         }
         return res;
     }
