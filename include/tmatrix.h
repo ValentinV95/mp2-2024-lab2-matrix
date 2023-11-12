@@ -45,9 +45,8 @@ public:
 
     TDynamicVector(TDynamicVector &&v) noexcept  //конструктор перемещения
     {
-        sz = v.sz;
         pMem = nullptr;
-        pMem = v.pMem;
+        swap(*this, v);
     }
 
     ~TDynamicVector() {
@@ -161,7 +160,7 @@ public:
     T operator*(const TDynamicVector &v) //noexcept(noexcept(T()))
     {
         if (sz != v.size()) { throw invalid_argument("Sizes must match"); }
-        T res = 0;
+        T res = {};
         for (int i = 0; i < sz; i++) {
             res += v[i] * pMem[i];
         }
@@ -200,9 +199,6 @@ public:
             throw out_of_range("Matrix size should be greater than zero and less than MAX_MATRIX_SIZE");
         for (size_t i = 0; i < sz; i++) {
             pMem[i] = TDynamicVector<T>(sz);
-            for (int j = 0; j < sz; j++) {
-                pMem[i][j] = 0;
-            }
         }
     }
 
@@ -237,10 +233,7 @@ public:
     TDynamicMatrix<T> operator*(const T& val) {
         TDynamicMatrix<T> res(sz);
         for (int i = 0; i < sz; i++) {
-            for(int j = 0; j< sz;j++){
-                res[i][j] = val * pMem[i][j];
-            }
-
+            res[i] = pMem[i]*val;
         }
         return res;
     }
@@ -290,18 +283,14 @@ public:
     // ввод/вывод
     friend istream &operator>>(istream &istr, TDynamicMatrix &v) {
         for (int i = 0; i < v.size(); i++) {
-            for (int j = 0; j < v.size(); j++) {
-                istr >> v[i][j];
-            }
+            istr >> v[i];
         }
         return istr;
     }
 
     friend ostream &operator<<(ostream &ostr, const TDynamicMatrix &v) {
         for (int i = 0; i < v.size(); i++) {
-            for (int j = 0; j < v.size(); j++) {
-                ostr << v[i][j] << " ";
-            }
+            ostr << v[i] << " ";
             ostr << "\n";
         }
         return ostr;
