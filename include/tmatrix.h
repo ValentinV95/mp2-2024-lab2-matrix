@@ -104,7 +104,7 @@ public:
       if (sz != v.sz)
           return false;
       for (size_t i = 0; i < sz; i++)
-          if (pMem[i] != v.pMem[i])
+          if (pMem[i] != v[i])
               return false;
       return true;
   }
@@ -144,7 +144,7 @@ public:
       TDynamicVector res(*this);
       for (size_t i = 0; i < sz; i++)
       {
-          res[i] = v.pMem[i] + pMem[i];
+          res[i] += v[i];
       }
       return res;
   }
@@ -155,13 +155,13 @@ public:
       TDynamicVector res(*this);
       for (size_t i = 0; i < sz; i++)
       {
-          res[i] = pMem[i] - v.pMem[i];
+          res[i] -= v[i];
       }
       return res;
   }
-  T operator*(const TDynamicVector& v) noexcept(noexcept(T()))
+  T operator*(const TDynamicVector& v) 
   {
-      T res=0;
+      T res = {};
       if (sz != v.sz)
           throw logic_error("Not equel size");
       for (size_t i = 0; i < sz; i++)
@@ -248,7 +248,7 @@ public:
   // матрично-векторные операции
   TDynamicVector<T> operator*(const TDynamicVector<T>& v)
   {
-      if (sz!=v.sz)
+      if (sz!=v.size())
           throw logic_error("Not equel size");
       TDynamicVector<T> res(sz);
       for (size_t i = 0; i < sz; i++)
