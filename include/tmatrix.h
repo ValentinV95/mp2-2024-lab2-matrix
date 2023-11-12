@@ -115,23 +115,23 @@ public:
   }
 
   // скалярные операции
-  TDynamicVector<T> operator+(T val)
+  TDynamicVector operator+(T val)
   {
-      TDynamicVector tmp(sz);
+      TDynamicVector<T> tmp(sz);
       for (size_t i = 0; i < sz; i++)
           tmp.pMem[i] = pMem[i] + val;
       return tmp;
   }
-  TDynamicVector<T> operator-(double val)
+  TDynamicVector operator-(double val)
   {
-      TDynamicVector tmp(sz);
+      TDynamicVector<T> tmp(sz);
       for (size_t i = 0; i < sz; i++)
           tmp.pMem[i] = pMem[i] - val;
       return tmp;
   }
-  TDynamicVector<T> operator*(double val)
+  TDynamicVector operator*(double val)
   {
-      TDynamicVector tmp(sz);
+      TDynamicVector<T> tmp(sz);
       for (size_t i = 0; i < sz; i++)
           tmp.pMem[i] = pMem[i] * val;
       return tmp;
@@ -142,7 +142,7 @@ public:
   {
       if (sz != v.sz)
           throw exception("Vectors must have the same size for this operation");
-      TDynamicVector tmp(sz);
+      TDynamicVector<T> tmp(sz);
       for (size_t i = 0; i < sz; i++)
           tmp.pMem[i] = pMem[i] + v.pMem[i];
       return tmp;
@@ -151,7 +151,7 @@ public:
   {
       if (sz != v.sz)
           throw exception("Vectors must have the same size for this operation");
-      TDynamicVector tmp(sz);
+      TDynamicVector<T> tmp(sz);
       for (size_t i = 0; i < sz; i++)
           tmp.pMem[i] = pMem[i] - v.pMem[i];
       return tmp;
@@ -217,7 +217,8 @@ public:
           return *this;
       this->sz = other.sz;
       delete[] pMem;
-      T* pMem = new TDynamicVector[sz];
+      T* tmp = new TDynamicVector[sz];
+      pMem = tmp;
       for (size_t i = 0; i < sz; i++)
           pMem[i] = other.pMem[i];
       return *this;
