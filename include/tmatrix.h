@@ -225,7 +225,7 @@ public:
   // матрично-векторные операции
   TDynamicVector<T> operator*(const TDynamicVector<T>& v)
   {
-      if (sz == v.sz) {
+      if (sz == v.size()) {
           TDynamicVector<T> tmp(sz);
           for (int i = 0; i < sz; i++) {
               tmp[i] = pMem[i] * v;
