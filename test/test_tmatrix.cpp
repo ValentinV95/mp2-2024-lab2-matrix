@@ -35,7 +35,8 @@ TEST(TDynamicMatrix, copied_matrix_has_its_own_memory)
 {
     TDynamicMatrix<int> m(2);
     TDynamicMatrix<int> m1(m);
-    EXPECT_NE(&m, &m1);
+    m1[0][0] = 45;
+    EXPECT_NE(45, m[0][0]);
 }
 
 TEST(TDynamicMatrix, can_get_size)
@@ -97,13 +98,6 @@ TEST(TDynamicMatrix, can_assign_matrices_of_different_size)
 {
     TDynamicMatrix<int> m(3);
     TDynamicMatrix<int> m1(5);
-    int c = 0;
-    for (int i = 0; i< m.size(); i++){
-        for (int j = 0; j < m.size(); j++){
-            m[i][j] = c;
-            c++;
-        }
-    }
 
     ASSERT_NO_THROW(m = m1);
 }
@@ -121,7 +115,7 @@ TEST(TDynamicMatrix, compare_equal_matrices_return_true)
         }
     }
 
-    EXPECT_EQ(true, m==m1);
+    EXPECT_EQ(m,m1);
 }
 
 TEST(TDynamicMatrix, compare_matrix_with_itself_return_true)
@@ -134,7 +128,7 @@ TEST(TDynamicMatrix, compare_matrix_with_itself_return_true)
             c++;
         }
     }
-    EXPECT_EQ(true, m==m);
+    EXPECT_EQ(m,m);
 }
 
 TEST(TDynamicMatrix, matrices_with_different_size_are_not_equal)
@@ -162,14 +156,6 @@ TEST(TDynamicMatrix, can_add_matrices_with_equal_size)
 {
     TDynamicMatrix<int> m(3);
     TDynamicMatrix<int> m1(3);
-    int c = 0;
-    for (int i = 0; i< m.size(); i++){
-        for (int j = 0; j < m.size(); j++){
-            m[i][j] = c;
-            m1[i][j] = c;
-            c++;
-        }
-    }
     ASSERT_NO_THROW(m+m1);
 }
 
@@ -196,20 +182,6 @@ TEST(TDynamicMatrix, cant_add_matrices_with_not_equal_size)
 {
     TDynamicMatrix<int> m(3);
     TDynamicMatrix<int> m1(5);
-    int c = 0;
-    for (int i = 0; i< m.size(); i++){
-        for (int j = 0; j < m.size(); j++){
-            m[i][j] = c;
-            m1[i][j] = c;
-            c++;
-        }
-    }
-    for (int i = m.size(); i< m1.size(); i++){
-        for (int j = m.size(); j< m1.size(); j++){
-            m1[i][j] = c;
-            c++;
-        }
-    }
     ASSERT_ANY_THROW(m+m1);
 }
 
@@ -217,14 +189,6 @@ TEST(TDynamicMatrix, can_subtract_matrices_with_equal_size)
 {
     TDynamicMatrix<int> m(3);
     TDynamicMatrix<int> m1(3);
-    int c = 0;
-    for (int i = 0; i< m.size(); i++){
-        for (int j = 0; j < m.size(); j++){
-            m[i][j] = c;
-            m1[i][j] = c;
-            c++;
-        }
-    }
     ASSERT_NO_THROW(m-m1);
 }
 
@@ -252,20 +216,6 @@ TEST(TDynamicMatrix, cant_subtract_matrixes_with_not_equal_size)
 {
     TDynamicMatrix<int> m(3);
     TDynamicMatrix<int> m1(5);
-    int c = 0;
-    for (int i = 0; i< m.size(); i++){
-        for (int j = 0; j < m.size(); j++){
-            m[i][j] = c;
-            m1[i][j] = c;
-            c++;
-        }
-    }
-    for (int i = m.size(); i< m1.size(); i++){
-        for (int j = m.size(); j< m1.size(); j++){
-            m1[i][j] = c;
-            c++;
-        }
-    }
     ASSERT_ANY_THROW(m-m1);
 }
 
