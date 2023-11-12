@@ -246,9 +246,9 @@ public:
     }
 
     // матрично-векторные операции
-    TDynamicMatrix<T> operator*(const TDynamicVector<T> &v) {
+    TDynamicVector<T> operator*(const TDynamicVector<T> &v) {
         if (sz != v.size()) { throw invalid_argument("Sizes must match"); }
-        TDynamicMatrix<T> res(sz);
+        TDynamicVector<T> res(sz);
         for (int i = 0; i < sz; i++) {
             res[i] = pMem[i] * v;
         }
@@ -269,7 +269,7 @@ public:
         if (sz != m.size()) { throw invalid_argument("Sizes must match"); }
         TDynamicMatrix<T> res(sz);
         for (int i = 0; i < sz; i++) {
-            res[i] = pMem[i] + m[i];
+            res[i] = pMem[i] - m[i];
         }
         return res;
     }
@@ -280,7 +280,7 @@ public:
         for (int i = 0; i < sz; i++) {
             for (int k = 0; k < sz; k++) {
                 for (int j = 0; j < sz; j++) {
-                    res[i][j] = pMem[i][k] + m[k][j];
+                    res[i][j] += pMem[i][k] * m[k][j];
                 }
             }
         }
