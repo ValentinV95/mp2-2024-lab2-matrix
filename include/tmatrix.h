@@ -234,7 +234,7 @@ public:
     }
 
     // матрично-скалярные операции
-    TDynamicMatrix<T> operator*(T val) {
+    TDynamicMatrix<T> operator*(const T& val) {
         TDynamicMatrix<T> res(sz);
         for (int i = 0; i < sz; i++) {
             for(int j = 0; j< sz;j++){
