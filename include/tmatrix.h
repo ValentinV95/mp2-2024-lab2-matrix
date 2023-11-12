@@ -130,7 +130,7 @@ public:
 
   bool operator!=(const TDynamicVector& v) const noexcept
   {
-      return !(*this == v)
+      return !(*this == v);
   }
 
   // скалярные операции
