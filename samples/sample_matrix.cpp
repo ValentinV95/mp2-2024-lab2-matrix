@@ -6,29 +6,6 @@
 
 #include <iostream>
 #include "tmatrix.h"
-//---------------------------------------------------------------------------
-
-void nmain()
-{
-  TDynamicMatrix<int> a(5), b(5), c(5);
-  int i, j;
-
-  setlocale(LC_ALL, "Russian");
-  cout << "Тестирование класс работы с матрицами"
-    << endl;
-  for (i = 0; i < 5; i++)
-    for (j = i; j < 5; j++ )
-    {
-      a[i][j] =  i * 10 + j;
-      b[i][j] = (i * 10 + j) * 100;
-    }
-  c = a + b;
-  cout << "Matrix a = " << endl << a << endl;
-  cout << "Matrix b = " << endl << b << endl;
-  cout << "Matrix c = a + b" << endl << c << endl;
-}
-//---------------------------------------------------------------------------
-
 
 template <class T>
 void rand_vector(TDynamicVector<T>& vec);
@@ -45,30 +22,28 @@ void create_matrix(TDynamicMatrix<T>& mat, size_t size_matrix);
 
 
 int main() {
-    setlocale(LC_ALL, "Russian");
     int choice;
     size_t size_vector_a, size_vector_b, size_matrix_A, size_matrix_B;
     TDynamicVector<double> vector_a, vector_b;
     TDynamicMatrix<double> matrix_A, matrix_B;
-    double alpha;
-    
+    double alpha;   
     while(1)
     {
         cout << "/----------------------------------------------------------------/" << endl;
-        cout << " МЕНЮ:" << endl;
-        cout << " 0 -- a+b векторная операция" << endl;
-        cout << " 1 -- a-b векторная операция" << endl;
-        cout << " 2 -- a*b векторная операция (a,b)" << endl;
-        cout << " 3 -- a+alpha векторно-скалярня операция" << endl;
-        cout << " 4 -- a-alpha векторно-скалярня операция" << endl;
-        cout << " 5 -- a*alpha векторно-скалярня операция" << endl;
-        cout << " 6 -- A*alpha матрично-скалярня операция" << endl;
-        cout << " 7 -- A*b матрично-векторная операция" << endl;
-        cout << " 8 -- A+B матрично-матричная операция" << endl;
-        cout << " 9 -- A-B матрично-матричная операция" << endl;
-        cout << " 10 -- A*B матрично-матричная операция" << endl;
+        cout << " MENU:" << endl;
+        cout << " 0 -- a+b vector operation" << endl;
+        cout << " 1 -- a-b vector operation" << endl;
+        cout << " 2 -- a*b vector operation (a,b)" << endl;
+        cout << " 3 -- a+alpha vector-scalar operation" << endl;
+        cout << " 4 -- a-alpha vector-scalar operation" << endl;
+        cout << " 5 -- a*alpha vector-scalar operation" << endl;
+        cout << " 6 -- A*alpha matrix-scalar operation" << endl;
+        cout << " 7 -- A*b matrix-vector operation" << endl;
+        cout << " 8 -- A+B matrix-matrix operation" << endl;
+        cout << " 9 -- A-B matrix-matrix operation" << endl;
+        cout << " 10 -- A*B matrix-matrix operation" << endl;
         cout << " 11 -- END " << endl;
-        cout << " Выбор операции: ";
+        cout << " Operation selection: ";
         cin >> choice;
         cout << endl;
         switch (choice)
@@ -76,10 +51,10 @@ int main() {
         case 0: {
             try
             {
-                cout << " Введите размер a: ";
+                cout << " Enter size a: ";
                 cin >> size_vector_a;
                 create_vector(vector_a, size_vector_a);
-                cout << " Введите размер b: ";
+                cout << " Enter size b: ";
                 cin >> size_vector_b;
                 create_vector(vector_b, size_vector_b);
                 cout << " a+b=" << endl << vector_a + vector_b << endl;
@@ -93,10 +68,10 @@ int main() {
         case 1: {
             try
             {
-                cout << " Введите размер a: ";
+                cout << " Enter size a: ";
                 cin >> size_vector_a;
                 create_vector(vector_a, size_vector_a);
-                cout << " Введите размер b: ";
+                cout << " Enter size b: ";
                 cin >> size_vector_b;
                 create_vector(vector_b, size_vector_b);
                 cout << " a-b=" << endl << vector_a - vector_b << endl;
@@ -110,10 +85,10 @@ int main() {
         case 2: {
             try
             {
-                cout << " Введите размер a: ";
+                cout << " Enter size a: ";
                 cin >> size_vector_a;
                 create_vector(vector_a, size_vector_a);
-                cout << " Введите размер b: ";
+                cout << " Enter size b: ";
                 cin >> size_vector_b;
                 create_vector(vector_b, size_vector_b);
                 cout << " a*b=" << endl << vector_a * vector_b << endl;
@@ -127,10 +102,10 @@ int main() {
         case 3: {
             try
             {
-                cout << " Введите размер a: ";
+                cout << " Enter size a: ";
                 cin >> size_vector_a;
                 create_vector(vector_a, size_vector_a);
-                cout << " Введите alpha: ";
+                cout << " Enter alpha: ";
                 cin >> alpha;
                 cout << " a+alpha=" << endl << vector_a + alpha << endl;
             }
@@ -143,10 +118,10 @@ int main() {
         case 4: {
             try
             {
-                cout << " Введите размер a: ";
+                cout << " Enter size a: ";
                 cin >> size_vector_a;
                 create_vector(vector_a, size_vector_a);
-                cout << " Введите alpha: ";
+                cout << " Enter alpha: ";
                 cin >> alpha;
                 cout << " a-alpha=" << endl << vector_a - alpha << endl;
             }
@@ -159,10 +134,10 @@ int main() {
         case 5: {
             try
             {
-                cout << " Введите размер a: ";
+                cout << " Enter size a: ";
                 cin >> size_vector_a;
                 create_vector(vector_a, size_vector_a);
-                cout << " Введите alpha: ";
+                cout << " Enter alpha: ";
                 cin >> alpha;
                 cout << " a*alpha=" << endl << vector_a * alpha << endl;
             }
@@ -175,12 +150,12 @@ int main() {
         case 6: {
             try
             {
-                cout << " Введите размер A: ";
+                cout << " Enter size A: ";
                 cin >> size_matrix_A;
                 create_matrix(matrix_A, size_matrix_A);
-                cout << " Введите alpha: ";
+                cout << " Enter alpha: ";
                 cin >> alpha;
-                cout << " a*alpha=" << endl << matrix_A * alpha << endl;
+                cout << " A*alpha=" << endl << matrix_A * alpha << endl;
             }
             catch (const std::exception& e)
             {
@@ -191,10 +166,10 @@ int main() {
         case 7: {
             try
             {
-                cout << " Введите размер A: ";
+                cout << " Enter size A: ";
                 cin >> size_matrix_A;
                 create_matrix(matrix_A, size_matrix_A);
-                cout << " Введите размер b: ";
+                cout << " Enter size b: ";
                 cin >> size_vector_b;
                 create_vector(vector_b, size_vector_b);
                 cout << " A*b=" << endl << matrix_A * vector_b << endl;
@@ -208,10 +183,10 @@ int main() {
         case 8: {
             try
             {
-                cout << " Введите размер A: ";
+                cout << " Enter size A: ";
                 cin >> size_matrix_A;
                 create_matrix(matrix_A, size_matrix_A);
-                cout << " Введите размер B: ";
+                cout << " Enter size B: ";
                 cin >> size_matrix_B;
                 create_matrix(matrix_B, size_matrix_B);
                 cout << " A+B=" << endl << matrix_A + matrix_B << endl;
@@ -225,10 +200,10 @@ int main() {
         case 9: {
             try
             {
-                cout << " Введите размер A: ";
+                cout << " Enter size A: ";
                 cin >> size_matrix_A;
                 create_matrix(matrix_A, size_matrix_A);
-                cout << " Введите размер B: ";
+                cout << " Enter size B: ";
                 cin >> size_matrix_B;
                 create_matrix(matrix_B, size_matrix_B);
                 cout << " A-B=" << endl << matrix_A - matrix_B << endl;
@@ -242,10 +217,10 @@ int main() {
         case 10: {
             try
             {
-                cout << " Введите размер A: ";
+                cout << " Enter size A: ";
                 cin >> size_matrix_A;
                 create_matrix(matrix_A, size_matrix_A);
-                cout << " Введите размер B: ";
+                cout << " Enter size B: ";
                 cin >> size_matrix_B;
                 create_matrix(matrix_B, size_matrix_B);
                 cout << " A*B=" << endl << matrix_A * matrix_B << endl;
@@ -258,19 +233,16 @@ int main() {
         }
         case 11: {
             cout << "/----------------------------------------------------------------/" << endl<<endl;
-            cout << "Программа завершена!" << endl;
+            cout << "Program completed!" << endl;
             return 0;
         }
         default: {
-            cout << endl << "Неправильный выбор!" << endl << endl;
+            cout << endl << "Incorrect choice!" << endl << endl;
             break;
         }
         }
     }
 }
-
-
-
 
 template <class T>
 void rand_vector(TDynamicVector<T>& vec) {
@@ -291,9 +263,9 @@ template <class T>
 void create_vector(TDynamicVector<T>& v, size_t size_vector) {
     TDynamicVector<T> vec(size_vector);
     int choice_rand;
-    cout << " 1 -- Рандомное заполнение" << endl;
-    cout << " 2 -- Ручное заполнение" << endl;
-    cout << " Выбор: ";
+    cout << " 1 -- Random filling" << endl;
+    cout << " 2 -- Manual filling" << endl;
+    cout << " Choice: ";
     cin >> choice_rand;
     cout << endl;
     if (choice_rand == 1) {
@@ -301,9 +273,9 @@ void create_vector(TDynamicVector<T>& v, size_t size_vector) {
         cout << " vec=" << endl << vec << endl;
     }
     else {
-        cout << " Заполнение вектора" << endl;
+        cout << " Vector filling" << endl;
         cin >> vec;
-        cout << " a=" << endl << vec << endl;
+        cout << " vec=" << endl << vec << endl;
     }
     v = vec;
 }
@@ -312,9 +284,9 @@ template <class T>
 void create_matrix(TDynamicMatrix<T>& mat, size_t size_matrix) {
     TDynamicMatrix<T> mt(size_matrix);
     int choice_rand;
-    cout << " 1 -- Рандомное заполнение" << endl;
-    cout << " 2 -- Ручное заполнение" << endl;
-    cout << " Выбор: ";
+    cout << " 1 -- Random filling" << endl;
+    cout << " 2 -- Manual filling" << endl;
+    cout << " Choice: ";
     cin >> choice_rand;
     cout << endl;
     if (choice_rand == 1) {
@@ -322,7 +294,7 @@ void create_matrix(TDynamicMatrix<T>& mat, size_t size_matrix) {
         cout << " matr=" << endl << mt << endl;
     }
     else {
-        cout << " Заполнение вектора" << endl;
+        cout << " Matrix filling" << endl;
         cin >> mt;
         cout << " matr=" << endl << mt << endl;
     }
