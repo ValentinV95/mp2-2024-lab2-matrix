@@ -227,6 +227,12 @@ public:
       if (((i >= 0) && (i < sz)) && ((j >= 0) && (j < sz))) return pMem[i][j];
       else throw logic_error("the index must be non-negative and smaller than the size of the matrix ");
   }
+  const T& at(size_t i, size_t j) const
+  {
+      if (((i >= 0) && (i < sz)) && ((j >= 0) && (j < sz))) return pMem[i][j];
+      else throw logic_error("the index must be non-negative and smaller than the size of the matrix ");
+  }
+  size_t size() const noexcept { return sz; }
   // сравнение
   bool operator==(const TDynamicMatrix& m) const noexcept
   {

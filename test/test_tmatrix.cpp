@@ -46,7 +46,7 @@ TEST(TDynamicMatrix, copied_matrix_has_its_own_memory)
 TEST(TDynamicMatrix, can_get_size)
 {
     TDynamicMatrix<int> m(5);
-    EXPECT_EQ(m[0].size(), 5);
+    EXPECT_EQ(m.size(), 5);
 
 }
 
@@ -68,7 +68,7 @@ TEST(TDynamicMatrix, throws_when_set_element_with_negative_index)
 TEST(TDynamicMatrix, throws_when_set_element_with_too_large_index)
 {
     TDynamicMatrix<int> m(5);
-    ASSERT_ANY_THROW(m.at(10001, 10001) = 5); 
+    ASSERT_ANY_THROW(m.at(6, 6) = 5); 
 
 }
 
