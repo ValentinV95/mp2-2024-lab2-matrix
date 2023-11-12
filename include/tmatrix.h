@@ -115,21 +115,21 @@ public:
   }
 
   // скалярные операции
-  TDynamicVector operator+(T val)
+  TDynamicVector<T> operator+(T val)
   {
       TDynamicVector tmp(sz);
       for (size_t i = 0; i < sz; i++)
           tmp.pMem[i] = pMem[i] + val;
       return tmp;
   }
-  TDynamicVector operator-(double val)
+  TDynamicVector<T> operator-(double val)
   {
       TDynamicVector tmp(sz);
       for (size_t i = 0; i < sz; i++)
           tmp.pMem[i] = pMem[i] - val;
       return tmp;
   }
-  TDynamicVector operator*(double val)
+  TDynamicVector<T> operator*(double val)
   {
       TDynamicVector tmp(sz);
       for (size_t i = 0; i < sz; i++)
@@ -217,7 +217,7 @@ public:
           return *this;
       this->sz = other.sz;
       delete[] pMem;
-      pMem = new TDynamicVector<T>[sz];
+      T* pMem = new TDynamicVector[sz];
       for (size_t i = 0; i < sz; i++)
           pMem[i] = other.pMem[i];
       return *this;
@@ -275,6 +275,10 @@ public:
   // матрично-матричные операции
   TDynamicMatrix operator+(const TDynamicMatrix& m)
   {
+      if (sz != m.sz) 
+      {
+          throw logic_error("vectors must be equal size");
+      }
       TDynamicMatrix res(sz);
       for (size_t i = 0; i < sz; i++)
           res.pMem[i] = pMem[i] + m.pMem[i];
@@ -282,6 +286,10 @@ public:
   }
   TDynamicMatrix operator-(const TDynamicMatrix& m)
   {
+      if (sz != m.sz)
+      {
+          throw logic_error("vectors must be equal size");
+      }
       TDynamicMatrix res(sz);
       for (size_t i = 0; i < sz; i++)
           res.pMem[i] = pMem[i] - m.pMem[i];
@@ -289,6 +297,10 @@ public:
   }
   TDynamicMatrix operator*(const TDynamicMatrix& m)
   {
+      if (sz != m.sz)
+      {
+          throw logic_error("vectors must be equal size");
+      }
       TDynamicMatrix res(sz);
       for (size_t i = 0; i < sz; i++)
           for (size_t j = 0; j < sz; j++)
