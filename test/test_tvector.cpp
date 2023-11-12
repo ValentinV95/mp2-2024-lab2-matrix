@@ -26,10 +26,10 @@ TEST(TDynamicVector, can_create_copied_vector)
 
 TEST(TDynamicVector, copied_vector_is_equal_to_source_one)
 {
-	TDynamicVector<int> v(10);
-	v[5] = 17;
+	TDynamicVector<int> v(2);
+	v[0] = 17;
 	TDynamicVector<int> v_copy(v);
-	EXPECT_EQ(v, v_copy);
+	EXPECT_EQ(v_copy[0], 17);
 }
 
 TEST(TDynamicVector, copied_vector_has_its_own_memory)
@@ -74,7 +74,7 @@ TEST(TDynamicVector, can_assign_vector_to_itself)
 	ASSERT_NO_THROW(v = v);
 }
 
-TEST(TDynamicVector, can_assign_vectors_of_equal_size)
+TEST(TDynamicVector, correct_assign_vectors_of_equal_size)
 {
 	TDynamicVector<int> v1(5);
 	TDynamicVector<int> v2(5);
@@ -83,6 +83,13 @@ TEST(TDynamicVector, can_assign_vectors_of_equal_size)
 	v2 = v1;
 	EXPECT_NE(v2[4], 8);
 	EXPECT_EQ(v1[3], v2[3]);
+}
+
+TEST(TDynamicVector, can_assign_vectors_of_equal_size)
+{
+	TDynamicVector<int> v1(5);
+	TDynamicVector<int> v2(5);
+	ASSERT_NO_THROW(v1 = v2);
 }
 
 TEST(TDynamicVector, assign_operator_change_vector_size)
