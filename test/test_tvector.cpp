@@ -51,7 +51,6 @@ TEST(TDynamicVector, copied_vector_has_its_own_memory)
 TEST(TDynamicVector, can_get_size)
 {
 	TDynamicVector<int> v(4);
-	
 	EXPECT_EQ(4, v.size());
 }
 
@@ -66,15 +65,13 @@ TEST(TDynamicVector, can_set_and_get_element)
 TEST(TDynamicVector, throws_when_set_element_with_negative_index)
 {
 	TDynamicVector<int> v(4);
-
-	ASSERT_ANY_THROW(v[-1] = 3);
+	ASSERT_ANY_THROW(v.at(-1) = 3);
 }
 
 TEST(TDynamicVector, throws_when_set_element_with_too_large_index)
 {
 	TDynamicVector<int> v(4);
-
-	ASSERT_ANY_THROW(v[5] = 3);
+	ASSERT_ANY_THROW(v.at(5) = 3);
 }
 
 TEST(TDynamicVector, can_assign_vector_to_itself)
