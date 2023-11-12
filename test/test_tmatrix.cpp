@@ -135,20 +135,6 @@ TEST(TDynamicMatrix, matrices_with_different_size_are_not_equal)
 {
     TDynamicMatrix<int> m(3);
     TDynamicMatrix<int> m1(5);
-    int c = 0;
-    for (int i = 0; i< m.size(); i++){
-        for (int j = 0; j < m.size(); j++){
-            m[i][j] = c;
-            m1[i][j] = c;
-            c++;
-        }
-    }
-    for (int i = m.size(); i< m1.size(); i++){
-        for (int j = m.size(); j< m1.size(); j++){
-            m1[i][j] = c;
-            c++;
-        }
-    }
     EXPECT_EQ(false, m1==m);
 }
 
