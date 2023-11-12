@@ -28,10 +28,10 @@ TEST(TDynamicVector, cant_create_vector_from_nullptr)
 	ASSERT_ANY_THROW(TDynamicVector<int> v(nullptr, 34734));
 }
 
-TEST(TDynamicVector, cant_create_vector_with_big_pointer)
+TEST(TDynamicVector, cant_bypass_maxvectorsize_by_passing_wrong_ptr_size)
 {
-	int* ptr = new int[MAX_VECTOR_SIZE + 1];
-	ASSERT_ANY_THROW(TDynamicVector<int> v(nullptr, MAX_VECTOR_SIZE + 1));
+	int* ptr = new int[3];
+	ASSERT_ANY_THROW(TDynamicVector<int> v(ptr, MAX_VECTOR_SIZE + 1));
 }
 
 TEST(TDynamicVector, can_create_copied_vector)
@@ -55,11 +55,11 @@ TEST(TDynamicVector, copied_vector_is_equal_to_source_one)
 
 TEST(TDynamicVector, copied_vector_has_its_own_memory)
 {
-	TDynamicVector<int> v1(10);
-	TDynamicVector<int> v2(v1);
+	TDynamicVector<int>* v1 = new TDynamicVector<int>(20);
+	TDynamicVector<int>* v2 = new TDynamicVector<int>(*v1);
 
-	v1[3] = 70;
-	EXPECT_NE(70, v2[3]);
+	delete v1;
+	ASSERT_NO_THROW(delete v2);
 }
 
 TEST(TDynamicVector, can_get_size)

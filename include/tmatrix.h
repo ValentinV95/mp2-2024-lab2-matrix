@@ -11,8 +11,8 @@
 
 using namespace std;
 
-const int MAX_VECTOR_SIZE = 100000000;
-const int MAX_MATRIX_SIZE = 10000;
+const size_t MAX_VECTOR_SIZE = 100000000;
+const size_t MAX_MATRIX_SIZE = 10000;
 
 // Динамический вектор - 
 // шаблонный вектор на динамической памяти
@@ -161,7 +161,7 @@ public:
     T operator*(const TDynamicVector& v)
     {
         if (sz != v.sz) throw std::invalid_argument("Cannot get dot product of two vectors with different sizes");
-        T res(0);
+        T res = {};
         for (size_t i = 0; i < sz; i++)
             res += pMem[i] * v.pMem[i];
         return res;
@@ -177,7 +177,9 @@ public:
     friend istream& operator>>(istream& istr, TDynamicVector& v)
     {
         for (size_t i = 0; i < v.sz; i++)
-            istr >> v.pMem[i];
+            if (!(istr >> v.pMem[i]))
+                throw std::invalid_argument("Invalid input into vector.");
+
         return istr;
     }
     friend ostream& operator<<(ostream& ostr, const TDynamicVector& v)
@@ -291,7 +293,8 @@ public:
     {
         for (size_t i = 0; i < m.sz; i++)
             for (size_t j = 0; j < m.sz; j++)
-                istr >> m.pMem[i][j];
+                if (!(istr >> m.pMem[i][j]))
+                    throw std::invalid_argument("Invalid input into matrix");
 
         return istr;
     }
