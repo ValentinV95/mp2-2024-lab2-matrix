@@ -26,7 +26,7 @@ protected:
 public:
   TDynamicVector(size_t size = 1) : sz(size)
   {
-      if ((sz == 0) || (sz > MAX_MATRIX_SIZE))
+      if ((sz == 0) || (sz > MAX_VECTOR_SIZE))
           throw out_of_range("Error, vector size should be greater than zero and not exceed MAX_VECTOR_SIZE");
       
       pMem = new T[sz]();// {}; // У типа T д.б. констуктор по умолчанию
@@ -34,7 +34,7 @@ public:
 
   TDynamicVector(T* arr, size_t s) : sz(s)
   {
-      if ((sz == 0) || (sz > MAX_MATRIX_SIZE))
+      if ((sz == 0) || (sz > MAX_VECTOR_SIZE))
           throw out_of_range("Error, vector size should be greater than zero and not exceed MAX_VECTOR_SIZE");
       
       assert(arr != nullptr && "TDynamicVector ctor requires non-nullptr arg");
@@ -54,6 +54,7 @@ public:
   TDynamicVector(TDynamicVector&& v) noexcept
   {
       pMem = nullptr;
+      sz = 0;
       swap(*this, v);
   }
 
@@ -81,6 +82,9 @@ public:
 
   TDynamicVector& operator=(TDynamicVector&& v) noexcept
   {
+      delete[] pMem;
+      pMem = nullptr;
+      sz = 0;
       swap(*this, v);
       return *this;
   }
