@@ -100,6 +100,19 @@ TEST(TDynamicVector, can_assign_vectors_of_different_size)
         v[i] = i;
     }
     TDynamicVector<int> v2(5);
+    ASSERT_NO_THROW(v2 = v);
+    EXPECT_EQ(0, v2[0]);
+    EXPECT_EQ(1, v2[1]);
+    EXPECT_EQ(2, v2[2]);
+}
+
+TEST(TDynamicVector, correctly_assign_vectors_of_different_size)
+{
+    TDynamicVector<int> v(3);
+    for (int i = 0; i< v.size(); i++){
+        v[i] = i;
+    }
+    TDynamicVector<int> v2(5);
     v2 = v;
     EXPECT_EQ(0, v2[0]);
     EXPECT_EQ(1, v2[1]);
