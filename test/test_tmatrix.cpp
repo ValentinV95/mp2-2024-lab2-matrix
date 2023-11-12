@@ -60,20 +60,20 @@ TEST(TDynamicMatrix, can_set_and_get_element)
 {
 	TDynamicMatrix<int> m(2);
 	m[1][1] = 1;
-
+	
 	EXPECT_EQ(m[1][1], 1);
 }
 
 TEST(TDynamicMatrix, throws_when_set_element_with_negative_index)
 {
 	TDynamicMatrix<int> m(2);
-	ASSERT_ANY_THROW(m[-1][1] = 2);
+	ASSERT_ANY_THROW(m.at(- 1,1) = 2);
 }
 
 TEST(TDynamicMatrix, throws_when_set_element_with_too_large_index)
 {
 	TDynamicMatrix<int> m(2);
-	ASSERT_ANY_THROW(m[2][1] = 2);
+	ASSERT_ANY_THROW(m.at(5, 2) = 2);
 }
 
 TEST(TDynamicMatrix, can_assign_matrix_to_itself)
@@ -197,7 +197,7 @@ TEST(TDynamicMatrix, can_add_matrices_with_equal_size)
 	m2[1][1] = 7;
 
 	TDynamicMatrix<int> m3(2);
-	m3 = m2 + m1;
+	m3 = m1 + m2;
 
 	EXPECT_EQ(m3, m1 + m2);
 }
@@ -225,7 +225,7 @@ TEST(TDynamicMatrix, can_subtract_matrices_with_equal_size)
 	m2[1][1] = 7;
 
 	TDynamicMatrix<int> m3(2);
-	m3 = m2 - m1;
+	m3 = m1 - m2;
 
 	EXPECT_EQ(m3, m1 - m2);
 }
@@ -253,7 +253,7 @@ TEST(TDynamicMatrix, can_multiply_matrices_with_equal_size)
 	m2[1][1] = 7;
 
 	TDynamicMatrix<int> m3(2);
-	m3 = m2 * m1;
+	m3 = m1 * m2;
 
 	EXPECT_EQ(m3, m1 * m2);
 }
