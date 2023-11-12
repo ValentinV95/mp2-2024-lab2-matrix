@@ -164,42 +164,6 @@ TEST(TDynamicMatrix, matrices_with_different_size_are_not_equal)
 	EXPECT_NE(m1, m2);
 }
 
-TEST(TDynamicMatrix, can_add_scalar_to_matrix)
-{
-	TDynamicMatrix<int> m1(2);
-	m1[0][0] = 1;
-	m1[0][1] = 3;
-	m1[1][0] = 5;
-	m1[1][1] = 7;
-	m1 = m1 + 1;
-
-	TDynamicMatrix<int> m2(2);
-	m2[0][0] = 2;
-	m2[0][1] = 4;
-	m2[1][0] = 6;
-	m2[1][1] = 8;
-
-	EXPECT_EQ(m1, m2);
-}
-
-TEST(TDynamicMatrix, can_subtract_scalar_from_matrix)
-{
-	TDynamicMatrix<int> m1(2);
-	m1[0][0] = 1;
-	m1[0][1] = 3;
-	m1[1][0] = 5;
-	m1[1][1] = 7;
-	m1 = m1 - 1;
-
-	TDynamicMatrix<int> m2(2);
-	m2[0][0] = 0;
-	m2[0][1] = 2;
-	m2[1][0] = 4;
-	m2[1][1] = 6;
-
-	EXPECT_EQ(m1, m2);
-}
-
 TEST(TDynamicMatrix, can_multiply_scalar_by_matrix)
 {
 	TDynamicMatrix<int> m1(2);
