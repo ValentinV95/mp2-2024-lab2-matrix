@@ -11,11 +11,11 @@
 int main()
 {
     setlocale(LC_ALL, "Russian");
-    cout << "Тестирование класса работы с матрицами" << "\n" << "\n";
+    cout << "Матричный калькулятор" << "\n" << "\n";
 
     int a;
 
-    cout << "Выберите матричную операцию:" << "\n";
+    cout << "Выберите операцию:" << "\n";
     cout << "1. Сумма двух матриц" << "\n" << "2. Разность двух матриц" << "\n" << "3. Умножение двух матриц" << "\n" << "4. Умножение матрицы на вектор" << "\n" << "5. Умножение матрицы на константу" << "\n";
     cin >> a;
 
@@ -27,7 +27,7 @@ int main()
         cin >> size;
 
         TDynamicMatrix<double> A(size);
-        cout << "Введите элементы матрицы:" << "\n";
+        cout << "Введите элементы первой матрицы:" << "\n";
         cin >> A;
 
         TDynamicMatrix<double> B(size);
@@ -45,7 +45,7 @@ int main()
         cin >> size;
 
         TDynamicMatrix<double> A(size);
-        cout << "Введите элементы матрицы:" << "\n";
+        cout << "Введите элементы первой матрицы:" << "\n";
         cin >> A;
 
         TDynamicMatrix<double> B(size);
@@ -63,7 +63,7 @@ int main()
         cin >> size;
 
         TDynamicMatrix<double> A(size);
-        cout << "Введите элементы матрицы:" << "\n";
+        cout << "Введите элементы первой матрицы:" << "\n";
         cin >> A;
 
         TDynamicMatrix<double> B(size);
