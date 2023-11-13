@@ -65,6 +65,7 @@ TEST(TDynamicMatrix, can_get_size)
 TEST(TDynamicMatrix, can_get_size_correct)
 {
 	TDynamicMatrix<int> m(5);
+	
 	EXPECT_EQ(5, m.size());
 }
 
@@ -208,7 +209,7 @@ TEST(TDynamicMatrix, matrices_with_different_size_are_not_equal)
 	EXPECT_EQ(m1 == m2, false);
 }
 
-TEST(TDynamicMatrix, can_multiply_scalar_by_matrix)
+TEST(TDynamicMatrix, can_multiply_matrix_by_scalar)
 {
 	TDynamicMatrix<int> m1(2);
 	
