@@ -59,24 +59,10 @@ TEST(TDynamicMatrix, can_get_size)
 {
 	TDynamicMatrix<int> m(5);
 	
-	ASSERT_NO_THROW(m.size());
-}
-
-TEST(TDynamicMatrix, can_get_size_correct)
-{
-	TDynamicMatrix<int> m(5);
-	
 	EXPECT_EQ(5, m.size());
 }
 
 TEST(TDynamicMatrix, can_set_and_get_element)
-{
-	TDynamicMatrix<int> m(2);
-	
-	ASSERT_NO_THROW(m[1][1] = 1);;
-}
-
-TEST(TDynamicMatrix, can_set_and_get_element_correct)
 {
 	TDynamicMatrix<int> m(2);
 	m[1][1] = 1;
