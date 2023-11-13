@@ -79,6 +79,12 @@ TEST(TDynamicMatrix, throws_when_set_element_with_too_large_index)
 TEST(TDynamicMatrix, can_assign_matrix_to_itself)
 {
 	TDynamicMatrix<int> m(2);
+	ASSERT_NO_THROW(m = m);
+}
+
+TEST(TDynamicMatrix, can_assign_matrix_to_itself_correct)
+{
+	TDynamicMatrix<int> m(2);
 	m[0][0] = 2;
 	m[0][1] = 4;
 	m[1][0] = 6;
@@ -90,6 +96,14 @@ TEST(TDynamicMatrix, can_assign_matrix_to_itself)
 }
 
 TEST(TDynamicMatrix, can_assign_matrices_of_equal_size)
+{
+	TDynamicMatrix<int> m1(2);
+	TDynamicMatrix<int> m2(2);
+
+	ASSERT_NO_THROW(m2 = m1);
+}
+
+TEST(TDynamicMatrix, can_assign_matrices_of_equal_size_correct)
 {
 	TDynamicMatrix<int> m1(2);
 	m1[0][0] = 1;
@@ -118,6 +132,14 @@ TEST(TDynamicMatrix, assign_operator_change_matrix_size)
 }
 
 TEST(TDynamicMatrix, can_assign_matrices_of_different_size)
+{
+	TDynamicMatrix<int> m1(2);
+	TDynamicMatrix<int> m2(5);
+	
+	ASSERT_NO_THROW(m2 = m1);
+}
+
+TEST(TDynamicMatrix, can_assign_matrices_of_different_size_correct)
 {
 	TDynamicMatrix<int> m1(2);
 	m1[0][0] = 1;
@@ -167,6 +189,13 @@ TEST(TDynamicMatrix, matrices_with_different_size_are_not_equal)
 TEST(TDynamicMatrix, can_multiply_scalar_by_matrix)
 {
 	TDynamicMatrix<int> m1(2);
+	
+	ASSERT_NO_THROW(m1 * 2);
+}
+
+TEST(TDynamicMatrix, can_multiply_matrix_by_scalar_correct)
+{
+	TDynamicMatrix<int> m1(2);
 	m1[0][0] = 1;
 	m1[0][1] = 3;
 	m1[1][0] = 5;
@@ -183,6 +212,14 @@ TEST(TDynamicMatrix, can_multiply_scalar_by_matrix)
 }
 
 TEST(TDynamicMatrix, can_multiply_matrix_by_vector_with_equal_size)
+{
+	TDynamicMatrix<int> m(2);
+	TDynamicVector<int> v(2);
+	
+	ASSERT_NO_THROW(m * v);
+}
+
+TEST(TDynamicMatrix, can_multiply_matrix_by_vector_with_equal_size_correct)
 {
 	TDynamicMatrix<int> m(2);
 	m[0][0] = 1;
@@ -209,6 +246,14 @@ TEST(TDynamicMatrix, cant_multiply_matrix_by_vector_with_not_equal_size)
 }
 
 TEST(TDynamicMatrix, can_add_matrices_with_equal_size)
+{
+	TDynamicMatrix<int> m1(2);
+	TDynamicMatrix<int> m2(2);
+	
+	ASSERT_NO_THROW(m1 + m2);
+}
+
+TEST(TDynamicMatrix, can_add_matrices_with_equal_size_correct)
 {
 	TDynamicMatrix<int> m1(2);
 	m1[0][0] = 2;
@@ -239,6 +284,14 @@ TEST(TDynamicMatrix, cant_add_matrices_with_not_equal_size)
 TEST(TDynamicMatrix, can_subtract_matrices_with_equal_size)
 {
 	TDynamicMatrix<int> m1(2);
+	TDynamicMatrix<int> m2(2);
+	
+	ASSERT_NO_THROW(m1 - m2);
+}
+
+TEST(TDynamicMatrix, can_subtract_matrices_with_equal_size_correct)
+{
+	TDynamicMatrix<int> m1(2);
 	m1[0][0] = 2;
 	m1[0][1] = 4;
 	m1[1][0] = 6;
@@ -265,6 +318,14 @@ TEST(TDynamicMatrix, cant_subtract_matrices_with_not_equal_size)
 }
 
 TEST(TDynamicMatrix, can_multiply_matrices_with_equal_size)
+{
+	TDynamicMatrix<int> m1(2);
+	TDynamicMatrix<int> m2(2);
+	
+	ASSERT_NO_THROW(m1 * m2);
+}
+
+TEST(TDynamicMatrix, can_multiply_matrices_with_equal_size_correct)
 {
 	TDynamicMatrix<int> m1(2);
 	m1[0][0] = 2;
