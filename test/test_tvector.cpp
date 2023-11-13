@@ -2,6 +2,8 @@
 
 #include <gtest.h>
 
+int rannum(int up);
+
 TEST(TDynamicVector, can_create_vector_with_positive_length)
 {
   ASSERT_NO_THROW(TDynamicVector<int> v(5));
@@ -30,7 +32,7 @@ TEST(TDynamicVector, can_create_from_array)
 {
 	int a[4];
 	for (size_t i = 0; i < 4; i++) {
-		a[i] = rand() % 10;
+		a[i] = rannum(10);
 	}
 	ASSERT_NO_THROW(TDynamicVector<int> v(a, 4));
 }
@@ -39,7 +41,7 @@ TEST(TDynamicVector, vector_created_from_array_has_the_same_data)
 {
 	int a[4];
 	for (size_t i = 0; i < 4; i++) {
-		a[i] = rand() % 10;
+		a[i] = rannum(10);
 	}
 	TDynamicVector<int> v(a, 4);
 	for (size_t i = 0; i < 4; i++) {
@@ -65,7 +67,7 @@ TEST(TDynamicVector, copied_vector_is_equal_to_source_one)
 {
 	int a[4];
 	for (size_t i = 0; i < 4; i++) {
-		a[i] = rand() % 10;
+		a[i] = rannum(10);
 	}
 	TDynamicVector<int> v(a, 4);
 	TDynamicVector<int> v1(v);
@@ -104,7 +106,7 @@ TEST(TDynamicVector, throws_when_set_element_with_negative_index)
 {
 	int a[4];
 	for (size_t i = 0; i < 4; i++) {
-		a[i] = rand() % 10;
+		a[i] = rannum(10);
 	}
 	TDynamicVector<int> v(a, 4);
 	ASSERT_ANY_THROW(v.at(-1));
@@ -114,7 +116,7 @@ TEST(TDynamicVector, throws_when_set_element_with_too_large_index)
 {
 	int a[4];
 	for (size_t i = 0; i < 4; i++) {
-		a[i] = rand() % 10;
+		a[i] = rannum(10);
 	}
 	TDynamicVector<int> v(a, 4);
 	ASSERT_ANY_THROW(v.at(6));
@@ -124,7 +126,7 @@ TEST(TDynamicVector, can_assign_vector_to_itself)
 {
 	int a[4];
 	for (size_t i = 0; i < 4; i++) {
-		a[i] = rand() % 10;
+		a[i] = rannum(10);
 	}
 	TDynamicVector<int> v(a, 4);
 	ASSERT_NO_THROW(v = v);
@@ -134,7 +136,7 @@ TEST(TDynamicVector, assignment_of_vector_to_itself_is_correct)
 {
 	int a[4];
 	for (size_t i = 0; i < 4; i++) {
-		a[i] = rand() % 10;
+		a[i] = rannum(10);
 	}
 	TDynamicVector<int> v(a, 4);
 	TDynamicVector<int> v1(a, 4);
@@ -146,7 +148,7 @@ TEST(TDynamicVector, can_assign_vectors_of_equal_size)
 {
 	int a[4];
 	for (size_t i = 0; i < 4; i++) {
-		a[i] = rand() % 10;
+		a[i] = rannum(10);
 	}
 	TDynamicVector<int> v(a, 4);
 	TDynamicVector<int> v1(4);
@@ -157,7 +159,7 @@ TEST(TDynamicVector, assignment_with_vectors_of_equal_size_is_correct)
 {
 	int a[4];
 	for (size_t i = 0; i < 4; i++) {
-		a[i] = rand() % 10;
+		a[i] = rannum(10);
 	}
 	TDynamicVector<int> v(a, 4);
 	TDynamicVector<int> v1(4);
@@ -169,7 +171,7 @@ TEST(TDynamicVector, assign_operator_change_vector_size)
 {
 	int a[4];
 	for (size_t i = 0; i < 4; i++) {
-		a[i] = rand() % 10;
+		a[i] = rannum(10);
 	}
 	TDynamicVector<int> v(a, 4);
 	TDynamicVector<int> v1(7);
@@ -181,7 +183,7 @@ TEST(TDynamicVector, can_assign_vectors_of_different_size)
 {
 	int a[4];
 	for (size_t i = 0; i < 4; i++) {
-		a[i] = rand() % 10;
+		a[i] = rannum(10);
 	}
 	TDynamicVector<int> v(a, 4);
 	TDynamicVector<int> v1(7);
@@ -192,7 +194,7 @@ TEST(TDynamicVector, assignment_with_vectors_of_different_size_is_correct)
 {
 	int a[4];
 	for (size_t i = 0; i < 4; i++) {
-		a[i] = rand() % 10;
+		a[i] = rannum(10);
 	}
 	TDynamicVector<int> v(a, 4);
 	TDynamicVector<int> v1(7);
@@ -204,7 +206,7 @@ TEST(TDynamicVector, compare_equal_vectors_return_true)
 {
 	int a[4];
 	for (size_t i = 0; i < 4; i++) {
-		a[i] = rand() % 10;
+		a[i] = rannum(10);
 	}
 	TDynamicVector<int> v(a, 4);
 	TDynamicVector<int> v1(a, 4);
@@ -215,7 +217,7 @@ TEST(TDynamicVector, compare_vector_with_itself_return_true)
 {
 	int a[4];
 	for (size_t i = 0; i < 4; i++) {
-		a[i] = rand() % 10;
+		a[i] = rannum(10);
 	}
 	TDynamicVector<int> v(a, 4);
 	EXPECT_EQ(v, v);
@@ -225,7 +227,7 @@ TEST(TDynamicVector, vectors_with_different_size_are_not_equal)
 {
 	int a[7];
 	for (size_t i = 0; i < 7; i++) {
-		a[i] = rand() % 20;
+		a[i] = rannum(20);
 	}
 	TDynamicVector<int> v(a, 4);
 	TDynamicVector<int> v1(a, 7);
@@ -236,7 +238,7 @@ TEST(TDynamicVector, can_add_scalar_to_vector)
 {
 	int a[4];
 	for (size_t i = 0; i < 4; i++) {
-		a[i] = rand() % 10;
+		a[i] = rannum(10);
 	}
 	TDynamicVector<int> v(a, 4);
 	ASSERT_NO_THROW(v = v + 4);
@@ -246,7 +248,7 @@ TEST(TDynamicVector, addition_of_scalar_to_vector_is_correct)
 {
 	int a[4];
 	for (size_t i = 0; i < 4; i++) {
-		a[i] = rand() % 10;
+		a[i] = rannum(10);
 	}
 	TDynamicVector<int> v(a, 4);
 	v = v + 4;
@@ -262,7 +264,7 @@ TEST(TDynamicVector, can_subtract_scalar_from_vector)
 {
 	int a[4];
 	for (size_t i = 0; i < 4; i++) {
-		a[i] = rand() % 10;
+		a[i] = rannum(10);
 	}
 	TDynamicVector<int> v(a, 4);
 	ASSERT_NO_THROW(v = v - 4);
@@ -272,7 +274,7 @@ TEST(TDynamicVector, subtraction_of_scalar_from_vector_is_correct)
 {
 	int a[4];
 	for (size_t i = 0; i < 4; i++) {
-		a[i] = rand() % 10;
+		a[i] = rannum(10);
 	}
 	TDynamicVector<int> v(a, 4);
 	v = v - 4;
@@ -288,7 +290,7 @@ TEST(TDynamicVector, can_multiply_scalar_by_vector)
 {
 	int a[4];
 	for (size_t i = 0; i < 4; i++) {
-		a[i] = rand() % 10;
+		a[i] = rannum(10);
 	}
 	TDynamicVector<int> v(a, 4);
 	ASSERT_NO_THROW(v = v * 7);
@@ -298,7 +300,7 @@ TEST(TDynamicVector, multiplication_of_scalar_by_vector_is_correct)
 {
 	int a[4];
 	for (size_t i = 0; i < 4; i++) {
-		a[i] = rand() % 10;
+		a[i] = rannum(10);
 	}
 	TDynamicVector<int> v(a, 4);
 	v = v * 7;
@@ -314,11 +316,11 @@ TEST(TDynamicVector, can_add_vectors_with_equal_size)
 {
 	int a[4];
 	for (size_t i = 0; i < 4; i++) {
-		a[i] = rand() % 20;
+		a[i] = rannum(20);
 	}
 	int b[4];
 	for (size_t i = 0; i < 4; i++) {
-		b[i] = rand() % 20;
+		b[i] = rannum(20);
 	}
 	TDynamicVector<int> v(a, 4);
 	TDynamicVector<int> v1(b, 4);
@@ -329,11 +331,11 @@ TEST(TDynamicVector, addition_of_vectors_with_equal_size_is_correct)
 {
 	int a[4];
 	for (size_t i = 0; i < 4; i++) {
-		a[i] = rand() % 20;
+		a[i] = rannum(20);
 	}
 	int b[4];
 	for (size_t i = 0; i < 4; i++) {
-		b[i] = rand() % 20;
+		b[i] = rannum(20);
 	}
 	TDynamicVector<int> v(a, 4);
 	TDynamicVector<int> v1(b, 4);
@@ -359,11 +361,11 @@ TEST(TDynamicVector, can_subtract_vectors_with_equal_size)
 {
 	int a[4];
 	for (size_t i = 0; i < 4; i++) {
-		a[i] = rand() % 20;
+		a[i] = rannum(20);
 	}
 	int b[4];
 	for (size_t i = 0; i < 4; i++) {
-		b[i] = rand() % 20;
+		b[i] = rannum(20);
 	}
 	TDynamicVector<int> v(a, 4);
 	TDynamicVector<int> v1(b, 4);
@@ -374,11 +376,11 @@ TEST(TDynamicVector, subtraction_of_vectors_with_equal_size_is_correct)
 {
 	int a[4];
 	for (size_t i = 0; i < 4; i++) {
-		a[i] = rand() % 20;
+		a[i] = rannum(20);
 	}
 	int b[4];
 	for (size_t i = 0; i < 4; i++) {
-		b[i] = rand() % 20;
+		b[i] = rannum(20);
 	}
 	TDynamicVector<int> v(a, 4);
 	TDynamicVector<int> v1(b, 4);
