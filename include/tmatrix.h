@@ -32,6 +32,8 @@ public:
     TDynamicVector(T *arr, size_t s) : sz(s)  //конструктор-инициализатор
     {
         assert(arr != nullptr && "TDynamicVector ctor requires non-nullptr arg");
+        if (sz <= 0 || sz > MAX_VECTOR_SIZE)
+            throw out_of_range("Vector size should be greater than zero and less than MAX_VECTOR_SIZE");
         pMem = new T[sz];
         std::copy(arr, arr + sz, pMem);
     }
@@ -89,13 +91,13 @@ public:
     }
 
     // индексация с контролем
-    T &at(size_t ind) {
-        if (ind >= sz) { throw out_of_range("index can't be less than 0 or greater than vector siz"); }
+    T &at(int ind) {
+        if (ind < 0 || ind >= sz) { throw out_of_range("index can't be less than 0 or greater than vector siz"); }
         return pMem[ind];
     }
 
     const T &at(size_t ind) const {
-        if (ind >= sz) { throw out_of_range("index can't be less than 0 or greater than vector siz"); }
+        if (ind < 0 || ind >= sz) { throw out_of_range("index can't be less than 0 or greater than vector siz"); }
         return pMem[ind];
     }
 
@@ -207,13 +209,13 @@ public:
 
     size_t size() const noexcept { return sz; }  //вернуть размер
 
-    T &at(size_t ind, size_t ind2) {
+    T &at(int ind, int ind2) {
         if (ind >= sz || ind2>=sz || ind < 0 || ind2 < 0) { throw out_of_range("index can't be less than 0 or greater than vector siz"); }
         return pMem[ind][ind2];
     }
 
-    const T &at(size_t ind, size_t ind2) const {
-        if ((ind >= sz || ind2>=sz) && (ind < 0 || ind2 < 0)) { throw out_of_range("index can't be less than 0 or greater than vector siz"); }
+    const T &at(int ind, int ind2) const {
+        if (ind >= sz || ind2>=sz || ind < 0 || ind2 < 0) { throw out_of_range("index can't be less than 0 or greater than vector siz"); }
         return pMem[ind][ind2];
     }
 
