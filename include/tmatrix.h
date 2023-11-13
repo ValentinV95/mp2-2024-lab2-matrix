@@ -8,6 +8,7 @@
 #define __TDynamicMatrix_H__
 
 #include <iostream>
+#include <cassert>
 
 using namespace std;
 
@@ -33,7 +34,11 @@ public:
   }
   TDynamicVector(T* arr, size_t s) : sz(s)
   {
-    assert(arr != nullptr && "TDynamicVector ctor requires non-nullptr arg");
+      assert(arr != nullptr && "TDynamicVector requires non-nullptr arg");
+      if (sz == 0)
+          throw out_of_range("Size should be greater than zero");
+      else if (sz > MAX_VECTOR_SIZE)
+          throw out_of_range("Size should be less than MAX_VECTOR_SIZE");
     pMem = new T[sz];
     std::copy(arr, arr + sz, pMem);
   }
@@ -88,13 +93,13 @@ public:
   // индексация с контролем
   T& at(size_t ind)
   {
-      if (ind < 0 || ind >= sz)
+      if (ind >= sz)
           throw out_of_range("This object doesn't contain the element you're trying to access");
       return pMem[ind];
   }
   const T& at(size_t ind) const
   {
-      if (ind < 0 || ind >= sz)
+      if (ind >= sz)
           throw out_of_range("This object doesn't contain the element you're trying to access");
       return pMem[ind];
   }
@@ -193,7 +198,7 @@ class TDynamicMatrix : private TDynamicVector<TDynamicVector<T>>
 public:
   TDynamicMatrix(size_t s = 1) : TDynamicVector<TDynamicVector<T>>(s)
   {
-      if (sz <= 0)
+      if (sz == 0)
           throw out_of_range("Matrix size should be greater than zero");
       else if (sz > MAX_MATRIX_SIZE)
           throw out_of_range("Matrix size should be less than MAX_MATRIX_SIZE");
@@ -229,10 +234,11 @@ public:
   // матрично-векторные операции
   TDynamicVector<T> operator*(const TDynamicVector<T>& v)
   {
-      if (sz != v.sz) throw invalid_argument("Impossible to multiply matrix and vector with different sizes");
-      TDynamicVector<T> tmp(sz)
+      if (sz != v.size()) throw invalid_argument("Impossible to multiply matrix and vector with different sizes");
+      TDynamicVector<T> tmp(sz);
           for (size_t i = 0; i < sz; i++)
-              tmp.pMem[i] = pMem[i] * v;
+              tmp[i] = pMem[i] * v;
+          return tmp;
   }
 
   // матрично-матричные операции

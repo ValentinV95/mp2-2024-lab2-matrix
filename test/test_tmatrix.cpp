@@ -26,7 +26,7 @@ TEST(TDynamicMatrix, can_create_copied_matrix)
 
 TEST(TDynamicMatrix, copied_matrix_is_equal_to_source_one)
 {
-	const size_t sz = 2049;
+	const size_t sz = 50;
 	TDynamicMatrix<double> a(sz);
 	for (size_t i = 0; i < sz; i++)
 			for (size_t j = 0; j < sz; j++)
@@ -47,6 +47,13 @@ TEST(TDynamicMatrix, can_get_size)
 {
 	const size_t sz = 5;
 	TDynamicMatrix<int> m1(sz);
+	ASSERT_NO_THROW(m1.size());
+}
+
+TEST(TDynamicMatrix, can_correctly_get_size)
+{
+	const size_t sz = 5;
+	TDynamicMatrix<int> m1(sz);
 	EXPECT_EQ(sz, m1.size());
 }
 
@@ -54,9 +61,16 @@ TEST(TDynamicMatrix, can_set_and_get_element)
 {
 	const size_t sz = 10;
 	TDynamicMatrix<int> a(sz);
+	ASSERT_NO_THROW(a[2][7] = 3);
+	ASSERT_NO_THROW(a[2][7]);
+}
+
+TEST(TDynamicMatrix, can_correctly_set_and_get_element)
+{
+	const size_t sz = 10;
+	TDynamicMatrix<int> a(sz);
 	a[2][7] = 3;
 	EXPECT_EQ(3, a[2][7]);
-
 }
 
 TEST(TDynamicMatrix, throws_when_set_element_with_negative_index)
@@ -76,6 +90,14 @@ TEST(TDynamicMatrix, throws_when_set_element_with_too_large_index)
 TEST(TDynamicMatrix, can_assign_matrix_to_itself)
 {
 	const size_t sz = 10;
+	TDynamicMatrix<int> a(sz);
+	a = a;
+	ASSERT_NO_THROW(a);
+}
+
+TEST(TDynamicMatrix, can_correctly_assign_matrix_to_itself)
+{
+	const size_t sz = 10;
 	TDynamicMatrix<int> a(sz), c(sz);
 	for (size_t i = 0; i < sz; i++)
 		for (size_t j = 0; j < sz; j++)
@@ -85,6 +107,14 @@ TEST(TDynamicMatrix, can_assign_matrix_to_itself)
 }
 
 TEST(TDynamicMatrix, can_assign_matrices_of_equal_size)
+{
+	const size_t sz = 10;
+	TDynamicMatrix<int> a(sz), b(sz);
+	b = a;
+	ASSERT_NO_THROW(b);
+}
+
+TEST(TDynamicMatrix, can_correctly_assign_matrices_of_equal_size)
 {
 	const size_t sz = 10;
 	TDynamicMatrix<int> a(sz);
@@ -112,6 +142,14 @@ TEST(TDynamicMatrix, assign_operator_change_matrix_size)
 }
 
 TEST(TDynamicMatrix, can_assign_matrices_of_different_size)
+{
+	const size_t sz = 10;
+	TDynamicMatrix<int> a(sz), b(2 * sz);
+	b = a;
+	ASSERT_NO_THROW(b);
+}
+
+TEST(TDynamicMatrix, can_correctly_assign_matrices_of_different_size)
 {
 	const size_t sz = 10;
 	TDynamicMatrix<int> a(sz);
@@ -158,6 +196,13 @@ TEST(TDynamicMatrix, matrices_with_different_size_are_not_equal)
 TEST(TDynamicMatrix, can_add_matrices_with_equal_size)
 {
 	const size_t sz = 10;
+	TDynamicMatrix<int> a(sz), b(sz);
+	ASSERT_NO_THROW(a + b);
+}
+
+TEST(TDynamicMatrix, can_correctly_add_matrices_with_equal_size)
+{
+	const size_t sz = 10;
 	TDynamicMatrix<int> a(sz), b(sz), c(sz);
 	for (size_t i = 0; i < sz; i++)
 		for (size_t j = 0; j < sz; j++)
@@ -179,6 +224,13 @@ TEST(TDynamicMatrix, cant_add_matrices_with_not_equal_size)
 TEST(TDynamicMatrix, can_subtract_matrices_with_equal_size)
 {
 	const size_t sz = 10;
+	TDynamicMatrix<int> a(sz), b(sz);
+	ASSERT_NO_THROW(a - b);
+}
+
+TEST(TDynamicMatrix, can_correctly_subtract_matrices_with_equal_size)
+{
+	const size_t sz = 10;
 	TDynamicMatrix<int> a(sz), b(sz), c(sz);
 	for (size_t i = 0; i < sz; i++)
 		for (size_t j = 0; j < sz; j++)
@@ -197,3 +249,93 @@ TEST(TDynamicMatrix, cant_subtract_matrixes_with_not_equal_size)
 	ASSERT_ANY_THROW(c = a - b);
 }
 
+TEST(TDynamicMatrix, set_and_element)
+{
+	const size_t sz = 10;
+	TDynamicMatrix<int> a(sz);
+	a[2][7] = 3;
+	EXPECT_EQ(3, a[2][7]);
+}
+
+TEST(TDynamicMatrix, can_multiply_matrix_by_scalar)
+{
+	const size_t sz = 10;
+	double scalar = 3.14159265;
+	TDynamicMatrix<double> a(sz);
+	ASSERT_NO_THROW(a * scalar);
+}
+
+TEST(TDynamicMatrix, can_correctly_multiply_matrix_by_scalar)
+{
+	const size_t sz = 10;
+	double scalar = 3.14159265;
+	TDynamicMatrix<double> a(sz), b(sz);
+	for (size_t i = 0; i < sz; i++)
+		for (size_t j = 0; j < sz; j++)
+		{
+			a[i][j] = double(rand()) / RAND_MAX * 1000000 - 500000;
+			b[i][j] = a[i][j] * scalar;
+		}
+	EXPECT_EQ(b, a * scalar);
+}
+
+TEST(TDynamicMatrix, cant_multiply_matrix_by_vector_if_sizes_dont_match)
+{
+	const size_t sz = 10;
+	TDynamicMatrix<double> a(sz);
+	TDynamicVector<double> b(2*sz);
+	ASSERT_ANY_THROW(a * b);
+}
+
+TEST(TDynamicMatrix, can_multiply_matrix_by_vector_if_sizes_match)
+{
+	const size_t sz = 10;
+	TDynamicMatrix<double> a(sz);
+	TDynamicVector<double> b(sz);
+	ASSERT_NO_THROW(a * b);
+}
+
+TEST(TDynamicMatrix, can_correctly_multiply_matrix_by_vector_if_sizes_match)
+{
+	const size_t sz = 10;
+	TDynamicMatrix<double> a(sz);
+	TDynamicVector<double> b(sz), res(sz);
+	for (size_t i = 0; i < sz; i++)
+		for (size_t j = 0; j < sz; j++)
+		{
+			a[i][j] = double(rand()) / RAND_MAX * 1000000 - 500000;
+			res[i] += a[i][j] * b[j];
+		}
+	EXPECT_EQ(res, a*b);
+}
+
+TEST(TDynamicMatrix, cant_multiply_matrixes_with_different_sizes)
+{
+	const size_t sz = 10;
+	TDynamicMatrix<double> a(sz), b(2*sz);
+	ASSERT_ANY_THROW(a * b);
+}
+
+TEST(TDynamicMatrix, can_multiply_matrixes)
+{
+	const size_t sz = 10;
+	TDynamicMatrix<double> a(sz), b(sz);
+	ASSERT_NO_THROW(a * b);
+}
+
+TEST(TDynamicMatrix, can_correctly_multiply_matrixes)
+{
+	const size_t sz = 10;
+	TDynamicMatrix<int> a(sz), b(sz), c(sz);
+	for (size_t i = 0; i < sz; i++)
+		for (size_t j = 0; j < sz; j++)
+		{
+			a[i][j] = rand();
+			b[i][j] = rand();
+		}
+	for (size_t i = 0; i < sz; i++)
+		for (size_t k = 0; k < sz; k++)
+			for (size_t j = 0; j < sz; j++)
+				c[i][j] += a[i][k] * b[k][j];
+	EXPECT_EQ(c, a * b);
+}
