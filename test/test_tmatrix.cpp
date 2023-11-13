@@ -44,19 +44,38 @@ TEST(TDynamicMatrix, copied_matrix_has_its_own_memory)
 	m1[0][1] = 3;
 	m1[1][0] = 5;
 	m1[1][1] = 7;
-
+	
 	TDynamicMatrix<int> m2(m1);
-
-	EXPECT_NE(&m1, &m2);
+	m2[0][0] = 2;
+	m2[0][1] = 4;
+	m2[1][0] = 6;
+	m2[1][1] = 8;
+	
+	EXPECT_EQ(m1[0][0], 1);
+	EXPECT_EQ(m2[0][0], 2);
 }
 
 TEST(TDynamicMatrix, can_get_size)
+{
+	TDynamicMatrix<int> m(5);
+	
+	ASSERT_NO_THROW(m.size());
+}
+
+TEST(TDynamicMatrix, can_get_size_correct)
 {
 	TDynamicMatrix<int> m(5);
 	EXPECT_EQ(5, m.size());
 }
 
 TEST(TDynamicMatrix, can_set_and_get_element)
+{
+	TDynamicMatrix<int> m(2);
+	
+	ASSERT_NO_THROW(m[1][1] = 1);;
+}
+
+TEST(TDynamicMatrix, can_set_and_get_element_correct)
 {
 	TDynamicMatrix<int> m(2);
 	m[1][1] = 1;
@@ -67,18 +86,21 @@ TEST(TDynamicMatrix, can_set_and_get_element)
 TEST(TDynamicMatrix, throws_when_set_element_with_negative_index)
 {
 	TDynamicMatrix<int> m(2);
+	
 	ASSERT_ANY_THROW(m.at(- 1,1) = 2);
 }
 
 TEST(TDynamicMatrix, throws_when_set_element_with_too_large_index)
 {
 	TDynamicMatrix<int> m(2);
+	
 	ASSERT_ANY_THROW(m.at(5, 2) = 2);
 }
 
 TEST(TDynamicMatrix, can_assign_matrix_to_itself)
 {
 	TDynamicMatrix<int> m(2);
+	
 	ASSERT_NO_THROW(m = m);
 }
 
