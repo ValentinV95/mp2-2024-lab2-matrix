@@ -42,35 +42,56 @@ TEST(TDynamicVector, copied_vector_has_its_own_memory)
 	v1[0] = 1;
 	v1[1] = 3;
 	v1[2] = 5;
-
+	
 	TDynamicVector<int> v2(v1);
-
-	EXPECT_NE(&v1, &v2);
+	v2[0] = 2;
+	v2[1] = 4;
+	v2[2] = 6;
+	
+	EXPECT_EQ(v1[0], 1);
+	EXPECT_EQ(v2[0], 2);
 }
 
 TEST(TDynamicVector, can_get_size)
 {
 	TDynamicVector<int> v(4);
+	
+	ASSERT_NO_THROW(v.size());
+}
+
+TEST(TDynamicVector, can_get_size_correct)
+{
+	TDynamicVector<int> v(4);
+
 	EXPECT_EQ(4, v.size());
 }
 
 TEST(TDynamicVector, can_set_and_get_element)
 { 
 	TDynamicVector<int> v(4);
-	v[0] = 4;
 	
+	ASSERT_NO_THROW(v[0] = 4);
+}
+
+TEST(TDynamicVector, can_set_and_get_element_correct)
+{
+	TDynamicVector<int> v(4);
+	v[0] = 4;
+
 	EXPECT_EQ(4, v[0]);
 }
 
 TEST(TDynamicVector, throws_when_set_element_with_negative_index)
 {
 	TDynamicVector<int> v(4);
+	
 	ASSERT_ANY_THROW(v.at(-1) = 3);
 }
 
 TEST(TDynamicVector, throws_when_set_element_with_too_large_index)
 {
 	TDynamicVector<int> v(4);
+	
 	ASSERT_ANY_THROW(v.at(5) = 3);
 }
 
@@ -320,7 +341,7 @@ TEST(TDynamicVector, can_multiply_vectors_with_equal_size)
 	TDynamicVector<int> v1(3);
 	TDynamicVector<int> v2(3);
 	
-	ASSERT_NO_THROW(v2 * v1);
+	ASSERT_NO_THROW(v1 * v2);
 }
 
 TEST(TDynamicVector, can_multiply_vectors_with_equal_size_correct)
