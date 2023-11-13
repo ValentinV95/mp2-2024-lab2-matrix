@@ -53,18 +53,12 @@ TEST(TDynamicMatrix, copied_matrix_has_its_own_memory)
 TEST(TDynamicMatrix, can_get_size)
 {
 	TDynamicMatrix<int> a(5);
-	ASSERT_NO_THROW(a.size());
-}
-
-TEST(TDynamicMatrix, matrix_returned_size_is_correct)
-{
-	TDynamicMatrix<int> a(5);
 	EXPECT_EQ(a.size(), 5);
 }
 
 TEST(TDynamicMatrix, can_set_and_get_element)
 {
-	int a = rand() % 8;
+	int a = rand() % 8 + 1;
 	TDynamicMatrix<int> mat1(2);
 	ASSERT_NO_THROW(mat1[0][0] = a);
 	ASSERT_NO_THROW(mat1[0][0]);
