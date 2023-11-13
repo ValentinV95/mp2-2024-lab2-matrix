@@ -250,11 +250,11 @@ public:
   }
 
   // матрично-скалярные операции
-  TDynamicVector<T> operator*(const T& val)
+  TDynamicMatrix<T> operator*(const T& val)
   {
       TDynamicMatrix<T> tmp(sz);
       for (int i = 0; i < sz; i++) {
-          tmp.pMem[i] = pMem[i] * val;
+          tmp[i] = pMem[i] * val;
       }
       return tmp;
   }
@@ -262,10 +262,10 @@ public:
   // матрично-векторные операции
   TDynamicVector<T> operator*(const TDynamicVector<T>& v)
   {
-      if (sz != v.sz) throw logic_error("Matrix and vector must be equal size");
+      if (sz != v.size()) throw logic_error("Matrix and vector must be equal size");
       TDynamicVector<T> tmp(sz);
       for (int i = 0; i < sz; i++) {
-          tmp.pMem[i] = pMem[i] * v;
+          tmp[i] = pMem[i] * v;
       }
       return tmp;
   }

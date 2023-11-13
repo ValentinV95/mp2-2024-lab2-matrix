@@ -45,8 +45,11 @@ TEST(TDynamicVector, copied_vector_has_its_own_memory)
     ASSERT_NE(p,p1);
    
 }
-
-TEST(TDynamicVector, can_get_size)
+TEST(TDynamicVector, can_get_size) {
+    TDynamicVector<int> v(4);
+    ASSERT_NO_THROW(v.size());
+}
+TEST(TDynamicVector, size_is_right)
 {
   TDynamicVector<int> v(4);
 
@@ -59,7 +62,19 @@ TEST(TDynamicVector, can_set_and_get_element)
   v[0] = 4;
   EXPECT_EQ(4, v[0]);
 }
-
+TEST(TDynamicVector, can_move_vectors) {
+    TDynamicVector<int> v(4);
+    TDynamicVector<int> v1(5);
+    ASSERT_NO_THROW(v = std::move(v1));
+}
+TEST(TDynamicVector, move_vectors_is_correct) {
+    TDynamicVector<int> v(4);
+    TDynamicVector<int> v1(5);
+    TDynamicVector<int> expect(5);
+    expect = v1;
+    v = std::move(v1);
+    EXPECT_EQ(v, expect);
+}
 TEST(TDynamicVector, throws_when_set_element_with_negative_index)
 {
     TDynamicVector<int> v(5);
@@ -80,6 +95,13 @@ TEST(TDynamicVector, can_assign_vector_to_itself)
     ASSERT_NO_THROW(v = v);
     
 }
+TEST(TDynamicVector, assignment_vector_to_itself_is_correct)
+{
+    TDynamicVector<int> v(5);
+    v = v;
+    EXPECT_EQ(v, v);
+
+}
 
 TEST(TDynamicVector, can_assign_vectors_of_equal_size)
 {
@@ -87,6 +109,15 @@ TEST(TDynamicVector, can_assign_vectors_of_equal_size)
     TDynamicVector<int> v1(5);
     ASSERT_NO_THROW(v = v1);
     
+}
+
+TEST(TDynamicVector, assignment_vectors_of_equal_size_is_correct)
+{
+    TDynamicVector<int> v(5);
+    TDynamicVector<int> v1(5);
+    v = v1;
+    EXPECT_EQ(v, v1);
+
 }
 
 TEST(TDynamicVector, assign_operator_change_vector_size) 
@@ -104,6 +135,14 @@ TEST(TDynamicVector, can_assign_vectors_of_different_size)
     TDynamicVector<int> v1(10);
     ASSERT_NO_THROW(v = v1);
     
+}
+TEST(TDynamicVector, assignment_vectors_of_different_size_is_correct)
+{
+    TDynamicVector<int> v(5);
+    TDynamicVector<int> v1(10);
+    v = v1;
+    EXPECT_EQ(v, v1);
+
 }
 
 TEST(TDynamicVector, compare_equal_vectors_return_true)
@@ -136,6 +175,16 @@ TEST(TDynamicVector, vectors_with_different_size_are_not_equal)
 TEST(TDynamicVector, can_add_scalar_to_vector)
 {
     TDynamicVector<int> v(5);
+    for (int i = 0; i < 5; i++) {
+        v[i] = i;
+    }
+    ASSERT_NO_THROW(v+6);
+
+}
+
+TEST(TDynamicVector, addition_scalar_to_vector_is_correct)
+{
+    TDynamicVector<int> v(5);
     TDynamicVector<int> v1(5);
     for (int i = 0; i < 5; i++) {
         v[i] = i;
@@ -145,8 +194,16 @@ TEST(TDynamicVector, can_add_scalar_to_vector)
     EXPECT_EQ(v, v1);
     
 }
-
 TEST(TDynamicVector, can_subtract_scalar_from_vector)
+{
+    TDynamicVector<int> v(5);
+    for (int i = 0; i < 5; i++) {
+        v[i] = i;
+    }
+    ASSERT_NO_THROW(v-6);
+
+}
+TEST(TDynamicVector, subtraction_scalar_from_vector_is_correct)
 {
     TDynamicVector<int> v(5);
     TDynamicVector<int> v1(5);
@@ -162,6 +219,17 @@ TEST(TDynamicVector, can_subtract_scalar_from_vector)
 TEST(TDynamicVector, can_multiply_scalar_by_vector)
 {
     TDynamicVector<int> v(5);
+    for (int i = 0; i < 5; i++) {
+        v[i] = i;
+    }
+    ASSERT_NO_THROW(v*6);
+
+
+}
+
+TEST(TDynamicVector, multiplication_scalar_by_vector_is_correct)
+{
+    TDynamicVector<int> v(5);
     TDynamicVector<int> v1(5);
     for (int i = 0; i < 5; i++) {
         v[i] = i;
@@ -174,6 +242,18 @@ TEST(TDynamicVector, can_multiply_scalar_by_vector)
 }
 
 TEST(TDynamicVector, can_add_vectors_with_equal_size)
+{
+    TDynamicVector<int> v(5);
+    TDynamicVector<int> v1(5);
+    for (int i = 0; i < 5; i++) {
+        v[i] = i;
+        v1[i] = 2 * i;
+    }
+    ASSERT_NO_THROW(v + v1);
+
+}
+
+TEST(TDynamicVector, additoin_vectors_with_equal_size_is_correct)
 {
     TDynamicVector<int> v(5);
     TDynamicVector<int> v1(5);
@@ -205,6 +285,16 @@ TEST(TDynamicVector, can_subtract_vectors_with_equal_size)
 {
     TDynamicVector<int> v(5);
     TDynamicVector<int> v1(5);
+    for (int i = 0; i < 5; i++) {
+        v[i] = 5 * i;
+        v1[i] = 2 * i;
+    }
+    ASSERT_NO_THROW(v - v1);
+}
+TEST(TDynamicVector, subtraction_vectors_with_equal_size_is_correct)
+{
+    TDynamicVector<int> v(5);
+    TDynamicVector<int> v1(5);
     TDynamicVector<int> res(5);
     for (int i = 0; i < 5; i++) {
         v[i] = 5*i;
@@ -228,8 +318,19 @@ TEST(TDynamicVector, cant_subtract_vectors_with_not_equal_size)
     ASSERT_ANY_THROW(v - v1);
     
 }
-
 TEST(TDynamicVector, can_multiply_vectors_with_equal_size)
+{
+
+    TDynamicVector<int> v(5);
+    TDynamicVector<int> v1(5);
+    for (int i = 0; i < 5; i++) {
+        v[i] = 3 * i;
+        v1[i] = 2 * i;
+    }
+    ASSERT_NO_THROW(v * v1);
+
+}
+TEST(TDynamicVector, multiplication_vectors_with_equal_size_is_correct)
 {
 
     TDynamicVector<int> v(5);
