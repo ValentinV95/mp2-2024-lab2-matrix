@@ -57,7 +57,8 @@ TEST(TDynamicMatrix, can_set_and_get_element)
 TEST(TDynamicMatrix, throws_when_set_element_with_negative_index)
 {
     TDynamicMatrix<int> m(4);
-    ASSERT_ANY_THROW(m.at(-2,-1));
+    ASSERT_ANY_THROW(m.at(2,-1));
+    ASSERT_ANY_THROW(m.at(-2,1));
 }
 
 TEST(TDynamicMatrix, throws_when_set_element_with_too_large_index)

@@ -89,9 +89,8 @@ TEST(TDynamicVector, correctly_assign_vectors_of_equal_size)
         v[i] = i;
     }
     TDynamicVector<int> v2(10);
-    for (int i = 0; i< 10;i++){
-        EXPECT_EQ(i, v2[i]);
-    }
+    v = v2;
+    EXPECT_EQ(v,v2);
 
 }
 
