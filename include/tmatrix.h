@@ -31,6 +31,7 @@ public:
   }
   TDynamicVector(T* arr, size_t s) : sz(s)
   {
+    if ((sz==0)||sz> MAX_VECTOR_SIZE) throw out_of_range("Vector size should be greater than zero and less than 100000000");
     assert(arr != nullptr && "TDynamicVector ctor requires non-nullptr arg");
     pMem = new T[sz];
     copy(arr, arr + sz, pMem);
@@ -73,23 +74,23 @@ public:
   size_t size() const noexcept { return sz; }
 
   // индексация
-  T& operator[](size_t ind)
+  T& operator[](int ind)
   {
       return pMem[ind];
   }
-  const T& operator[](size_t ind) const
+  const T& operator[](int ind) const
   {
       return pMem[ind];
   }
   // индексация с контролем
-  T& at(size_t ind)
+  T& at(int ind)
   {
       if ((ind >= 0) && (ind < sz)) {
           return pMem[ind];
       }
       throw out_of_range("index should be greater than zero and less than 100000000");
   }
-  const T& at(size_t ind) const
+  const T& at(int ind) const
   {
       if ((ind >= 0) && (ind < sz)) {
           return pMem[ind];
