@@ -52,9 +52,9 @@ TEST(TDynamicVector, can_get_size)
 TEST(TDynamicVector, can_set_and_get_element)
 {
   TDynamicVector<int> v(4);
-  ASSERT_NO_THROW(v[0] = 4);
-  v[0] = 4;
-  EXPECT_EQ(4, v[0]);
+  ASSERT_NO_THROW(v.at(0) = 4);
+  v.at(0) = 4;
+  EXPECT_EQ(4, v.at(0));
 }
 
 TEST(TDynamicVector, throws_when_set_element_with_negative_index)
@@ -80,6 +80,19 @@ TEST(TDynamicVector, can_assign_vectors_of_equal_size)
     TDynamicVector<int> v(10);
     TDynamicVector<int> v2(10);
     ASSERT_NO_THROW(v = v2);
+}
+
+TEST(TDynamicVector, correctly_assign_vectors_of_equal_size)
+{
+    TDynamicVector<int> v(10);
+    for(int i = 0; i< 10;i++){
+        v[i] = i;
+    }
+    TDynamicVector<int> v2(10);
+    for (int i = 0; i< 10;i++){
+        EXPECT_EQ(i, v2[i]);
+    }
+
 }
 
 TEST(TDynamicVector, assign_operator_change_vector_size)

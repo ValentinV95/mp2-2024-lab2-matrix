@@ -20,13 +20,14 @@ TEST(TDynamicMatrix, throws_when_create_matrix_with_negative_length)
 TEST(TDynamicMatrix, can_create_copied_matrix)
 {
   TDynamicMatrix<int> m(2);
-  TDynamicMatrix<int> m1(m);
   ASSERT_NO_THROW(TDynamicMatrix<int> m2(m));
 }
 
 TEST(TDynamicMatrix, copied_matrix_is_equal_to_source_one)
 {
     TDynamicMatrix<int> m(2);
+    m[0] = 1;
+    m[1] = 2;
     TDynamicMatrix<int> m1(m);
     EXPECT_EQ(m, m1);
 }
@@ -62,7 +63,8 @@ TEST(TDynamicMatrix, throws_when_set_element_with_negative_index)
 TEST(TDynamicMatrix, throws_when_set_element_with_too_large_index)
 {
     TDynamicMatrix<int> m(4);
-    ASSERT_ANY_THROW(m.at(5,7));
+    ASSERT_ANY_THROW(m.at(3,7));
+    ASSERT_ANY_THROW(m.at(7,3));
 }
 
 TEST(TDynamicMatrix, can_assign_matrix_to_itself)
@@ -135,6 +137,20 @@ TEST(TDynamicMatrix, matrices_with_different_size_are_not_equal)
 {
     TDynamicMatrix<int> m(3);
     TDynamicMatrix<int> m1(5);
+    int c = 0;
+    for (int i = 0; i< m.size(); i++){
+        for (int j = 0; j < m.size(); j++){
+            m[i][j] = c;
+            m1[i][j] = c;
+            c++;
+        }
+    }
+    for (int i = m.size(); i< m1.size(); i++){
+        for (int j = m.size(); j< m1.size(); j++){
+            m1[i][j] = c;
+            c++;
+        }
+    }
     EXPECT_EQ(false, m1==m);
 }
 
