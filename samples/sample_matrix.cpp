@@ -6,12 +6,16 @@
 
 #include <iostream>
 #include "tmatrix.h"
+#include <string>
 //---------------------------------------------------------------------------
 
 template<typename T>
 void Asker(TDynamicMatrix<T> &to) {
     int buf;
     cin >> buf;
+    if (cin.fail()) {
+        throw invalid_argument("Not number");
+    }
     to = TDynamicMatrix<T>(buf);
     cout << "Введите элементы матрицы слева направо сверху вниз: " << endl;
     cin >> to;
@@ -23,6 +27,7 @@ void main()
     TDynamicMatrix<int> c;
     setlocale(LC_ALL, "Russian");
     char buf = '\0';
+    string err_bufer;
     char ops;
     cout << "Тестирование класс работы с матрицами" << endl;
     do {
@@ -34,6 +39,12 @@ void main()
         }
         catch (const out_of_range &e) {
             cout << "Exception: " << e.what() << endl;
+            continue;
+        }
+        catch (const invalid_argument &e) {
+            cout << "Exception: " << e.what() << endl;
+            cin.clear();
+            getline(cin, err_bufer);
             continue;
         }
         cout << "Matrix a = " << endl << a;
@@ -62,6 +73,8 @@ void main()
         cout << "Matrix c = a " << ops << " b:" << endl << c;
         cout << "Продолжить? (Нет - n/N)" << endl;
         cin >> buf;
+        cin.clear();
+        getline(cin, err_bufer);
     } while (buf != 'n' && buf != 'N');
 }
 //---------------------------------------------------------------------------
