@@ -16,80 +16,17 @@ void main()
     size_t n;
     char operation;
     cout << "Введите желаемую операцию:\n";
-    cout << "1. Сложение векторов\n";
-    cout << "2. Вычитание векторов\n";
-    cout << "3. Скалярное произведение\n";
-    cout << "4. Умножение матрицы на вектор\n";
-    cout << "5. Умножение матрицы на скаляр\n";
-    cout << "6. Сложение матриц\n";
-    cout << "7. Вычитание матриц\n";
-    cout << "8. Умножение матриц\n";
+    cout << "1. Умножение матрицы на вектор\n";
+    cout << "2. Умножение матрицы на скаляр\n";
+    cout << "3. Сложение матриц\n";
+    cout << "4. Вычитание матриц\n";
+    cout << "5. Умножение матриц\n";
     cout << "Выбор: ";
     cin >> operation;
 
     switch (operation)
     {
     case '1':
-    {
-        try
-        {
-            cout << "Введите размер векторов для счета";
-            cin >> n;
-            TDynamicVector<double> a(n), b(n);
-            cout << "Введите вектор 1 для счета построчно";
-            cin >> a;
-            cout << "Введите вектор 2 для счета построчно";
-            cin >> b;
-
-            cout << "c = a + b\n" << a + b;
-        }
-        catch (exception& e) {
-            cout << "error: " << e.what() << endl;
-            break;
-        }
-        break;
-    }
-    case '2':
-    {
-        try
-        {
-            cout << "Введите размер векторов для счета";
-            cin >> n;
-            TDynamicVector<double> a(n), b(n);
-            cout << "Введите вектор 1 для счета построчно";
-            cin >> a;
-            cout << "Введите вектор 2 для счета построчно";
-            cin >> b;
-
-            cout << "c = a - b\n" << a - b;
-        }
-        catch (exception& e) {
-            cout << "error: " << e.what() << endl;
-            break;
-        }
-        break;
-    }
-    case '3':
-    {
-        try
-        {
-            cout << "Введите размер векторов для счета";
-            cin >> n;
-            TDynamicVector<double> a(n), b(n);
-            cout << "Введите вектор 1 для счета построчно";
-            cin >> a;
-            cout << "Введите вектор 2 для счета построчно";
-            cin >> b;
-
-            cout << "c = (a, b)\n" << a * b;
-        }
-        catch (exception& e) {
-            cout << "error: " << e.what() << endl;
-            break;
-        }
-        break;
-    }
-    case '4':
     {
         try
         {
@@ -111,7 +48,7 @@ void main()
         break;
     }
    
-    case '5':
+    case '2':
     {
         try
         {
@@ -132,7 +69,7 @@ void main()
         }
         break;
     }
-    case '6':
+    case '3':
     {
         try
         {
@@ -152,7 +89,7 @@ void main()
         }
         break;
     }
-    case '7':
+    case '4':
     {
         try
         {
@@ -172,7 +109,7 @@ void main()
         }
         break;
     }
-    case '8':
+    case '5':
     {
         try
         {
