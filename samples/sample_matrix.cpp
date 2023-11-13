@@ -26,33 +26,16 @@ void main()
 			cout << "Выберите действие:\n(+) Сложить две матрицы\n(-) Вычесть две матрицы\n(*) Умножить две матрицы\n(q) Выйти\n";
 			cin >> inp;
 
-			if (inp.length() > 1)
-			{
-				// предотвращаем попадание неправильного ввода в inp
-				// например, когда пользователь ввёл строку вида "a a a a a a a"
-				cin.clear();
-				getline(cin, buff_to_ignore);
-				throw invalid_argument("Неверный ввод.");
-			}
+			if (inp.length() > 1) throw invalid_argument("Неверный ввод.");
 
 			if (inp[0] == 'q') break;
 			else if (inp[0] == '+' || inp[0] == '-' || inp[0] == '*') action = inp[0];
-			else
-			{
-				cin.clear();
-				getline(cin, buff_to_ignore);
-				throw invalid_argument("Неверный ввод.");
-			}
+			else throw invalid_argument("Неверный ввод.");
 
 			cin.clear();
 			getline(cin, buff_to_ignore);
 			cout << "Введите размер матриц.\n";
-			if (!(cin >> sz))
-			{
-				cin.clear();
-				getline(cin, buff_to_ignore);
-				throw invalid_argument("Неверный ввод.");
-			}
+			if (!(cin >> sz)) throw invalid_argument("Неверный ввод.");
 
 			cin.clear();
 			getline(cin, buff_to_ignore);
@@ -86,8 +69,12 @@ void main()
 		catch (const exception& e)
 		{
 			cerr << e.what() << endl;
+
+			// предотвращаем попадание неправильного ввода в inp
+			// например, когда пользователь ввёл строку вида "a a a a a a a"
 			cin.clear();
 			getline(cin, buff_to_ignore);
+			continue;
 		}
 
 		cout << "Конец работы? (y/Y/д/Д)\n";
