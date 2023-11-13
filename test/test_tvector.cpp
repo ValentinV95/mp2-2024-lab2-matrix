@@ -61,11 +61,9 @@ TEST(TDynamicVector, copied_vector_is_equal_to_source_one)
 
 TEST(TDynamicVector, copied_vector_has_its_own_memory)
 {
-	TDynamicVector<int>* v1 = new TDynamicVector<int>(20);
-	TDynamicVector<int>* v2 = new TDynamicVector<int>(*v1);
-
-	delete v1;
-	ASSERT_NO_THROW(delete v2);
+	TDynamicVector<int> v1(20);
+	TDynamicVector<int> v2(v1);
+	EXPECT_FALSE(&v1[0] == &v2[0]);
 }
 
 TEST(TDynamicVector, can_get_size)

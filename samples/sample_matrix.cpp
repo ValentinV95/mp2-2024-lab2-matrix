@@ -13,7 +13,8 @@ void main()
 {
 	size_t sz = 0;
 	char action = 0;
-	std::string inp = "";
+	string inp = "";
+	string buff_to_ignore = "";
 
 	setlocale(LC_ALL, "Russian");
 	cout << "Матричный калькулятор.\n";
@@ -28,9 +29,8 @@ void main()
 			if (inp.length() > 1)
 			{
 				// предотвращаем попадание неправильного ввода в inp
-				// например, когда пользователь ввёл строка вида "a a a a a a a"
+				// например, когда пользователь ввёл строку вида "a a a a a a a"
 				cin.clear();
-				string buff_to_ignore;
 				getline(cin, buff_to_ignore);
 				throw invalid_argument("Неверный ввод.");
 			}
@@ -40,25 +40,32 @@ void main()
 			else
 			{
 				cin.clear();
-				string buff_to_ignore;
 				getline(cin, buff_to_ignore);
 				throw invalid_argument("Неверный ввод.");
 			}
 
+			cin.clear();
+			getline(cin, buff_to_ignore);
 			cout << "Введите размер матриц.\n";
 			if (!(cin >> sz))
 			{
 				cin.clear();
-				string buff_to_ignore;
 				getline(cin, buff_to_ignore);
 				throw invalid_argument("Неверный ввод.");
 			}
 
+			cin.clear();
+			getline(cin, buff_to_ignore);
 			TDynamicMatrix<double> m1(sz), m2(sz);
 			cout << "Введите матрицу A:\n";
 			cin >> m1;
+			cin.clear();
+			getline(cin, buff_to_ignore);
+
 			cout << "Введите матрицу B:\n";
 			cin >> m2;
+			cin.clear();
+			getline(cin, buff_to_ignore);
 
 			switch (action)
 			{
@@ -79,12 +86,13 @@ void main()
 		catch (const exception& e)
 		{
 			cerr << e.what() << endl;
+			cin.clear();
+			getline(cin, buff_to_ignore);
 		}
 
 		cout << "Конец работы? (y/Y/д/Д)\n";
 		cin >> action;
 		cin.clear();
-		string buff_to_ignore;
 		getline(cin, buff_to_ignore);
 	} while (action != 'y' && action != 'Y' && action != 'д' && action != 'Д');
 }

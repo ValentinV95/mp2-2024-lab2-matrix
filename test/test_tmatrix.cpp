@@ -36,11 +36,9 @@ TEST(TDynamicMatrix, copied_matrix_is_equal_to_source_one)
 
 TEST(TDynamicMatrix, copied_matrix_has_its_own_memory)
 {
-	TDynamicMatrix<int>* m1 = new TDynamicMatrix<int>(2);
-	TDynamicMatrix<int>* m2 = new TDynamicMatrix<int>(*m1);
-
-	delete m1;
-	ASSERT_NO_THROW(delete m2);
+	TDynamicMatrix<int> m1(20);
+	TDynamicMatrix<int> m2(m1);
+	EXPECT_FALSE(&m1[0] == &m2[0]);
 }
 
 TEST(TDynamicMatrix, can_get_size)
