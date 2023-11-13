@@ -52,6 +52,7 @@ public:
     ~TDynamicVector() {
         delete[]pMem;
         sz = 0;
+        pMem = nullptr;
     }
 
     TDynamicVector &operator=(const TDynamicVector &v)  //оператор присваивания
