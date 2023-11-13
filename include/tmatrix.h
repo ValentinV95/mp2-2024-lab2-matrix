@@ -49,6 +49,7 @@ public:
   ~TDynamicVector()
   {
       delete[] pMem;
+      pMem = nullptr;
   }
   TDynamicVector& operator=(const TDynamicVector& v)
   {
@@ -193,7 +194,7 @@ class TDynamicMatrix : private TDynamicVector<TDynamicVector<T>>
 public:
   TDynamicMatrix(size_t s = 1) : TDynamicVector<TDynamicVector<T>>(s)
   {
-    if (s>MAX_MATRIX_SIZE) throw out_of_range("Matrix size should be greater than zero and less than 10000");
+    if ((s>MAX_MATRIX_SIZE)||(s==0)) throw out_of_range("Matrix size should be greater than zero and less than 10000");
     for (size_t i = 0; i < sz; i++)
       pMem[i] = TDynamicVector<T>(sz);
   }
