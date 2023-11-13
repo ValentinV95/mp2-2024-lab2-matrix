@@ -208,7 +208,7 @@ public:
     size_t size() const noexcept { return sz; }  //вернуть размер
 
     T &at(size_t ind, size_t ind2) {
-        if ((ind >= sz || ind2>=sz) && (ind < 0 || ind2 < 0)) { throw out_of_range("index can't be less than 0 or greater than vector siz"); }
+        if (ind >= sz || ind2>=sz || ind < 0 || ind2 < 0) { throw out_of_range("index can't be less than 0 or greater than vector siz"); }
         return pMem[ind][ind2];
     }
 
