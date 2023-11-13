@@ -8,6 +8,7 @@
 #define __TDynamicMatrix_H__
 
 #include <iostream>
+#include <assert.h>
 
 using namespace std;
 
@@ -31,8 +32,8 @@ public:
 
     TDynamicVector(T* arr, size_t s) : sz(s)
     {
-        if (arr == nullptr) throw std::invalid_argument("arr should not be nullptr");
         if (sz == 0 || sz > MAX_VECTOR_SIZE) throw out_of_range("sz should not be equal to zero or greater than MAX_VECTOR_SIZE");
+        assert(arr != nullptr && "TDynamicVector requires non-nullptr arg");
         pMem = new T[sz];
         copy(arr, arr + sz, pMem);
     }

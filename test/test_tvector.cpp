@@ -34,7 +34,7 @@ TEST(TDynamicVector, vector_from_pointer_has_right_values)
 
 TEST(TDynamicVector, cant_create_vector_from_nullptr)
 {
-	ASSERT_ANY_THROW(TDynamicVector<int> v(nullptr, 34734));
+	ASSERT_DEATH(TDynamicVector<int> v(nullptr, 34734), "");
 }
 
 TEST(TDynamicVector, cant_bypass_maxvectorsize_by_passing_wrong_ptr_size)
