@@ -25,14 +25,16 @@ protected:
 public:
   TDynamicVector(size_t size = 1) : sz(size)
   {
-      if (sz <= 0 || sz > MAX_VECTOR_SIZE)
+      if (sz == 0 || sz > MAX_VECTOR_SIZE)
           throw invalid_argument("Vector size should be greater than zero and less than max vector size");
     
     pMem = new T[sz]();// {}; // У типа T д.б. констуктор по умолчанию
   }
   TDynamicVector(T* arr, size_t s) : sz(s)
   {
-      assert(arr != nullptr && "TDynamicVector ctor requires non-nullptr arg");
+    assert(arr != nullptr && "TDynamicVector ctor requires non-nullptr arg");
+    if (sz == 0 || sz > MAX_VECTOR_SIZE)
+        throw invalid_argument("Vector size should be greater than zero and less than max vector size");
     pMem = new T[sz];
     std::copy(arr, arr + sz, pMem);
   }
@@ -90,13 +92,13 @@ public:
       return pMem[ind];
   }
   // индексация с контролем
-  T& at(size_t ind)
+  T& at(int ind)
   {
       if (ind < 0 || ind >= sz)
           throw out_of_range("Index should be between 0 and size of vector");
       return pMem[ind];
   }
-  const T& at(size_t ind) const
+  const T& at(int ind) const
   {
       if (ind < 0 || ind >= sz)
           throw out_of_range("Index should be between 0 and size of vector");
@@ -208,7 +210,7 @@ class TDynamicMatrix : private TDynamicVector<TDynamicVector<T>>
 public:
   TDynamicMatrix(size_t s = 1) : TDynamicVector<TDynamicVector<T>>(s)
   {
-      if (s > MAX_MATRIX_SIZE || s <= 0)
+      if (s > MAX_MATRIX_SIZE || s == 0)
           throw invalid_argument("Matrix size should be greater than zero and less than max matrix size");
       for (size_t i = 0; i < sz; i++)
       pMem[i] = TDynamicVector<T>(sz);
@@ -218,13 +220,13 @@ public:
   using TDynamicVector<TDynamicVector<T>>::size;
   using TDynamicVector<TDynamicVector<T>>::operator=;
 
-  T& at(size_t ind1,size_t ind2)
+  T& at(int ind1,int ind2)
   {
       if (ind1 < 0 || ind1 >= sz || ind2 < 0 || ind2 >= sz)
           throw out_of_range("Index should be between 0 and size of vector");
       return pMem[ind1][ind2];
   }
-  const T& at(size_t ind1, size_t ind2) const
+  const T& at(int ind1, int ind2) const
   {
       if (ind1 < 0 || ind1 >= sz || ind2 < 0 || ind2 >= sz)
           throw out_of_range("Index should be between 0 and size of vector");
