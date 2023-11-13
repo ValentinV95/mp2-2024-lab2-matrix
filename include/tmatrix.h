@@ -45,12 +45,14 @@ public:
   TDynamicVector(TDynamicVector&& v) noexcept
   {
       pMem = nullptr;
+      sz = 0;
       swap(*this, v);
   }
   ~TDynamicVector()
   {
       sz = 0;
       delete[] pMem;
+      pMem = nullptr;
   }
   TDynamicVector& operator=(const TDynamicVector& v)
   {
@@ -69,6 +71,9 @@ public:
   }
   TDynamicVector& operator=(TDynamicVector&& v) noexcept
   {
+      delete[] pMem;
+      pMem = nullptr;
+      sz = 0;
       swap(*this,v);
       return *this;
   }
