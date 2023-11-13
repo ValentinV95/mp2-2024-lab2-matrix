@@ -31,102 +31,166 @@ void main()
     {
     case '1':
     {
-        cout << "Введите размер векторов для счета";
-        cin >> n;
-        TDynamicVector<double> a(n), b(n);
-        cout << "Введите вектор 1 для счета построчно";
-        cin >> a;
-        cout << "Введите вектор 2 для счета построчно";
-        cin >> b;
+        try
+        {
+            cout << "Введите размер векторов для счета";
+            cin >> n;
+            TDynamicVector<double> a(n), b(n);
+            cout << "Введите вектор 1 для счета построчно";
+            cin >> a;
+            cout << "Введите вектор 2 для счета построчно";
+            cin >> b;
 
-        cout << "c = a + b\n" << a + b;
+            cout << "c = a + b\n" << a + b;
+        }
+        catch (exception& e) {
+            cout << "error: " << e.what() << endl;
+            break;
+        }
+        break;
     }
     case '2':
     {
-        cout << "Введите размер векторов для счета";
-        cin >> n;
-        TDynamicVector<double> a(n), b(n);
-        cout << "Введите вектор 1 для счета построчно";
-        cin >> a;
-        cout << "Введите вектор 2 для счета построчно";
-        cin >> b;
+        try
+        {
+            cout << "Введите размер векторов для счета";
+            cin >> n;
+            TDynamicVector<double> a(n), b(n);
+            cout << "Введите вектор 1 для счета построчно";
+            cin >> a;
+            cout << "Введите вектор 2 для счета построчно";
+            cin >> b;
 
-        cout << "c = a - b\n" << a - b;
+            cout << "c = a - b\n" << a - b;
+        }
+        catch (exception& e) {
+            cout << "error: " << e.what() << endl;
+            break;
+        }
+        break;
     }
     case '3':
     {
-        cout << "Введите размер векторов для счета";
-        cin >> n;
-        TDynamicVector<double> a(n), b(n);
-        cout << "Введите вектор 1 для счета построчно";
-        cin >> a;
-        cout << "Введите вектор 2 для счета построчно";
-        cin >> b;
+        try
+        {
+            cout << "Введите размер векторов для счета";
+            cin >> n;
+            TDynamicVector<double> a(n), b(n);
+            cout << "Введите вектор 1 для счета построчно";
+            cin >> a;
+            cout << "Введите вектор 2 для счета построчно";
+            cin >> b;
 
-        cout << "c = (a, b)\n" << a * b;
+            cout << "c = (a, b)\n" << a * b;
+        }
+        catch (exception& e) {
+            cout << "error: " << e.what() << endl;
+            break;
+        }
+        break;
     }
     case '4':
     {
-        cout << "Введите размер матрицы и вектора для счета";
-        cin >> n;
-        TDynamicMatrix<double> A(n);
-        cout << "Введите матрицу для счета построчно";
-        cin >> A;
-        TDynamicVector<double> b(n);
-        cout << "Введите вектор для счета построчно";
-        cin >> b;
+        try
+        {
+            cout << "Введите размер матрицы и вектора для счета";
+            cin >> n;
+            TDynamicMatrix<double> A(n);
+            cout << "Введите матрицу для счета построчно";
+            cin >> A;
+            TDynamicVector<double> b(n);
+            cout << "Введите вектор для счета построчно";
+            cin >> b;
 
-        cout << "C = A * b\n" << A * b;
+            cout << "C = A * b\n" << A * b;
+        }
+        catch (exception& e) {
+            cout << "error: " << e.what() << endl;
+            break;
+        }
+        break;
     }
    
     case '5':
     {
-        cout << "Введите размер матриц для счета";
-        cin >> n;
-        TDynamicMatrix<double> A(n);
-        double scalar;
-        cout << "Введите матрицу для счета построчно";
-        cin >> A;
-        cout << "Введите скаляр";
-        cin >> scalar;
+        try
+        {
+            cout << "Введите размер матриц для счета";
+            cin >> n;
+            TDynamicMatrix<double> A(n);
+            double scalar;
+            cout << "Введите матрицу для счета построчно";
+            cin >> A;
+            cout << "Введите скаляр";
+            cin >> scalar;
 
-        cout << "B = A * scalar\n" << A * scalar;
+            cout << "B = A * scalar\n" << A * scalar;
+        }
+        catch (exception& e) {
+            cout << "error: " << e.what() << endl;
+            break;
+        }
+        break;
     }
     case '6':
     {
-        cout << "Введите размер матриц для счета";
-        cin >> n;
-        TDynamicMatrix<double> A(n), B(n);
-        cout << "Введите матрицу 1 для счета построчно";
-        cin >> A;
-        cout << "Введите матрицу 2 для счета построчно";
-        cin >> B;
+        try
+        {
+            cout << "Введите размер матриц для счета";
+            cin >> n;
+            TDynamicMatrix<double> A(n), B(n);
+            cout << "Введите матрицу 1 для счета построчно";
+            cin >> A;
+            cout << "Введите матрицу 2 для счета построчно";
+            cin >> B;
 
-        cout << "C = A + B\n" << A + B;
+            cout << "C = A + B\n" << A + B;
+        }
+        catch (exception& e) {
+            cout << "error: " << e.what() << endl;
+            break;
+        }
+        break;
     }
     case '7':
     {
-        cout << "Введите размер матриц для счета";
-        cin >> n;
-        TDynamicMatrix<double> A(n), B(n);
-        cout << "Введите матрицу 1 для счета построчно";
-        cin >> A;
-        cout << "Введите матрицу 2 для счета построчно";
-        cin >> B;
+        try
+        {
+            cout << "Введите размер матриц для счета";
+            cin >> n;
+            TDynamicMatrix<double> A(n), B(n);
+            cout << "Введите матрицу 1 для счета построчно";
+            cin >> A;
+            cout << "Введите матрицу 2 для счета построчно";
+            cin >> B;
 
-        cout << "C = A - B\n" << A - B;
+            cout << "C = A - B\n" << A - B;
+        }
+        catch (exception& e) {
+            cout << "error: " << e.what() << endl;
+            break;
+        }
+        break;
     }
     case '8':
     {
-        cout << "Введите размер матриц для счета";
-        cin >> n;
-        TDynamicMatrix<double> A(n), B(n);
-        cout << "Введите матрицу 1 для счета построчно";
-        cin >> A;
-        cout << "Введите матрицу 2 для счета построчно";
-        cin >> B;
+        try
+        {
+            cout << "Введите размер матриц для счета";
+            cin >> n;
+            TDynamicMatrix<double> A(n), B(n);
+            cout << "Введите матрицу 1 для счета построчно";
+            cin >> A;
+            cout << "Введите матрицу 2 для счета построчно";
+            cin >> B;
 
-        cout << "C = A * B\n" << A * B;
+            cout << "C = A * B\n" << A * B;
+        }
+        catch (exception& e) {
+            cout << "error: " << e.what() << endl;
+            break;
+        }
+        break;
     }
     }
 
