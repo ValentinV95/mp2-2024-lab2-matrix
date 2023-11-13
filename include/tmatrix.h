@@ -18,14 +18,14 @@ public:
     TDynamicVector(size_t size = 1) : sz(size)
     {
         if ((sz == 0) || (sz > MAX_VECTOR_SIZE))
-            throw out_of_range("Error, vector size should be greater than zero and not exceed MAX_VECTOR_SIZE");
+            throw out_of_range("Vector size should be greater than zero");
         pMem = new T[sz]();
         // {}; // У типа T д.б. констуктор по умолчанию
     }
     TDynamicVector(T* arr, size_t s) : sz(s)
     {
         if ((sz == 0) || (sz > MAX_VECTOR_SIZE))
-            throw out_of_range("Error, vector size should be greater than zero and not exceed MAX_VECTOR_SIZE");
+            throw out_of_range("Vector size should be greater than zero");
 
         assert(arr != nullptr && "TDynamicVector ctor requires non-nullptr arg");
         pMem = new T[sz];
@@ -87,13 +87,13 @@ public:
     T& at(size_t ind)
     {
         if (ind >= sz)
-            throw out_of_range("Error, index is out of range of the vector size");
+            throw out_of_range("index is out of range");
         return pMem[ind];
     }
     const T& at(size_t ind) const
     {
         if (ind >= sz)
-            throw out_of_range("Error, index is out of range of the vector size");
+            throw out_of_range("index is out of range");
         return pMem[ind];
     }
 
@@ -138,7 +138,7 @@ public:
     TDynamicVector operator+(const TDynamicVector& v)
     {
         if (sz != v.sz)
-            throw invalid_argument("Error, vectors have different sizes");
+            throw invalid_argument("invalid argument");
 
         TDynamicVector tmp(sz);
         for (int i = 0; i < sz; i++)
@@ -148,7 +148,7 @@ public:
     TDynamicVector operator-(const TDynamicVector& v)
     {
         if (sz != v.sz)
-            throw invalid_argument("Error, vectors have different sizes");
+            throw invalid_argument("invalid argument");
 
         TDynamicVector tmp(sz);
         for (int i = 0; i < sz; i++)
@@ -158,7 +158,7 @@ public:
     T operator*(const TDynamicVector& v)
     {
         if (sz != v.sz)
-            throw invalid_argument("Error, vectors have different sizes");
+            throw invalid_argument("invalid argument");
 
         T tmp = 0;
         for (size_t i = 0; i < sz; i++)
@@ -199,7 +199,7 @@ public:
     TDynamicMatrix(size_t s = 1) : TDynamicVector<TDynamicVector<T>>(s)
     {
         if (sz <= 0 || sz > MAX_MATRIX_SIZE)
-            throw out_of_range("Vector size should be greater than zero and less than MAX_MATRIX_SIZE");
+            throw out_of_range("Vector size should be greater than zero");
         for (size_t i = 0; i < sz; i++)
             pMem[i] = TDynamicVector<T>(sz);
     }
@@ -209,7 +209,7 @@ public:
     T& at(size_t n, size_t m)
     {
         if ((n >= sz) || (m >= sz))
-            throw out_of_range("Error, one of index is out of range of the matrix size");
+            throw out_of_range("out of range");
 
         return pMem[n][m];
     }
@@ -217,7 +217,7 @@ public:
     const T& at(size_t n, size_t m) const
     {
         if ((n >= sz) || (m >= sz))
-            throw out_of_range("Error, one of index is out of range of the matrix size");
+            throw out_of_range("out of range");
 
         return pMem[n][m];
     }
@@ -249,7 +249,7 @@ public:
     TDynamicVector<T> operator*(const TDynamicVector<T>& v)
     {
         if (sz != v.size())
-            throw invalid_argument("Error, matrix and vector have different sizes");
+            throw invalid_argument("invalid argument");
         TDynamicVector<T> tmp(sz);
         for (int i = 0; i < sz; i++)
             tmp[i] = pMem[i] * v;
@@ -260,7 +260,7 @@ public:
     TDynamicMatrix operator+(const TDynamicMatrix& m)
     {
         if (sz != m.sz)
-            throw invalid_argument("Error, matrices have different sizes");
+            throw invalid_argument("invalid argument");
         TDynamicMatrix tmp(sz);
         for (int i = 0; i < sz; i++)
             tmp.pMem[i] = pMem[i] + m.pMem[i];
@@ -269,7 +269,7 @@ public:
     TDynamicMatrix operator-(const TDynamicMatrix& m)
     {
         if (sz != m.sz)
-            throw invalid_argument("Error, matrices have different sizes");
+            throw invalid_argument("invalid argument");
         TDynamicMatrix tmp(sz);
         for (int i = 0; i < sz; i++)
             tmp.pMem[i] = pMem[i] - m.pMem[i];
@@ -278,7 +278,7 @@ public:
     TDynamicMatrix operator*(const TDynamicMatrix& m)
     {
         if (sz != m.sz)
-            throw invalid_argument("Error, matrices have different sizes");
+            throw invalid_argument("invalid argument");
         TDynamicMatrix tmp(sz);
         for (int i = 0; i < sz; i++)
             for (int j = 0; j < sz; j++)
