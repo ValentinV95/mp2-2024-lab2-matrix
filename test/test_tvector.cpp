@@ -134,7 +134,7 @@ TEST(TDynamicVector, compare_equal_vectors_return_true)
 	TDynamicVector<int> v2(3);
 	v2 = v1;
 
-	EXPECT_TRUE(v1 == v2);
+	EXPECT_EQ(v1 == v2, true);
 }
 
 TEST(TDynamicVector, compare_vector_with_itself_return_true)
@@ -144,7 +144,7 @@ TEST(TDynamicVector, compare_vector_with_itself_return_true)
 	v[1] = 3;
 	v[2] = 5;
 
-	EXPECT_TRUE(v == v);
+	EXPECT_EQ(v == v, true);
 }
 
 TEST(TDynamicVector, vectors_with_different_size_are_not_equal)
@@ -152,7 +152,7 @@ TEST(TDynamicVector, vectors_with_different_size_are_not_equal)
 	TDynamicVector<int> v1(3);
 	TDynamicVector<int> v2(5);
 
-	EXPECT_NE(v1, v2);
+	EXPECT_EQ(v1 == v2, false);
 }
 
 TEST(TDynamicVector, can_add_scalar_to_vector)
@@ -281,3 +281,44 @@ TEST(TDynamicVector, cant_multiply_vectors_with_not_equal_size)
 	ASSERT_ANY_THROW(v1 * v2);
 }
 
+TEST(TDynamicVector, can_swap_vectors_with_equal_size)
+{
+	TDynamicVector<int> v1(2);
+	v1[0] = 1;
+	v1[1] = 3;
+	
+	TDynamicVector<int> v2(2);
+	v2[0] = 2;
+	v2[1] = 4;
+	
+	swap(v1, v2);
+	
+	EXPECT_EQ(2, v1.size());
+	EXPECT_EQ(2, v2.size());
+	EXPECT_EQ(v2[0], 1);
+	EXPECT_EQ(v2[1], 3);
+	EXPECT_EQ(v1[0], 2);
+	EXPECT_EQ(v1[1], 4);
+}
+
+TEST(TDynamicVector, can_swap_vectors_with_not_equal_size)
+{
+	TDynamicVector<int> v1(2);
+	v1[0] = 1;
+	v1[1] = 3;
+
+	TDynamicVector<int> v2(3);
+	v2[0] = 2;
+	v2[1] = 4;
+	v2[2] = 6;
+
+	swap(v1, v2);
+
+	EXPECT_EQ(3, v1.size());
+	EXPECT_EQ(2, v2.size());
+	EXPECT_EQ(v2[0], 1);
+	EXPECT_EQ(v2[1], 3);
+	EXPECT_EQ(v1[0], 2);
+	EXPECT_EQ(v1[1], 4);
+	EXPECT_EQ(v1[2], 6);
+}
