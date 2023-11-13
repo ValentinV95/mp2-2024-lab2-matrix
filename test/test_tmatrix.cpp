@@ -31,9 +31,9 @@ TEST(TDynamicMatrix, copied_matrix_is_equal_to_source_one)
 	m1[0][1] = 4;
 	m1[1][0] = 6;
 	m1[1][1] = 8;
-
+	
 	TDynamicMatrix<int> m2(m1);
-
+	
 	EXPECT_EQ(m1, m2);
 }
 
@@ -142,7 +142,7 @@ TEST(TDynamicMatrix, compare_equal_matrices_return_true)
 	TDynamicMatrix<int> m2(2);
 	m2 = m1;
 
-	EXPECT_TRUE(m1 == m2);
+	EXPECT_EQ(m1 == m2, true);
 }
 
 TEST(TDynamicMatrix, compare_matrix_with_itself_return_true)
@@ -153,7 +153,7 @@ TEST(TDynamicMatrix, compare_matrix_with_itself_return_true)
 	m[1][0] = 5;
 	m[1][1] = 7;
 
-	EXPECT_TRUE(m == m);
+	EXPECT_EQ(m == m, true);
 }
 
 TEST(TDynamicMatrix, matrices_with_different_size_are_not_equal)
@@ -161,7 +161,7 @@ TEST(TDynamicMatrix, matrices_with_different_size_are_not_equal)
 	TDynamicMatrix<int> m1(2);
 	TDynamicMatrix<int> m2(5);
 
-	EXPECT_NE(m1, m2);
+	EXPECT_EQ(m1 == m2, false);
 }
 
 TEST(TDynamicMatrix, can_multiply_scalar_by_matrix)
@@ -180,6 +180,32 @@ TEST(TDynamicMatrix, can_multiply_scalar_by_matrix)
 	m2[1][1] = 14;
 
 	EXPECT_EQ(m1, m2);
+}
+
+TEST(TDynamicMatrix, can_multiply_matrix_by_vector_with_equal_size)
+{
+	TDynamicMatrix<int> m(2);
+	m[0][0] = 1;
+	m[0][1] = 3;
+	m[1][0] = 5;
+	m[1][1] = 7;
+	
+	TDynamicVector<int> v(2);
+	v[0] = 2;
+	v[1] = 4;
+
+	TDynamicVector<int> res(2);
+	res = m * v;
+
+	EXPECT_EQ(res, m * v);
+}
+
+TEST(TDynamicMatrix, cant_multiply_matrix_by_vector_with_not_equal_size)
+{
+	TDynamicMatrix<int> m(2);
+	TDynamicVector<int> v(5);
+
+	ASSERT_ANY_THROW(m * v);
 }
 
 TEST(TDynamicMatrix, can_add_matrices_with_equal_size)
