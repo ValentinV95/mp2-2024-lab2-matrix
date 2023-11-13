@@ -281,8 +281,8 @@ public:
             throw invalid_argument("invalid argument");
         TDynamicMatrix tmp(sz);
         for (int i = 0; i < sz; i++)
-            for (int j = 0; j < sz; j++)
-                for (int k = 0; k < sz; k++)
+            for (int k = 0; k < sz; j++)
+                for (int j = 0; j < sz; k++)
                     tmp.pMem[i][j] += pMem[i][k] * m.pMem[k][j];
         return tmp;
     }
