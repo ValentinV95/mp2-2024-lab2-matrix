@@ -256,7 +256,7 @@ TEST(TDynamicMatrix, can_subtract_matrices_with_equal_size)
 	EXPECT_EQ(m3, m1 - m2);
 }
 
-TEST(TDynamicMatrix, cant_subtract_matrixes_with_not_equal_size)
+TEST(TDynamicMatrix, cant_subtract_matrices_with_not_equal_size)
 {
 	TDynamicMatrix<int> m1(2);
 	TDynamicMatrix<int> m2(5);
