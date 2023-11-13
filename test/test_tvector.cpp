@@ -28,8 +28,10 @@ TEST(TDynamicVector, copied_vector_is_equal_to_source_one)
 {
 	TDynamicVector<int> v(2);
 	v[0] = 17;
+	v[1] = 17;
 	TDynamicVector<int> v_copy(v);
 	EXPECT_EQ(v_copy[0], 17);
+	EXPECT_EQ(v_copy[1], 17);
 }
 
 TEST(TDynamicVector, copied_vector_has_its_own_memory)
@@ -76,13 +78,15 @@ TEST(TDynamicVector, can_assign_vector_to_itself)
 
 TEST(TDynamicVector, correct_assign_vectors_of_equal_size)
 {
-	TDynamicVector<int> v1(5);
-	TDynamicVector<int> v2(5);
-	v1[3] = 7;
-	v2[4] = 8;
+	TDynamicVector<int> v1(2);
+	TDynamicVector<int> v2(2);
+	v1[0] = 7;
+	v1[1] = 5;
+	v2[1] = 8;
 	v2 = v1;
-	EXPECT_NE(v2[4], 8);
-	EXPECT_EQ(v1[3], v2[3]);
+	EXPECT_EQ(v1[0], v2[0]);
+	EXPECT_EQ(v1[1], v2[1]);
+
 }
 
 TEST(TDynamicVector, can_assign_vectors_of_equal_size)
@@ -111,15 +115,15 @@ TEST(TDynamicVector, can_assign_vectors_of_different_size_without_throw)
 
 TEST(TDynamicVector, can_assign_vectors_of_different_size_correct)
 {
-	TDynamicVector<int> v1(5);
-	TDynamicVector<int> v2(7);
-	v1[3] = 7;
-	v2[4] = 8;
+	TDynamicVector<int> v1(2);
+	TDynamicVector<int> v2(3);
+	v1[0] = 7;
+	v1[1] = 5;
+	v2[0] = 8;
 	v2 = v1;
-	EXPECT_NE(v2[4], 8);
-	EXPECT_EQ(v1[3], v2[3]);
-
-}
+	EXPECT_EQ(v1[0], v2[0]);
+	EXPECT_EQ(v1[1], v2[1]);
+	}
 
 TEST(TDynamicVector, compare_equal_vectors_return_true)
 {
@@ -159,7 +163,8 @@ TEST(TDynamicVector, correct_add_scalar_to_vector)
 	TDynamicVector<int> v2(2);
 	v2[0] = 12;
 	v2[1] = 5;
-	EXPECT_EQ(v1, v2);
+	EXPECT_EQ(v1[0], v2[0]);
+	EXPECT_EQ(v1[1], v2[1]);
 }
 
 TEST(TDynamicVector, can_subtract_scalar_to_vector)
@@ -177,7 +182,8 @@ TEST(TDynamicVector, correct_subtract_scalar_from_vector)
 	TDynamicVector<int> v2(2);
 	v2[0] = 2;
 	v2[1] = -5;
-	EXPECT_EQ(v1, v2);
+	EXPECT_EQ(v1[0], v2[0]);
+	EXPECT_EQ(v1[1], v2[1]);
 }
 
 TEST(TDynamicVector, can_multiply_scalar_to_vector)
@@ -195,7 +201,8 @@ TEST(TDynamicVector, correct_multiply_scalar_by_vector)
 	TDynamicVector<int> v2(2);
 	v2[0] = 35;
 	v2[1] = 0;
-	EXPECT_EQ(v1, v2);
+	EXPECT_EQ(v1[0], v2[0]);
+	EXPECT_EQ(v1[1], v2[1]);
 }
 
 TEST(TDynamicVector, can_add_vectors_with_equal_size)
