@@ -96,7 +96,7 @@ public:
         return pMem[ind];
     }
 
-    const T &at(size_t ind) const {
+    const T &at(int ind) const {
         if (ind < 0 || ind >= sz) { throw out_of_range("index can't be less than 0 or greater than vector siz"); }
         return pMem[ind];
     }
