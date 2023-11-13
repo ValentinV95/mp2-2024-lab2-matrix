@@ -55,26 +55,12 @@ TEST(TDynamicVector, copied_vector_has_its_own_memory)
 TEST(TDynamicVector, can_get_size)
 {
 	TDynamicVector<int> v(4);
-	
-	ASSERT_NO_THROW(v.size());
-}
-
-TEST(TDynamicVector, can_get_size_correct)
-{
-	TDynamicVector<int> v(4);
 
 	EXPECT_EQ(4, v.size());
 }
 
 TEST(TDynamicVector, can_set_and_get_element)
 { 
-	TDynamicVector<int> v(4);
-	
-	ASSERT_NO_THROW(v[0] = 4);
-}
-
-TEST(TDynamicVector, can_set_and_get_element_correct)
-{
 	TDynamicVector<int> v(4);
 	v[0] = 4;
 
