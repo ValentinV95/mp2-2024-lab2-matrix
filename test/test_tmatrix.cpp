@@ -42,13 +42,8 @@ TEST(TDynamicMatrix, copied_matrix_has_its_own_memory)
     EXPECT_NE(m, m1);
 
 }
-TEST(TDynamicMatrix, can_get_size)
-{
-    TDynamicMatrix<int> m(5);
-    ASSERT_NO_THROW(m.size());
 
-}
-TEST(TDynamicMatrix, get_size_is_correct)
+TEST(TDynamicMatrix, can_get_size_correct)
 {
     TDynamicMatrix<int> m(5);
     EXPECT_EQ(m.size(), 5);

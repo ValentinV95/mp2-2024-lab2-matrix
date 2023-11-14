@@ -45,11 +45,8 @@ TEST(TDynamicVector, copied_vector_has_its_own_memory)
     ASSERT_NE(p,p1);
    
 }
-TEST(TDynamicVector, can_get_size) {
-    TDynamicVector<int> v(4);
-    ASSERT_NO_THROW(v.size());
-}
-TEST(TDynamicVector, size_is_right)
+
+TEST(TDynamicVector, can_get_size_correct)
 {
   TDynamicVector<int> v(4);
 
@@ -62,12 +59,8 @@ TEST(TDynamicVector, can_set_and_get_element)
   v[0] = 4;
   EXPECT_EQ(4, v[0]);
 }
-TEST(TDynamicVector, can_move_vectors) {
-    TDynamicVector<int> v(4);
-    TDynamicVector<int> v1(5);
-    ASSERT_NO_THROW(v = std::move(v1));
-}
-TEST(TDynamicVector, move_vectors_is_correct) {
+
+TEST(TDynamicVector, can_move_vectors_correct) {
     TDynamicVector<int> v(4);
     TDynamicVector<int> v1(5);
     TDynamicVector<int> expect(5);
@@ -94,13 +87,6 @@ TEST(TDynamicVector, can_assign_vector_to_itself)
     TDynamicVector<int> v(5);
     ASSERT_NO_THROW(v = v);
     
-}
-TEST(TDynamicVector, assignment_vector_to_itself_is_correct)
-{
-    TDynamicVector<int> v(5);
-    v = v;
-    EXPECT_EQ(v, v);
-
 }
 
 TEST(TDynamicVector, can_assign_vectors_of_equal_size)

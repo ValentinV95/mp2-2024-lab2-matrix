@@ -31,9 +31,11 @@ public:
   }
   TDynamicVector(T* arr, size_t s) : sz(s)
   {
-    assert(arr != nullptr && "TDynamicVector ctor requires non-nullptr arg");
-    pMem = new T[sz];
-    std::copy(arr, arr + sz, pMem);
+      if (sz <= 0 || sz > MAX_VECTOR_SIZE)
+          throw out_of_range("Vector size should be greater than zero and less than MAX_VECTOR_SIZE");
+      assert(arr != nullptr && "TDynamicVector ctor requires non-nullptr arg");
+      pMem = new T[sz];
+      std::copy(arr, arr + sz, pMem);
   }
   TDynamicVector(const TDynamicVector& v)
   {
@@ -69,6 +71,7 @@ public:
       }
       return *this;
   }
+  
   TDynamicVector& operator=(TDynamicVector&& v) noexcept
   {
       if (*this == v) return *this;
@@ -79,25 +82,26 @@ public:
       v.sz = 0;
       return *this;
   }
+  
 
   size_t size() const noexcept { return sz; }
 
   // индексация
-  T& operator[](size_t ind)
+  T& operator[](int ind)
   {
       return pMem[ind];
   }
-  const T& operator[](size_t ind) const
+  const T& operator[](int ind) const
   {
       return pMem[ind];
   }
   // индексация с контролем
-  T& at(size_t ind)
+  T& at(int ind)
   {
       if ((ind >= 0) && (ind < sz)) return pMem[ind];
       else throw logic_error(" the index must be non-negative and smaller than the size of the vector");
   }
-  const T& at(size_t ind) const
+  const T& at(int ind) const
   {
       if ((ind >= 0) && (ind < sz)) return pMem[ind];
       else throw logic_error("the index must be non-negative and smaller than the size of the vector ");
@@ -222,12 +226,12 @@ public:
   }
 
   using TDynamicVector<TDynamicVector<T>>::operator[];
-  T& at(size_t i, size_t j)
+  T& at(int i, int j)
   {
       if (((i >= 0) && (i < sz)) && ((j >= 0) && (j < sz))) return pMem[i][j];
       else throw logic_error("the index must be non-negative and smaller than the size of the matrix ");
   }
-  const T& at(size_t i, size_t j) const
+  const T& at(int i, int j) const
   {
       if (((i >= 0) && (i < sz)) && ((j >= 0) && (j < sz))) return pMem[i][j];
       else throw logic_error("the index must be non-negative and smaller than the size of the matrix ");
