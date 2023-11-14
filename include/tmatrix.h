@@ -64,8 +64,8 @@ public:
         if (sz != v.sz) 
         {
             sz = v.sz;
-            delete[] pMem;
             pMem = new T[sz]();
+            delete[] pMem;
         }
         for (int i = 0; i < sz; i++) 
         {
@@ -75,9 +75,6 @@ public:
     }
     TDynamicVector& operator=(TDynamicVector&& v) noexcept
     {
-        if (*this == v) 
-            return *this;
-        delete[] pMem;
         sz = v.sz;
         pMem = v.pMem;
         v.pMem = nullptr;
@@ -137,7 +134,7 @@ public:
         }
         return res;
     }
-    TDynamicVector operator-(double val)
+    TDynamicVector operator-(T val)
     {
         TDynamicVector<T> res(sz);
         for (int i = 0; i < sz; i++)
@@ -146,7 +143,7 @@ public:
         }
         return res;
     }
-    TDynamicVector operator*(double val)
+    TDynamicVector operator*(T val)
     {
         TDynamicVector<T> res(sz);
         for (int i = 0; i < sz; i++) 
@@ -179,7 +176,7 @@ public:
         }
         return res;
     }
-    T operator*(const TDynamicVector& v) noexcept(noexcept(T()))
+    T operator*(const TDynamicVector& v)
     {
         if (sz != v.sz)
             throw invalid_argument("Vectors should have same sizes");
@@ -260,7 +257,7 @@ public:
     }
 
     // матрично-скалярные операции
-    TDynamicVector<T> operator*(const T& val)
+    TDynamicMatrix<T> operator*(const T& val)
     {
         TDynamicMatrix<T> res(sz);
         for (int i = 0; i < sz; i++)
