@@ -17,7 +17,9 @@ int main()
     cout << "5. Умножение матрицы на константу" << endl;
     cin >> n;
     size_t size = 0;
-    if (n == 1)
+    switch(n)
+ {
+     case 1:
     {
         cout << "Введите размер матриц:" << endl;
         cin >> size;
@@ -29,8 +31,9 @@ int main()
         cin >> B;
         cout << "Результат:" << endl;
         cout << A + B << endl;
+        break;
     }
-    if (n == 2)
+     case 2:
     {
         cout << "Введите размер матриц:" << endl;
         cin >> size;
@@ -42,8 +45,9 @@ int main()
         cin >> B;
         cout << "Результат:" << endl;
         cout << A - B << endl;
+        break;
     }
-    if (n == 3)
+     case 3:
     {
         cout << "Введите размер матриц:" << endl;
         cin >> size;
@@ -55,8 +59,9 @@ int main()
         cin >> B;
         cout << "Результат:" << endl;
         cout << A * B << endl;
+        break;
     }
-    if (n == 4)
+     case 4:
     {
         cout << "Введите размер матрицы и вектора:" << endl;
         cin >> size;
@@ -68,8 +73,9 @@ int main()
         cin >> b;
         cout << "Результат:" << endl;
         cout << A * b << endl;
+        break;
     }
-    if (n == 5)
+     case 5:
     {
         cout << "Введите размер матрицы" << endl;
         cin >> size;
@@ -81,5 +87,8 @@ int main()
         cin >> constanta;
         cout << "Результат:" << endl;
         cout << A * constanta << endl;
+        break;
     }
+  }   
+ return 0;
 }
