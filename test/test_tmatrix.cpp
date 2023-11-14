@@ -29,10 +29,10 @@ TEST(TDynamicMatrix, can_create_copied_matrix)
 TEST(TDynamicMatrix, copied_matrix_is_equal_to_source_one)
 {
 	TDynamicMatrix<int> m(2);
-	m1[0][0] = 1; 
-	m1[0][1] = 2; 
-	m1[1][0] = 3; 
-	m1[1][1] = 4;
+	m[0][0] = 1; 
+	m[0][1] = 2; 
+	m[1][0] = 3; 
+	m[1][1] = 4;
 	TDynamicMatrix<int> m1(m);
 	EXPECT_EQ(m, m1);
 }
