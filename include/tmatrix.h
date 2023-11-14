@@ -178,7 +178,7 @@ public:
         if (sz != v.sz) {
             throw out_of_range("not equal sizes");
         }
-        T tmp = 0;
+        T tmp = {};
         for (size_t i = 0; i < sz; i++) {
             tmp += pMem[i] * v.pMem[i];
         }
