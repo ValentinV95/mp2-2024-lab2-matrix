@@ -28,7 +28,11 @@ TEST(TDynamicMatrix, can_create_copied_matrix)
 
 TEST(TDynamicMatrix, copied_matrix_is_equal_to_source_one)
 {
-	TDynamicMatrix<int> m(5);
+	TDynamicMatrix<int> m(2);
+	m1[0][0] = 1; 
+	m1[0][1] = 2; 
+	m1[1][0] = 3; 
+	m1[1][1] = 4;
 	TDynamicMatrix<int> m1(m);
 	EXPECT_EQ(m, m1);
 }
@@ -75,7 +79,10 @@ TEST(TDynamicMatrix, can_assign_matrix_to_itself)
 	m[1][0] = 3;
 	m[1][1] = 4;
 	m = m;
-	EXPECT_EQ(m, m);
+	EXPECT_EQ(m[0][0], 1);
+	EXPECT_EQ(m[0][1], 2);
+	EXPECT_EQ(m[1][0], 3);
+	EXPECT_EQ(m[1][1], 4);
 }
 
 TEST(TDynamicMatrix, can_assign_matrices_of_equal_size)
@@ -145,7 +152,7 @@ TEST(TDynamicMatrix, matrices_with_different_size_are_not_equal)
 
 TEST(TDynamicMatrix, can_add_matrices_with_equal_size)
 {
-	DynamicMatrix<int> m1(2);
+	TDynamicMatrix<int> m1(2);
 	m1[0][0] = 1;
 	m1[0][1] = 2;
 	m1[1][0] = 3;
@@ -157,7 +164,10 @@ TEST(TDynamicMatrix, can_add_matrices_with_equal_size)
 	m2[1][1] = 8;
 	TDynamicMatrix<int> m3(2);
 	m3 = m1 + m2;
-	EXPECT_EQ(m3, m1 + m2);
+	EXPECT_EQ(m3[0][0], 6);
+	EXPECT_EQ(m3[0][1], 8);
+	EXPECT_EQ(m3[1][0], 10);
+	EXPECT_EQ(m3[1][1], 12);
 }
 
 TEST(TDynamicMatrix, cant_add_matrices_with_not_equal_size)
@@ -169,7 +179,7 @@ TEST(TDynamicMatrix, cant_add_matrices_with_not_equal_size)
 
 TEST(TDynamicMatrix, can_subtract_matrices_with_equal_size)
 {
-	DynamicMatrix<int> m1(2);
+	TDynamicMatrix<int> m1(2);
 	m1[0][0] = 1;
 	m1[0][1] = 2;
 	m1[1][0] = 3;
@@ -181,7 +191,10 @@ TEST(TDynamicMatrix, can_subtract_matrices_with_equal_size)
 	m2[1][1] = 8;
 	TDynamicMatrix<int> m3(2);
 	m3 = m2 - m1;
-	EXPECT_EQ(m3, m2 - m1);
+	EXPECT_EQ(m3[0][0], 4);
+	EXPECT_EQ(m3[0][1], 4);
+	EXPECT_EQ(m3[1][0], 4);
+	EXPECT_EQ(m3[1][1], 4);
 }
 
 TEST(TDynamicMatrix, cant_subtract_matrixes_with_not_equal_size)
@@ -193,7 +206,7 @@ TEST(TDynamicMatrix, cant_subtract_matrixes_with_not_equal_size)
 
 TEST(TDynamicMatrix, can_multiply_matrices_with_equal_size)
 {
-	DynamicMatrix<int> m1(2);
+	TDynamicMatrix<int> m1(2);
 	m1[0][0] = 1;
 	m1[0][1] = 2;
 	m1[1][0] = 3;
@@ -205,12 +218,15 @@ TEST(TDynamicMatrix, can_multiply_matrices_with_equal_size)
 	m2[1][1] = 8;
 	TDynamicMatrix<int> m3(2);
 	m3 = m1 * m2;
-	EXPECT_EQ(m3, m1 * m2);
+	EXPECT_EQ(m3[0][0], 5);
+	EXPECT_EQ(m3[0][1], 12);
+	EXPECT_EQ(m3[1][0], 21);
+	EXPECT_EQ(m3[1][1], 32);
 }
 
 TEST(TDynamicMatrix, cant_multiply_matrices_with_not_equal_size)
 {
-	DynamicMatrix<int> m1(2);
+	TDynamicMatrix<int> m1(2);
 	TDynamicMatrix<int> m2(3);
 	ASSERT_ANY_THROW(m1 * m2);
 }
