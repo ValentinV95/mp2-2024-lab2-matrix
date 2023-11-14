@@ -109,15 +109,15 @@ TEST(TDynamicVector, can_assign_vectors_of_different_size)
 
 TEST(TDynamicVector, compare_equal_vectors_return_true)
 {
-	TDynamicVector<int> v(8);
-	TDynamicVector<int> v1(8);
-	v.at(2) = 1;
-	v.at(3) = 2;
-	v.at(7) = 3;
-	v1.at(2) = 1;
-	v1.at(3) = 2;
-	v1.at(7) = 3;
-	EXPECT_EQ(v == v1, true);
+	TDynamicVector<int> v1(8), v2(8);
+
+	for (int i = 0; i < 8; i++)
+	{
+		v1[i] = i;
+		v2[i] = i;
+	}
+
+	ASSERT_TRUE(v1 == v2);
 }
 
 TEST(TDynamicVector, compare_vector_with_itself_return_true)
