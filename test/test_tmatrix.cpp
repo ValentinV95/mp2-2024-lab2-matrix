@@ -215,6 +215,25 @@ TEST(TDynamicMatrix, compare_equal_matrices_return_true)
 	ASSERT_EQ(mat1, mat2);
 }
 
+TEST(TDynamicMatrix, inequality_of_equal_matrices_return_false)
+{
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rannum(20);
+	}
+	TDynamicMatrix<int> mat1(2);
+	mat1[0][0] = a[0];
+	mat1[0][1] = a[1];
+	mat1[1][0] = a[2];
+	mat1[1][1] = a[3];
+	TDynamicMatrix<int> mat2(2);
+	mat2[0][0] = a[0];
+	mat2[0][1] = a[1];
+	mat2[1][0] = a[2];
+	mat2[1][1] = a[3];
+	ASSERT_EQ(mat1 != mat2, false);
+}
+
 TEST(TDynamicMatrix, compare_matrix_with_itself_return_true)
 {
 	int a[4];
@@ -227,6 +246,20 @@ TEST(TDynamicMatrix, compare_matrix_with_itself_return_true)
 	mat1[1][0] = a[2];
 	mat1[1][1] = a[3];
 	EXPECT_EQ(mat1, mat1);
+}
+
+TEST(TDynamicMatrix, inequality_of_matrix_with_itself_return_false)
+{
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rannum(20);
+	}
+	TDynamicMatrix<int> mat1(2);
+	mat1[0][0] = a[0];
+	mat1[0][1] = a[1];
+	mat1[1][0] = a[2];
+	mat1[1][1] = a[3];
+	EXPECT_EQ(mat1 != mat1, false);
 }
 
 TEST(TDynamicMatrix, matrices_with_different_size_are_not_equal)
@@ -245,7 +278,26 @@ TEST(TDynamicMatrix, matrices_with_different_size_are_not_equal)
 	mat2[0][1] = a[1];
 	mat2[1][0] = a[2];
 	mat2[1][1] = a[3];
-	EXPECT_EQ(mat1 == mat2, 0);
+	EXPECT_EQ(mat1 == mat2, false);
+}
+
+TEST(TDynamicMatrix, matrices_with_different_size_are_not_equal_inequality_variant)
+{
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rannum(20);
+	}
+	TDynamicMatrix<int> mat1(2);
+	mat1[0][0] = a[0];
+	mat1[0][1] = a[1];
+	mat1[1][0] = a[2];
+	mat1[1][1] = a[3];
+	TDynamicMatrix<int> mat2(3);
+	mat2[0][0] = a[0];
+	mat2[0][1] = a[1];
+	mat2[1][0] = a[2];
+	mat2[1][1] = a[3];
+	EXPECT_EQ(mat1 != mat2, true);
 }
 
 TEST(TDynamicMatrix, can_add_matrices_with_equal_size)

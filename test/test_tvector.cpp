@@ -213,6 +213,17 @@ TEST(TDynamicVector, compare_equal_vectors_return_true)
 	ASSERT_EQ(v, v1);
 }
 
+TEST(TDynamicVector, inequality_of_equal_vectors_return_false)
+{
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rannum(10);
+	}
+	TDynamicVector<int> v(a, 4);
+	TDynamicVector<int> v1(a, 4);
+	ASSERT_EQ(v != v1, false);
+}
+
 TEST(TDynamicVector, compare_vector_with_itself_return_true)
 {
 	int a[4];
@@ -223,6 +234,16 @@ TEST(TDynamicVector, compare_vector_with_itself_return_true)
 	EXPECT_EQ(v, v);
 }
 
+TEST(TDynamicVector, inequality_of_vector_with_itself_return_false)
+{
+	int a[4];
+	for (size_t i = 0; i < 4; i++) {
+		a[i] = rannum(10);
+	}
+	TDynamicVector<int> v(a, 4);
+	EXPECT_EQ(v != v, false);
+}
+
 TEST(TDynamicVector, vectors_with_different_size_are_not_equal)
 {
 	int a[7];
@@ -231,7 +252,18 @@ TEST(TDynamicVector, vectors_with_different_size_are_not_equal)
 	}
 	TDynamicVector<int> v(a, 4);
 	TDynamicVector<int> v1(a, 7);
-	ASSERT_NE(v, v1);
+	ASSERT_EQ(v == v1, false);
+}
+
+TEST(TDynamicVector, vectors_with_different_size_are_not_equal_inequality_variant)
+{
+	int a[7];
+	for (size_t i = 0; i < 7; i++) {
+		a[i] = rannum(20);
+	}
+	TDynamicVector<int> v(a, 4);
+	TDynamicVector<int> v1(a, 7);
+	ASSERT_EQ(v != v1, true);
 }
 
 TEST(TDynamicVector, can_add_scalar_to_vector)
