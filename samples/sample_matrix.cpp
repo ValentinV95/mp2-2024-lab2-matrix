@@ -6,25 +6,75 @@
 
 #include <iostream>
 #include "tmatrix.h"
+#include <string>
 //---------------------------------------------------------------------------
+
+template<typename T>
+void Asker(TDynamicMatrix<T> &to) {
+    int buf;
+    cin >> buf;
+    if (cin.fail()) {
+        throw invalid_argument("Not number");
+    }
+    to = TDynamicMatrix<T>(buf);
+    cout << "Введите элементы матрицы слева направо сверху вниз: " << endl;
+    cin >> to;
+}
 
 void main()
 {
-  TDynamicMatrix<int> a(5), b(5), c(5);
-  int i, j;
-
-  setlocale(LC_ALL, "Russian");
-  cout << "Тестирование класс работы с матрицами"
-    << endl;
-  for (i = 0; i < 5; i++)
-    for (j = i; j < 5; j++ )
-    {
-      a[i][j] =  i * 10 + j;
-      b[i][j] = (i * 10 + j) * 100;
-    }
-  c = a + b;
-  cout << "Matrix a = " << endl << a << endl;
-  cout << "Matrix b = " << endl << b << endl;
-  cout << "Matrix c = a + b" << endl << c << endl;
+    TDynamicMatrix<int> a; TDynamicMatrix<int> b;
+    TDynamicMatrix<int> c;
+    setlocale(LC_ALL, "Russian");
+    char buf = '\0';
+    string err_bufer;
+    char ops;
+    cout << "Тестирование класс работы с матрицами" << endl;
+    do {
+        try {
+            cout << "Введите размер матрицы A: " << endl;
+            Asker(a);
+            cout << "Введите размер матрицы B: " << endl;
+            Asker(b);
+        }
+        catch (const out_of_range &e) {
+            cout << "Exception: " << e.what() << endl;
+            continue;
+        }
+        catch (const invalid_argument &e) {
+            cout << "Exception: " << e.what() << endl;
+            cin.clear();
+            getline(cin, err_bufer);
+            continue;
+        }
+        cout << "Matrix a = " << endl << a;
+        cout << "Matrix b = " << endl << b;
+        cout << "Введите операцию (+, -, *): " << endl;
+        cin >> ops;
+        try {
+            switch (ops) {
+            case '+':
+                c = a + b;
+                break;
+            case '-':
+                c = a - b;
+                break;
+            case '*':
+                c = a * b;
+                break;
+            default:
+                throw invalid_argument("Неверный ввод.");
+            }
+        }
+        catch (const exception &e) {
+            cout << "Exception: " << e.what() << endl;
+            continue;
+        }
+        cout << "Matrix c = a " << ops << " b:" << endl << c;
+        cout << "Продолжить? (Нет - n/N)" << endl;
+        cin >> buf;
+        cin.clear();
+        getline(cin, err_bufer);
+    } while (buf != 'n' && buf != 'N');
 }
 //---------------------------------------------------------------------------
