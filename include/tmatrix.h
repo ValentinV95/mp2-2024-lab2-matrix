@@ -210,6 +210,7 @@ public:
     
     using TDynamicVector<TDynamicVector<T>>::operator[];
     using TDynamicVector<TDynamicVector<T>>::size;
+    using TDynamicVector<TDynamicMatrix<T>>::operator=;
 
     // индексация с контролем
     T& at(size_t r, size_t c)
