@@ -6,25 +6,81 @@
 
 #include <iostream>
 #include "tmatrix.h"
+#include <string>
 //---------------------------------------------------------------------------
 
 void main()
 {
-  TDynamicMatrix<int> a(5), b(5), c(5);
-  int i, j;
+	size_t sz = 0;
+	char action = 0;
+	string inp = "";
+	string buff_to_ignore = "";
 
-  setlocale(LC_ALL, "Russian");
-  cout << "Тестирование класс работы с матрицами"
-    << endl;
-  for (i = 0; i < 5; i++)
-    for (j = i; j < 5; j++ )
-    {
-      a[i][j] =  i * 10 + j;
-      b[i][j] = (i * 10 + j) * 100;
-    }
-  c = a + b;
-  cout << "Matrix a = " << endl << a << endl;
-  cout << "Matrix b = " << endl << b << endl;
-  cout << "Matrix c = a + b" << endl << c << endl;
+	setlocale(LC_ALL, "Russian");
+	cout << "Матричный калькулятор.\n";
+
+	do
+	{
+		try
+		{
+			cout << "Выберите действие:\n(+) Сложить две матрицы\n(-) Вычесть две матрицы\n(*) Умножить две матрицы\n(q) Выйти\n";
+			cin >> inp;
+
+			if (inp.length() > 1) throw invalid_argument("Неверный ввод.");
+
+			if (inp[0] == 'q') break;
+			else if (inp[0] == '+' || inp[0] == '-' || inp[0] == '*') action = inp[0];
+			else throw invalid_argument("Неверный ввод.");
+
+			cin.clear();
+			getline(cin, buff_to_ignore);
+			cout << "Введите размер матриц.\n";
+			if (!(cin >> sz)) throw invalid_argument("Неверный ввод.");
+
+			cin.clear();
+			getline(cin, buff_to_ignore);
+			TDynamicMatrix<double> m1(sz), m2(sz);
+			cout << "Введите матрицу A:\n";
+			cin >> m1;
+			cin.clear();
+			getline(cin, buff_to_ignore);
+
+			cout << "Введите матрицу B:\n";
+			cin >> m2;
+			cin.clear();
+			getline(cin, buff_to_ignore);
+
+			switch (action)
+			{
+			case '+':
+				cout << "Результат:\n" << m1 + m2 << "\n";
+				break;
+			case '-':
+				cout << "Результат:\n" << m1 - m2 << "\n";
+				break;
+			case '*':
+				cout << "Результат:\n" << m1 * m2 << "\n";
+				break;
+			default:
+				break;
+			}
+		}
+
+		catch (const exception& e)
+		{
+			cerr << e.what() << endl;
+
+			// предотвращаем попадание неправильного ввода в inp
+			// например, когда пользователь ввёл строку вида "a a a a a a a"
+			cin.clear();
+			getline(cin, buff_to_ignore);
+			continue;
+		}
+
+		cout << "Конец работы? (y/Y/д/Д)\n";
+		cin >> action;
+		cin.clear();
+		getline(cin, buff_to_ignore);
+	} while (action != 'y' && action != 'Y' && action != 'д' && action != 'Д');
 }
 //---------------------------------------------------------------------------
