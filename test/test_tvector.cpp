@@ -144,7 +144,8 @@ TEST(TDynamicVector, can_add_scalar_to_vector)
 		b[i] = a[i] + c;
 	}
 	a = a + c;
-	EXPECT_EQ(b, a);
+	ASSERT_NO_THROW(a = a + c); 
+    	EXPECT_EQ(b, a);
 }
 
 TEST(TDynamicVector, can_subtract_scalar_from_vector)
@@ -154,9 +155,10 @@ TEST(TDynamicVector, can_subtract_scalar_from_vector)
 	int c = 5;
 	for (int i = 0; i < 4; i++) {
 		a[i] = rand();
-		b[i] = a[i] * c;
+		b[i] = a[i] - c;
 	}
-	a = a * c;
+	a = a - c;
+	ASSERT_NO_THROW(a = a - c); 
 	EXPECT_EQ(b, a);
 }
 
@@ -170,6 +172,7 @@ TEST(TDynamicVector, can_multiply_scalar_by_vector)
 		b[i] = a[i] * c;
 	}
 	a = a * c;
+	ASSERT_NO_THROW(a = a * c); 
 	EXPECT_EQ(b, a);
 }
 
