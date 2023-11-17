@@ -41,7 +41,7 @@ TEST(TDynamicVector, copied_vector_has_its_own_memory)
 	a[1] = 6;
 	a[2] = 37;
 	TDynamicVector<int> b(a);
-	EXPECT_NE(&a, &b);
+	EXPECT_NE(5, b[0]);
 }
 
 TEST(TDynamicVector, can_get_size)
