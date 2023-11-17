@@ -54,7 +54,7 @@ TEST(TDynamicMatrix, copied_matrix_has_its_own_memory)
 	A[2][1] = 8;
 	A[2][2] = 7952;
 	TDynamicMatrix<int> B(A);
-	EXPECT_NE(2, A[0][0]);
+	EXPECT_NE(2, B[0][0]);
 }
 
 TEST(TDynamicMatrix, can_get_size)
