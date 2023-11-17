@@ -1,30 +1,72 @@
-﻿// ННГУ, ИИТММ, Курс "Алгоритмы и структуры данных"
-//
-// Copyright (c) Сысоев А.В.
-//
-// Тестирование матриц
-
 #include <iostream>
 #include "tmatrix.h"
 //---------------------------------------------------------------------------
 
-void main()
+int main()
 {
-  TDynamicMatrix<int> a(5), b(5), c(5);
-  int i, j;
+    setlocale(LC_ALL, "Russian");
+    cout << "Тестирование класса работы с матрицами" << "\n" << "\n";
 
-  setlocale(LC_ALL, "Russian");
-  cout << "Тестирование класс работы с матрицами"
-    << endl;
-  for (i = 0; i < 5; i++)
-    for (j = i; j < 5; j++ )
+    int a;
+
+    size_t size = 0;
+    cout << "Введите размер матриц(вектора):" << "\n";
+    cin >> size;
+    TDynamicMatrix<double> A(size);
+    cout << "Введите элементы матрицы А:" << "\n";
+    cin >> A;
+   
+
+    cout << "Выберите матричную операцию:" << "\n";
+    cout << "1. Сложение двух матриц" << "\n" << "2. Разность двух матриц" << "\n" << "3. Умножение двух матриц" << "\n" << "4. Умножение матрицы на вектор" << "\n" << "5. Умножение матрицы на скаляр" << "\n";
+    cin >> a;
+    cout << "\n";
+    if (a == 1)
     {
-      a[i][j] =  i * 10 + j;
-      b[i][j] = (i * 10 + j) * 100;
+        TDynamicMatrix<double> B(size);
+        cout << "Введите элементы матрицы В:" << "\n";
+        cin >> B;
+        cout << "Ответ:" << "\n";
+        cout << A + B << "\n";
     }
-  c = a + b;
-  cout << "Matrix a = " << endl << a << endl;
-  cout << "Matrix b = " << endl << b << endl;
-  cout << "Matrix c = a + b" << endl << c << endl;
+
+    if (a == 2)
+    {
+        TDynamicMatrix<double> B(size);
+        cout << "Введите элементы матрицы В:" << "\n";
+        cin >> B;
+        cout << "Ответ:" << "\n";
+        cout << A - B << "\n";
+    }
+
+    if (a == 3)
+    {
+        TDynamicMatrix<double> B(size);
+        cout << "Введите элементы матрицы В:" << "\n";
+        cin >> B;
+        cout << A * B << "\n";
+    }
+
+    if (a == 4)
+    {
+      
+        TDynamicVector<double> b(size);
+        cout << "Введите элементы вектора:" << "\n";
+        cin >> b;
+
+        cout << "Ответ:" << "\n";
+        cout << A * b << "\n";
+    }
+
+    if (a == 5)
+    {
+        double skl = 0;
+        cout << "Введите скаляр:" << "\n";
+        cin >> skl;
+        cout << "Ответ:" << "\n";
+        cout << A * skl << "\n";
+    }
+
+    return 0;
+
 }
-//---------------------------------------------------------------------------
