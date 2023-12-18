@@ -86,9 +86,9 @@ public:
     {
         if (this == &v) return *this;
 
-        pMem = v.pMem;
+        std::swap(pMem, v.pMem);
 
-        sz = v.sz;
+        std::swap(sz, v.sz);
 
         return *this;
     }
