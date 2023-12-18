@@ -85,16 +85,10 @@ public:
     TDynamicVector& operator=(TDynamicVector&& v) noexcept
     {
         if (this == &v) return *this;
-        
-        delete[] pMem;
 
         pMem = v.pMem;
 
         sz = v.sz;
-
-        v.pMem = nullptr;
-
-        v.sz = 0;
 
         return *this;
     }
