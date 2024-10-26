@@ -8,6 +8,7 @@
 #define __TDynamicMatrix_H__
 
 #include <iostream>
+#include <cassert>
 
 using namespace std;
 
@@ -200,12 +201,19 @@ public:
             pMem[i] = TDynamicVector<T>(sz);
     }
 
+    using TDynamicVector<TDynamicVector<T>>::size;
     using TDynamicVector<TDynamicVector<T>>::operator[];
+    using TDynamicVector<TDynamicVector<T>>::at;
 
     // сравнение
     bool operator==(const TDynamicMatrix& m) const noexcept
     {
         return TDynamicVector<TDynamicVector<T>>::operator==(m);
+    }
+
+    bool operator!=(const TDynamicMatrix& m) const noexcept // my func
+    {
+        return TDynamicVector<TDynamicVector<T>>::operator!=(m);
     }
 
     // матрично-скалярные операции

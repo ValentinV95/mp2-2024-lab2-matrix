@@ -16,8 +16,8 @@ int main()
         random_device rd;
         mt19937 mt(rd());
         uniform_real_distribution<double> dist(-100.0, 100.0);
-        for (size_t i = 0; i < m[0].size(); ++i)
-            for (size_t j = 0; j < m[0].size(); ++j)
+        for (size_t i = 0; i < m.size(); ++i)
+            for (size_t j = 0; j < m.size(); ++j)
                 m[i][j] = dist(mt);
     };
     try {
