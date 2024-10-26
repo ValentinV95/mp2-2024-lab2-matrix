@@ -94,10 +94,13 @@ TEST(TDynamicMatrix, can_assign_matrices_of_equal_size)
 	ASSERT_NO_THROW(m = m2);
 }
 
-//TEST(TDynamicMatrix, assign_operator_change_matrix_size)
-//{
-//  ADD_FAILURE();
-//}
+TEST(TDynamicMatrix, assign_operator_change_matrix_size)
+{
+	TDynamicMatrix<int> m(5);
+	TDynamicMatrix<int> m2(5);
+	m = m2;
+	EXPECT_EQ(m.size(), m2.size());
+}
 
 TEST(TDynamicMatrix, cant_assign_matrices_of_different_size)
 {

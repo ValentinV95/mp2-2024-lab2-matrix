@@ -89,10 +89,13 @@ TEST(TDynamicVector, can_assign_vectors_of_equal_size)
 	ASSERT_NO_THROW(v = v2);
 }
 
-//TEST(TDynamicVector, assign_operator_change_vector_size)
-//{
-//  ADD_FAILURE();
-//}
+TEST(TDynamicVector, assign_operator_change_vector_size)
+{
+	TDynamicVector<int> v(5);
+	TDynamicVector<int> v2(5);
+	v = v2;
+	EXPECT_EQ(v.size(), v2.size());
+}
 
 TEST(TDynamicVector, cant_assign_vectors_of_different_size)
 {
