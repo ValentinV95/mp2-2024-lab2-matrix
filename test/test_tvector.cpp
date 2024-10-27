@@ -27,6 +27,8 @@ TEST(TDynamicVector, can_create_copied_vector)
 TEST(TDynamicVector, copied_vector_is_equal_to_source_one)
 {
 	TDynamicVector<int> v1(10);
+	for (int i = 0; i < 10; ++i) 
+		v1[i] = i;
 	TDynamicVector<int> v2 = v1;
 
 	EXPECT_EQ(v1, v2);
@@ -205,43 +207,52 @@ TEST(TDynamicVector, compare_with_not_equal_of_equal_vectors_return_false) // my
 TEST(TDynamicVector, can_add_scalar_to_vector)
 {
 	TDynamicVector<int> v(10);
+	TDynamicVector<int> res(10);
 	for (int i = 0; i < 10; ++i) {
 		v[i] = i;
+		res[i] = i + 10;
 	}
 
 	ASSERT_NO_THROW(v + 10);
-	v = v + 10;
-	for (int i = 0; i < 10; ++i) { // just create additional res variable
-		EXPECT_EQ(v[i], i + 10);
-	}
+	//v = v + 10;
+	//for (int i = 0; i < 10; ++i) { // just create additional res variable
+	//	EXPECT_EQ(v[i], i + 10);
+	//}
+	EXPECT_EQ(v + 10, res);
 }
 
 TEST(TDynamicVector, can_subtract_scalar_from_vector)
 {
 	TDynamicVector<int> v(10);
+	TDynamicVector<int> res(10);
 	for (int i = 0; i < 10; ++i) {
 		v[i] = i;
+		res[i] = i - 10;
 	}
 
 	ASSERT_NO_THROW(v - 10);
-	v = v - 10;
-	for (int i = 0; i < 10; ++i) { // just create additional res variable
-		EXPECT_EQ(v[i], i - 10);
-	}
+	//v = v - 10;
+	//for (int i = 0; i < 10; ++i) { // just create additional res variable
+	//	EXPECT_EQ(v[i], i - 10);
+	//}
+	EXPECT_EQ(v - 10, res);
 }
 
 TEST(TDynamicVector, can_multiply_scalar_by_vector)
 {
 	TDynamicVector<int> v(10);
+	TDynamicVector<int> res(10);
 	for (int i = 0; i < 10; ++i) {
 		v[i] = i;
+		res[i] = i * 10;
 	}
 
 	ASSERT_NO_THROW(v * 10);
-	v = v * 10;
-	for (int i = 0; i < 10; ++i) { // just create additional res variable
-		EXPECT_EQ(v[i], i * 10);
-	}
+	//v = v * 10;
+	//for (int i = 0; i < 10; ++i) { // just create additional res variable
+	//	EXPECT_EQ(v[i], i * 10);
+	//}
+	EXPECT_EQ(v * 10, res);
 }
 
 TEST(TDynamicVector, can_add_vectors_with_equal_size)

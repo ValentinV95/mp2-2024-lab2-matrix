@@ -84,7 +84,7 @@ TEST(TDynamicMatrix, throws_when_set_element_with_too_large_index_1)
 	ASSERT_ANY_THROW(m.at(4).at(3));
 }
 
-TEST(TDynamicMatrix, throws_when_set_element_with_too_large_index_2)
+TEST(TDynamicMatrix, throws_when_set_element_with_too_large_index_2) // my test
 {
 	TDynamicMatrix<int> m(4);
 
