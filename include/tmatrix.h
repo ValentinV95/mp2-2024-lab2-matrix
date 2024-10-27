@@ -154,7 +154,7 @@ public:
             tmp.pMem[i] = pMem[i] - v.pMem[i];
         return tmp;
     }
-    T operator*(const TDynamicVector& v) noexcept(noexcept(T()))
+    T operator*(const TDynamicVector& v)
     {
         if (sz != v.sz) throw length_error("Incompatible sizes");
         T tmp = T();

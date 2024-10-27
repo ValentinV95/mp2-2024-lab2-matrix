@@ -277,21 +277,20 @@ TEST(TDynamicMatrix, can_multiply_vector_by_matrix) // my test
 	TDynamicVector<int> res(5);
 	for (int i = 0; i < 5; ++i) {
 		v[i] = i;
-		res = 30 * (i + 1);
+		res[i] = 30 * (i + 1);
 		for (int j = 0; j < 5; ++j) {
 			m[i][j] = i * j + j;
 		}
 	}
-	cout << m << v << endl;
 
 	ASSERT_NO_THROW(m * v);
-	EXPECT_EQ(m * v, res);
+	EXPECT_EQ(res, m * v);
 }
 
 TEST(TDynamicMatrix, cant_multiply_vector_by_matrix_with_not_equal_size) // my test
 {
 	TDynamicMatrix<int> m(5);
-	TDynamicVector<int> v(5);
+	TDynamicVector<int> v(6);
 	for (int i = 0; i < 5; ++i) {
 		v[i] = i;
 		for (int j = 0; j < 5; ++j) {
@@ -313,6 +312,11 @@ TEST(TDynamicMatrix, can_multiply_matrixex) // my test
 			w[i][j] = i * j - j;
 		}
 	}
+	res[0][0] = 0;  res[0][1] = 20;  res[0][2] = 40;  res[0][3] = 60;  res[0][4] = 80;
+	res[1][0] = 0;  res[1][1] = 40;  res[1][2] = 80;  res[1][3] = 120; res[1][4] = 160;
+	res[2][0] = 0;  res[2][1] = 60;  res[2][2] = 120; res[2][3] = 180; res[2][4] = 240;
+	res[3][0] = 0;  res[3][1] = 80;  res[3][2] = 160; res[3][3] = 240; res[3][4] = 320;
+	res[4][0] = 0;	res[4][1] = 100; res[4][2] = 200; res[4][3] = 300; res[4][4] = 400;
 
 	ASSERT_NO_THROW(m * w);
 	EXPECT_EQ(m * w, res);
