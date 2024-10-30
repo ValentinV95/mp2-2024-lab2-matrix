@@ -81,32 +81,28 @@ TEST(TDynamicMatrix, throws_when_set_element_with_too_large_index)
 
 TEST(TDynamicMatrix, can_assign_matrix_to_itself)
 {
-	TDynamicMatrix<int> m(5);
-	TDynamicMatrix<int> m2 = m;
+	TDynamicMatrix<int> m(5), m2 = m;
 	m = m;
 	EXPECT_EQ(m2, m);
 }
 
 TEST(TDynamicMatrix, can_assign_matrices_of_equal_size)
 {
-	TDynamicMatrix<int> m(5);
-	TDynamicMatrix<int> m2(5);
+	TDynamicMatrix<int> m(5), m2(5);
 	ASSERT_NO_THROW(m = m2);
 }
 
 TEST(TDynamicMatrix, assign_operator_change_matrix_size)
 {
-	TDynamicMatrix<int> m(5);
-	TDynamicMatrix<int> m2(5);
+	TDynamicMatrix<int> m(4), m2(5);
 	m = m2;
 	EXPECT_EQ(m.size(), m2.size());
 }
 
-TEST(TDynamicMatrix, cant_assign_matrices_of_different_size)
+TEST(TDynamicMatrix, can_assign_matrices_of_different_size)
 {
-	TDynamicMatrix<int> m(5);
-	TDynamicMatrix<int> m2(10);
-	ASSERT_ANY_THROW(m = m2);
+	TDynamicMatrix<int> m(5), m2(10);
+	ASSERT_NO_THROW(m = m2);
 }
 
 TEST(TDynamicMatrix, compare_equal_matrices_return_true)
@@ -213,4 +209,29 @@ TEST(TDynamicMatrix, cant_subtract_matrixes_with_not_equal_size)
 {
 	TDynamicMatrix<int> m(5), m2(10);
 	ASSERT_ANY_THROW(m2 - m);
+}
+
+TEST(TDynamicMatrix, can_multiplication_matrices_with_equal_size)
+{
+	TDynamicMatrix<int> m(3), m2(3);
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			m[i][j] = i + j;
+			m2[i][j] = i + j;
+		}
+	}
+	m = m2 * m;
+	TDynamicMatrix<int> res(3);
+	res[0][0] = 5; res[0][1] = 8; res[0][2] = 11;
+	res[1][0] = 8; res[1][1] = 14; res[1][2] = 20;
+	res[2][0] = 11; res[2][1] = 20; res[2][2] = 29;
+	EXPECT_EQ(res, m);
+}
+
+TEST(TDynamicMatrix, cant_multiplication_matrices_with_not_equal_size)
+{
+	TDynamicMatrix<int> m(3), m2(5);
+	ASSERT_ANY_THROW(m * m2);
 }

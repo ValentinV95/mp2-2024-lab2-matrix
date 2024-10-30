@@ -61,10 +61,6 @@ public:
   }
   TDynamicVector& operator=(const TDynamicVector& v)
   {
-      if (sz != v.sz)
-      {
-          throw exception("Sizes are not equal");
-      }
       if (this == &v) return *this;
       if (sz != v.sz)
       {
@@ -104,7 +100,7 @@ public:
   }
   const T& at(size_t ind) const
   {
-      if (ind < 0 || ind >= sz)
+      if (ind >= sz)
       {
           throw exception("index out of range");
       }
@@ -182,7 +178,7 @@ public:
       }
       return res;
   }
-  T operator*(const TDynamicVector& v) noexcept(noexcept(T()))
+  T operator*(const TDynamicVector& v)
   {
       if (sz != v.sz)
       {
@@ -287,14 +283,10 @@ public:
   // матрично-векторные операции
   TDynamicVector<T> operator*(const TDynamicVector<T>& v)
   {
-      if (sz != v.sz)
-      {
-          throw exception("Sizes are not equal");
-      }
-      TDynamicVector res(sz);
+      TDynamicVector<T> res(sz);
       for (int i = 0; i < sz; i++)
       {
-          res.pMem[i] = pMem[i] * v;
+          res[i] = pMem[i] * v;
       }
       return res;
   }
@@ -302,10 +294,6 @@ public:
   // матрично-матричные операции
   TDynamicMatrix operator+(const TDynamicMatrix& m)
   {
-      if (sz != m.sz)
-      {
-          throw exception("Sizes are not equal");
-      }
       TDynamicMatrix<T> res(sz);
       for (int i = 0; i < sz; i++)
       {
@@ -316,10 +304,6 @@ public:
 
   TDynamicMatrix operator-(const TDynamicMatrix& m)
   {
-      if (sz != m.sz)
-      {
-          throw exception("Sizes are not equal");
-      }
       TDynamicMatrix<T> res(sz);
       for (int i = 0; i < sz; i++)
       {
@@ -348,12 +332,6 @@ public:
       return res;
   }
 
-  friend void swap(TDynamicMatrix& lhs, TDynamicMatrix& rhs) noexcept
-  {
-      std::swap(lhs.sz, rhs.sz);
-      std::swap(lhs.pMem, rhs.pMem);
-  }
-
   // ввод/вывод
   friend istream& operator>>(istream& istr, TDynamicMatrix& v)
   {
@@ -372,5 +350,4 @@ public:
       return ostr;
   }
 };
-
 #endif
