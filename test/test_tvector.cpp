@@ -53,6 +53,7 @@ TEST(TDynamicVector, can_construct_vector_with_T_pointer) // my test
 	for (int i = 0; i < size; ++i) {
 		EXPECT_EQ(arr[i], v[i]);
 	}
+	delete[] arr;
 }
 
 TEST(TDynamicVector, moved_vector_is_equal_to_source_one) // my test
