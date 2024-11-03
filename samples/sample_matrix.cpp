@@ -10,7 +10,7 @@
 
 void main()
 {
-  TDynamicMatrix<int> a(5), b(5), c(5);
+  TDynamicMatrix<int> a(5), b(5), c(5),po;
   int i, j;
 
   setlocale(LC_ALL, "Russian");
@@ -23,6 +23,10 @@ void main()
       b[i][j] = (i * 10 + j) * 100;
     }
   c = a + b;
+  po = a;
+  cout << a << endl;
+  po = po + a;
+  cout << po << endl;
   cout << "Matrix a = " << endl << a << endl;
   cout << "Matrix b = " << endl << b << endl;
   cout << "Matrix c = a + b" << endl << c << endl;
