@@ -275,7 +275,7 @@ public:
       for (size_t i = 0; i < sz; i++) {
           for (size_t j = 0; j < sz; j++) {
               for (size_t u = 0; u < sz; u++) {
-                  res.pMem[i][j] = pMem[i][u] * m.pMem[u][j];
+                  res.pMem[i][j] += pMem[i][u] * m.pMem[u][j];
               }
           }
       }

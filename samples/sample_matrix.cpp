@@ -26,21 +26,21 @@ const char* OS_CLEAR = "clear";
 #define VS solverA<TDynamicVector<T>, TDynamicVector<T>, T>(res_v, arg1_v, arg2_s,cur_op)
 #define SS solverA<T, T, T>(res_s, arg1_s, arg2_s,cur_op)
 
-inline void g_line() noexcept {
+inline void g_line() noexcept {		//print line -------
 	for (auto i = 0; i < 20; i++) cout << static_cast<char>(0xC4); cout << '\n'; return;
 }
 inline void arg_type(int arg1,int arg2) noexcept {
 	cout << (arg1==1 ? ((arg2==1 ? ("matrix and matrix") : (arg2 == 0 ? "matrix and vector" : "matrix and scalar"))) : (!arg1 ? ((arg2 == 1 ? ("vector and matrix") : (!arg2 ? "vector and vector" : "vector and scalar"))) : ((arg2 == 1 ? ("scalar and matrix") : (!arg2 ? "scalar and vector" : "scalar and scalar"))))) << endl; return;
 }
 
-void op_status(int arg1,int arg2,_Notnull_ string op_arr[], int cur_op) {
+void op_status(int arg1,int arg2,_Notnull_ string op_arr[], int cur_op) {	//print operation and object's types
 	g_line();
 	cout << "operation type: " << op_arr[cur_op] <<endl;
 	cout << "operation args: ";
 	arg_type(arg1, arg2);
 	g_line();
 }
-void set_type_args(int& arg1, int& arg2) {
+void set_type_args(int& arg1, int& arg2) {		//choose math object for operation
 	CLS;
 	g_line();
 	cout << "Your args: "; arg_type(arg1, arg2);
@@ -56,7 +56,7 @@ void set_type_args(int& arg1, int& arg2) {
 	return;
 }
 template<class T>
-void set_matrix(TDynamicMatrix<T>& matrix_) {
+void set_matrix(TDynamicMatrix<T>& matrix_) {	
 	g_line();
 	size_t size;
 	cout << "Type size of matrix: "; cin >> size;
@@ -75,7 +75,7 @@ void set_vector(TDynamicVector<T>& vector_) {
 	g_line();
 	return;
 }
-void choose_operation(int& op, _Notnull_ string op_arr[]) {
+void choose_operation(int& op, _Notnull_ string op_arr[]) {	
 	g_line();
 	cout << "Current operation is " << op_arr[op] << endl;
 	cout << "Set new operation:\n1 - \'+\'\n2 - \'-\'\n3 - \'*\'\n";
@@ -90,9 +90,9 @@ void choose_operation(int& op, _Notnull_ string op_arr[]) {
 	return;
 }
 
-int check(int operation, int op1, int op2) noexcept {
-	constexpr char MxM = 7;
-	constexpr char MxV = 4;
+int check(int operation, int op1, int op2) noexcept {	//	\/	\/	\/	\/
+	constexpr char MxM = 7;				
+	constexpr char MxV = 4;			//every char is table T 2x6, where T[0][0] M+V, T[0][1] M-V, T[0][2] M*V, T[1][0] V+M, T[1][1] V-M, T[1][2] V*M		1 if we can do operation, else 0
 	constexpr char MxS = 7;
 	constexpr char VxS = 7;
 	constexpr char VxV = 7;
@@ -100,7 +100,7 @@ int check(int operation, int op1, int op2) noexcept {
 
 	if (op1 == 1) {
 		if (op2 == 1) {
-			return ((1 << operation) & MxM) > 0;
+			return ((1 << operation) & MxM) > 0;	//return bit (element T) == true
 		}
 		else if(op2==2){
 			return ((1 << operation) & MxS) > 0;
@@ -185,7 +185,7 @@ void solverAA(O& res, T1& arg1, T2& arg2, int operation) {	//AA - All Aддит�
 //	\\--//
 // 
 
-template <class T>	//Понятно, что не все операции определены (к примеру v+m), но при рассмотрении общей конструкции с уклонов в будущее, хорошо бы сделать возможность выполнятся и для v_m
+template <class T>	//Понятно, что не все операции определены (к примеру v+m)
 void solver_decor(TDynamicVector<T>& res_v, TDynamicMatrix<T>& res_m, int& res_s, int cur_op, int op1, int op2,TDynamicVector<T>& arg1_v,TDynamicVector<T>& arg2_v,TDynamicMatrix<T>& arg1_m,TDynamicMatrix<T>& arg2_m,int arg1_s, int arg2_s,_Notnull_ string op_arr[]) {
 	if (!check(cur_op, op1, op2)) {		//check for allowed operations between types
 		cout << "UNDEFINED OPERATION " << op_arr[cur_op] << " FOR ";
