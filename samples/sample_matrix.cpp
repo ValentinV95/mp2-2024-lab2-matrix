@@ -75,12 +75,22 @@ void set_vector(TDynamicVector<T>& vector_) {
 	g_line();
 	return;
 }
+template<class T>
+void set_scalar(T& s) {
+	g_line();
+	cout << "Type scalar: ";
+	T r; cin >> r;
+	s = r;
+	g_line();
+	return;
+}
+
 void choose_operation(int& op, _Notnull_ string op_arr[]) {	
 	g_line();
 	cout << "Current operation is " << op_arr[op] << endl;
-	cout << "Set new operation:\n1 - \'+\'\n2 - \'-\'\n3 - \'*\'\n";
+	cout << "Set new operation:\n1 - \'+\'\n2 - \'-\'\n3 - \'*\'\n4 - \'==\'\n";
 	char tmp; cin >> tmp;
-	if (tmp < 49 || tmp>51) {
+	if (tmp < 49 || tmp>52) {
 		cout << "unknown operation!\n";
 	}
 	else {
@@ -91,12 +101,12 @@ void choose_operation(int& op, _Notnull_ string op_arr[]) {
 }
 
 int check(int operation, int op1, int op2) noexcept {	//	\/	\/	\/	\/
-	constexpr char MxM = 7;				
-	constexpr char MxV = 4;			//every char is table T 2x6, where T[0][0] M+V, T[0][1] M-V, T[0][2] M*V, T[1][0] V+M, T[1][1] V-M, T[1][2] V*M		1 if we can do operation, else 0
-	constexpr char MxS = 7;
+	constexpr char MxM = 15;				
+	constexpr char MxV = 4;			//every char is table T 2x4, where T[0][0] M+V, T[0][1] M-V, T[0][2] M*V, T[1][0] V+M, T[1][1] V-M, T[1][2] V*M		1 if we can do operation, else 0
+	constexpr char MxS = 7;			//T[*][3] for ==
 	constexpr char VxS = 7;
-	constexpr char VxV = 7;
-	constexpr char SxS = 7;
+	constexpr char VxV = 15;
+	constexpr char SxS = 15;
 
 	if (op1 == 1) {
 		if (op2 == 1) {
@@ -193,7 +203,25 @@ void solver_decor(TDynamicVector<T>& res_v, TDynamicMatrix<T>& res_m, int& res_s
 		cout << '\n';
 		return;
 	}
-
+	if (cur_op == 3 && op1 == op2) {
+		if (op1 == 0) {
+			res_s = arg1_v == arg2_v;
+		}
+		else if (op1 == 1) {
+			res_s = arg1_m == arg2_m;
+		}
+		else if (op1 == 2) {
+			res_s = arg1_s == arg2_s;
+		}
+		cout << res_s << endl;
+		return;
+	}
+	else if (cur_op == 3) {
+		cout << "UNDEFINED OPERATION " << op_arr[cur_op] << " FOR ";
+		arg_type(op1, op2);
+		cout << '\n';
+		return;
+	}
 	//if operations not allowed (for example s + m, if s int, double etc.  (because for this data types no operator with our type in argument))
 	//then the check function will return false and we'll return to main.
 
@@ -256,13 +284,13 @@ signed main()
 	
 	char bug_;
 
-	string operations[] = { "+", "-", "*"};
+	string operations[] = { "+", "-", "*","=="};
 
 	while (true) {
 		
-		cout << "What to do?\n0 - print data\n1 - print operation status\n2 - set args type\n3 - set first matrix\n4 - set second matrix\n5 - set first vector\n6 - set second vector\n7 - choose operation\n8 - do operation\n9 - exit\n\nYou ans: ";
+		cout << "What to do?\n0 - print data\n1 - print operation status\n2 - set args type\n3 - set first matrix\n4 - set second matrix\n5 - set first vector\n6 - set second vector\n7 - choose operation\n8 - do operation\na - set first scalar\nb - set second scalar\ne - exit\n\nYou ans: ";
 		cin >> bug_;
-		do_ = static_cast<int>(bug_) - 48;	//without this if we type string directly into int a bug with infinity loop will appear.
+		do_ = bug_ - 48;	//without this if we type string directly into int a bug with infinity loop will appear.
 		CLS;
 		switch (do_)
 		{
@@ -290,8 +318,14 @@ signed main()
 		case 8:
 			solver_decor(res_v, res_m, res_s, current_op, op1, op2, vector1, vector2, matrix1, matrix2, s1, s2,operations);
 			break;
-		case 9:
-			return 0;
+		case 'a'-48:
+			set_scalar(s1);
+			break;
+		case 'b'-48:
+			set_scalar(s2);
+			break;
+		case 'e'-48:
+			exit(0);
 		case 0:
 		{
 			CLS;

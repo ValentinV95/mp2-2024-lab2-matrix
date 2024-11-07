@@ -235,7 +235,7 @@ public:
 
   // матрично-скалярные операции
   TDynamicMatrix<T> operator*(const T& val)
-  {
+  {     
       TDynamicMatrix<T> res(sz);
       for (size_t i = 0; i < sz;i++) {
           res.pMem[i] = pMem[i] * val;
@@ -246,6 +246,9 @@ public:
   // матрично-векторные операции
   TDynamicVector<T> operator*(const TDynamicVector<T>& v)
   {
+      if (sz != v.size()) {
+          throw length_error("bad m and v lengths");
+      }
       TDynamicVector<T> res(sz);
       for (size_t i = 0; i < sz; i++)
           res[i] = pMem[i] * v;
@@ -255,6 +258,9 @@ public:
   // матрично-матричные операции
   TDynamicMatrix operator+(const TDynamicMatrix& m)
   {
+      if (sz != m.sz) {
+          throw length_error("different sizes");
+      }
       TDynamicMatrix<T> res(sz);
       for (size_t i = 0; i < sz; i++) {
           res.pMem[i] = pMem[i] + m.pMem[i];
@@ -263,6 +269,9 @@ public:
   }
   TDynamicMatrix operator-(const TDynamicMatrix& m)
   {
+      if (sz != m.sz) {
+          throw length_error("different sizes");
+      }
       TDynamicMatrix<T> res(sz);
       for (size_t i = 0; i < sz; i++) {
           res.pMem[i] = pMem[i] - m.pMem[i];
@@ -271,6 +280,9 @@ public:
   }
   TDynamicMatrix operator*(const TDynamicMatrix& m)
   {
+      if (sz != m.sz) {
+          throw length_error("bad sizes");
+      }
       TDynamicMatrix<T> res(sz);
       for (size_t i = 0; i < sz; i++) {
           for (size_t j = 0; j < sz; j++) {
