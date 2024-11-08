@@ -60,7 +60,7 @@ void set_matrix(TDynamicMatrix<T>& matrix_) {
 	g_line();
 	size_t size;
 	cout << "Type size of matrix: "; cin >> size;
-	TDynamicMatrix<T> temp_matrix(size); cin >> temp_matrix;
+	TDynamicMatrix<T> temp_matrix(size); cout << "Type matrix's elements: \n"; cin >> temp_matrix;
 	matrix_ = temp_matrix;
 	g_line();
 	return;
@@ -70,7 +70,7 @@ void set_vector(TDynamicVector<T>& vector_) {
 	g_line();
 	size_t size;
 	cout << "Type size of vector: "; cin >> size;
-	TDynamicVector<T> temp_vector(size); cin >> temp_vector;
+	TDynamicVector<T> temp_vector(size); cout << "Type vector's elements: \n"; cin >> temp_vector;
 	vector_ = temp_vector;
 	g_line();
 	return;
@@ -121,18 +121,18 @@ int check(int operation, int op1, int op2) noexcept {	//	\/	\/	\/	\/
 	}
 	else if (op1 == 2) {
 		if (op2 == 1) {
-			return ((1 << (operation+3)) & MxS) > 0;
+			return ((1 << (operation+4)) & MxS) > 0;
 		}
 		else if (op2 == 2) {
 			return ((1 << operation) & SxS) > 0;
 		}
 		else {
-			return ((1 << (3+operation)) & VxS) > 0;
+			return ((1 << (4+operation)) & VxS) > 0;
 		}
 	}
 	else {
 		if (op2 == 1) {
-			return ((1 << (operation + 3)) & MxV) > 0;
+			return ((1 << (operation + 4)) & MxV) > 0;
 		}
 		else if (op2 == 2) {
 			return ((1 << operation) & VxS) > 0;
@@ -368,6 +368,7 @@ signed main()
 				}
 				else if (r0 == "cls") {
 					CLS;
+					cout << "This is print mode\nThis is a loop and you can use this commands:\n	v1 - print vector 1\n	v2 - print vector 2\n	vr - print result vector\n	m1 - print matrix 1\n	m2 - print matrix 2\n	mr - print result matrix\n	s1 - print scalar 1\n	s2 - print scalar 2\n	sr - print res scalar\n	ex - exit\n	cls - clear window\n";
 				}
 				else {
 					cout << "UNKNOWN COMMAND" << endl;
