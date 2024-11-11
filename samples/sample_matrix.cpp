@@ -20,7 +20,7 @@ const char* OS_CLEAR = "clear";
 #define MM solverA<TDynamicMatrix<T>, TDynamicMatrix<T>, TDynamicMatrix<T>>(res_m, arg1_m, arg2_m, cur_op)
 #define MS solverA<TDynamicMatrix<T>, TDynamicMatrix<T>, T>(res_m, arg1_m, arg2_s, cur_op)
 #define MV solverMultiply<TDynamicVector<T>, TDynamicMatrix<T>, TDynamicVector<T>>(res_v, arg1_m, arg2_v, cur_op)
-#define VM	//У нас в классе не определены операции vector @ matrix
+#define VM	//У нас в классе не определены операции vector --- matrix
 #define VVM solverMultiply<T, TDynamicVector<T>, TDynamicVector<T>>(res_s, arg1_v, arg2_v,cur_op)
 #define VVA solverAA<TDynamicVector<T>, TDynamicVector<T>, TDynamicVector<T>>(res_v, arg1_v, arg2_v,cur_op)
 #define VS solverA<TDynamicVector<T>, TDynamicVector<T>, T>(res_v, arg1_v, arg2_s,cur_op)
@@ -284,7 +284,7 @@ signed main()
 	
 	char bug_;
 
-	string operations[] = { "+", "-", "*","=="};
+	string operations[] = { "+", "-", "*","=="};	//выход из программы (если всё без аварий) будет только в случае case 'e'-48, обьект нужен на протяжении всей работы
 
 	while (true) {
 		
@@ -326,6 +326,7 @@ signed main()
 			break;
 		case 'e'-48:
 			exit(0);
+			break;
 		case 0:
 		{
 			CLS;
@@ -380,7 +381,6 @@ signed main()
 			break;
 		}
 	}
-
 	return 0;
 }
 //---------------------------------------------------------------------------

@@ -88,21 +88,23 @@ public:
   {
       return pMem[ind];
   }
+
   const T& operator[](size_t ind) const //DONE
   {
       return pMem[ind];
   }
+
   // индексация с контролем
   T& at(size_t ind)     //MAYBE DONE
   {
-      if (ind >= sz || ind < 0) {
+      if (ind >= sz) {
           throw out_of_range("at out of range");
       }
       return pMem[ind];
   }
   const T& at(size_t ind) const //MAYBE DONE
   {
-      if (ind >= sz || ind < 0) {
+      if (ind >= sz) {
           throw out_of_range("at out of range");
       }
       return pMem[ind];
@@ -135,6 +137,7 @@ public:
       }
       return res;
   }
+
   TDynamicVector operator*(double val)  //DONE
   {
       TDynamicVector res(sz);
@@ -199,7 +202,6 @@ public:
     return ostr;
   }
 };
-
 
 // Динамическая матрица - 
 // шаблонная матрица на динамической памяти
