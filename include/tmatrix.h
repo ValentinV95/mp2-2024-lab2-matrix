@@ -170,7 +170,7 @@ public:
       }
       return res;
   }
-  T operator*(const TDynamicVector& v) noexcept(noexcept(T()))  //DONE
+  T operator*(const TDynamicVector& v)  //DONE
   {
       if (sz != v.sz) {
           throw length_error("different lengths! ");

@@ -262,7 +262,7 @@ TEST(TDynamicVector, can_multiply_vectors_with_equal_size)
 TEST(TDynamicVector, cant_multiply_vectors_with_not_equal_size)
 {
 	TDynamicVector<int> v(100), v1(101);
-	for (int i = 0; i < 100; i++) v[i] = v1[i] = 0;
+	for (int i = 0; i < 100; i++) { v[i] = i; v1[i] = i; }
 	v1[100] = 0;
 
 	ASSERT_ANY_THROW(v1 * v);
