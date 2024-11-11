@@ -213,7 +213,7 @@ class TDynamicMatrix : private TDynamicVector<TDynamicVector<T>>
 public:
   TDynamicMatrix(size_t s = 1) : TDynamicVector<TDynamicVector<T>>(s)
   {
-      if (sz < 0 || sz > MAX_MATRIX_SIZE) throw length_error("bad matrix size");
+      if (sz > MAX_MATRIX_SIZE) throw length_error("bad matrix size");
       for (size_t i = 0; i < sz; i++)
         pMem[i] = TDynamicVector<T>(sz);
   }
