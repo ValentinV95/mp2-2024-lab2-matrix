@@ -129,7 +129,7 @@ public:
       }
       return res;
   }
-  TDynamicVector operator-(double val)  //DONE
+  TDynamicVector operator-(T val)  //DONE
   {
       TDynamicVector res(sz);
       for (size_t i = 0; i < sz; i++) {
@@ -138,7 +138,7 @@ public:
       return res;
   }
 
-  TDynamicVector operator*(double val)  //DONE
+  TDynamicVector operator*(T val)  //DONE
   {
       TDynamicVector res(sz);
       for (size_t i = 0; i < sz; i++) {
