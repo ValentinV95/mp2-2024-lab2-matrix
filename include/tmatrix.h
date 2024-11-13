@@ -10,8 +10,8 @@
 
 using namespace std;
 
-const int MAX_VECTOR_SIZE = 100000000;
-const int MAX_MATRIX_SIZE = 10000;
+constexpr int MAX_VECTOR_SIZE = 100000000;
+constexpr int MAX_MATRIX_SIZE = 10000;
 
 // Динамический вектор - 
 // шаблонный вектор на динамической памяти
@@ -123,7 +123,7 @@ public:
   // скалярные операции
   TDynamicVector operator+(T val)   //DONE
   {
-      TDynamicVector res(sz);
+      TDynamicVector<T> res(sz);
       for (size_t i = 0; i < sz; i++) {
           res.pMem[i] = pMem[i] + val;
       }
@@ -131,7 +131,7 @@ public:
   }
   TDynamicVector operator-(T val)  //DONE
   {
-      TDynamicVector res(sz);
+      TDynamicVector<T> res(sz);
       for (size_t i = 0; i < sz; i++) {
           res.pMem[i] = pMem[i] - val;
       }
@@ -140,7 +140,7 @@ public:
 
   TDynamicVector operator*(T val)  //DONE
   {
-      TDynamicVector res(sz);
+      TDynamicVector<T> res(sz);
       for (size_t i = 0; i < sz; i++) {
           res.pMem[i] = pMem[i] * val;
       }
@@ -153,7 +153,7 @@ public:
       if (sz != v.sz) {
           throw length_error("different lengths! ");
       }
-      TDynamicVector res(sz);
+      TDynamicVector<T> res(sz);
       for (size_t i = 0; i < sz; i++) {
           res.pMem[i] = pMem[i] + v.pMem[i];
       }
@@ -164,7 +164,7 @@ public:
       if (sz != v.sz) {
           throw length_error("different lengths! ");
       }
-      TDynamicVector res(sz);
+      TDynamicVector<T> res(sz);
       for (size_t i = 0; i < sz; i++) {
           res.pMem[i] = pMem[i] - v.pMem[i];
       }
