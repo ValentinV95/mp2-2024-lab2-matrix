@@ -135,6 +135,26 @@ TEST(TDynamicVector, compare_equal_vectors_return_true)
 	ASSERT_NO_THROW(v == v1);
 	EXPECT_EQ(v1 == v, true);
 }
+TEST(TDynamicVector, compare_not_equal_vectors_return_false)
+{
+	TDynamicVector<int> v(2111), v1(2111);
+	for (auto i = 0; i < 2111; i++) {
+		v[i] = 10 * i;
+		v1[i] = 101 * i;
+	}
+	ASSERT_NO_THROW(v == v1);
+	EXPECT_EQ(v1 == v, false);
+}
+TEST(TDynamicVector, compare_not_equal_vectors_return_true)
+{
+	TDynamicVector<int> v(2111), v1(2111);
+	for (auto i = 0; i < 2111; i++) {
+		v[i] = 10 * i;
+		v1[i] = 101 * i;
+	}
+	ASSERT_NO_THROW(v != v1);
+	EXPECT_EQ(v1 != v, true);
+}
 
 TEST(TDynamicVector, compare_vector_with_itself_return_true)
 {

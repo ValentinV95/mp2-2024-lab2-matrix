@@ -158,6 +158,30 @@ TEST(TDynamicMatrix, compare_equal_matrices_return_true)
 	ASSERT_NO_THROW(m1 == m);
 	EXPECT_EQ(m1==m, 1);
 }
+TEST(TDynamicMatrix, compare_not_equal_matrices_return_false)
+{
+	TDynamicMatrix<int> m(1000);
+	TDynamicMatrix<int> m1(1000);
+	for (auto i = 0; i < 1000; i++) for (auto j = 0; j < 1000; j++) {
+		m[i][j] = i + j * 13;
+		m1[i][j] = i + j * 10;
+	}
+
+	ASSERT_NO_THROW(m1 == m);
+	EXPECT_EQ(m1 == m, false);
+}
+TEST(TDynamicMatrix, compare_not_equal_matrices_return_true)
+{
+	TDynamicMatrix<int> m(1000);
+	TDynamicMatrix<int> m1(1000);
+	for (auto i = 0; i < 1000; i++) for (auto j = 0; j < 1000; j++) {
+		m[i][j] = i + j * 13;
+		m1[i][j] = i + j * 10;
+	}
+
+	ASSERT_NO_THROW(m1 != m);
+	EXPECT_EQ(m1 != m, 1);
+}
 
 TEST(TDynamicMatrix, compare_matrix_with_itself_return_true)
 {
