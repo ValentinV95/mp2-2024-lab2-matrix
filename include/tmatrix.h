@@ -113,7 +113,24 @@ public:
   // сравнение
   bool operator==(const TDynamicVector& v) const noexcept   //DONE
   {
-      return (sz == v.sz && std::equal(pMem,pMem+sz,v.pMem));
+      if (sz != v.sz) return false;
+
+      T eps = std::numeric_limits<T>::epsilon();    //for double and float)
+
+      for (size_t i = 0; i < sz; i++) {
+          if (pMem[i] > v.pMem[i]) {
+              if (pMem[i] - v.pMem[i] > eps) {
+                  return false;
+              }
+          }
+          else {
+              if (v.pMem[i] - pMem[i] > eps) {
+                  return false;
+              }
+          }
+      }
+
+      return true;
   }
   bool operator!=(const TDynamicVector& v) const noexcept   //DONE
   {
@@ -121,7 +138,7 @@ public:
   }
 
   // скалярные операции
-  TDynamicVector operator+(T val)   //DONE
+  TDynamicVector<T> operator+(T val)   //DONE
   {
       TDynamicVector<T> res(sz);
       for (size_t i = 0; i < sz; i++) {
@@ -129,7 +146,7 @@ public:
       }
       return res;
   }
-  TDynamicVector operator-(T val)  //DONE
+  TDynamicVector<T> operator-(T val)  //DONE
   {
       TDynamicVector<T> res(sz);
       for (size_t i = 0; i < sz; i++) {
@@ -138,7 +155,7 @@ public:
       return res;
   }
 
-  TDynamicVector operator*(T val)  //DONE
+  TDynamicVector<T> operator*(T val)  //DONE
   {
       TDynamicVector<T> res(sz);
       for (size_t i = 0; i < sz; i++) {
@@ -148,7 +165,7 @@ public:
   }
 
   // векторные операции
-  TDynamicVector operator+(const TDynamicVector& v) //DONE
+  TDynamicVector<T> operator+(const TDynamicVector& v) //DONE
   {
       if (sz != v.sz) {
           throw length_error("different lengths! ");
@@ -159,7 +176,7 @@ public:
       }
       return res;
   }
-  TDynamicVector operator-(const TDynamicVector& v) //DONE
+  TDynamicVector<T> operator-(const TDynamicVector& v) //DONE
   {
       if (sz != v.sz) {
           throw length_error("different lengths! ");
@@ -222,17 +239,19 @@ public:
   using TDynamicVector<TDynamicVector<T>>::operator[];
   using TDynamicVector<TDynamicVector<T>>::at;
   using TDynamicVector<TDynamicVector<T>>::size;
-  // using TDynamicVector<TDynamicVector<T>>::operator!=;
   //<-------------------end-------------------------->
 
   // сравнение
-  bool operator!=(const TDynamicMatrix& m) const noexcept
-  {
-      return TDynamicVector<TDynamicVector<T>>::operator!=(m);
-  }
   bool operator==(const TDynamicMatrix& m) const noexcept
   {
-      return TDynamicVector<TDynamicVector<T>>::operator==(m);
+      for (size_t i = 0; i < sz; i++) {
+          if (pMem[i] != m.pMem[i]) return false;
+      }
+      return true;
+  }
+  bool operator!=(const TDynamicMatrix& m) const noexcept
+  {
+      return !(*this == m);
   }
 
   // матрично-скалярные операции
@@ -258,7 +277,7 @@ public:
   }
 
   // матрично-матричные операции
-  TDynamicMatrix operator+(const TDynamicMatrix& m)
+  TDynamicMatrix<T> operator+(const TDynamicMatrix& m)
   {
       if (sz != m.sz) {
           throw length_error("different sizes");
@@ -269,7 +288,7 @@ public:
       }
       return res;
   }
-  TDynamicMatrix operator-(const TDynamicMatrix& m)
+  TDynamicMatrix<T> operator-(const TDynamicMatrix& m)
   {
       if (sz != m.sz) {
           throw length_error("different sizes");
@@ -280,7 +299,7 @@ public:
       }
       return res;
   }
-  TDynamicMatrix operator*(const TDynamicMatrix& m)
+  TDynamicMatrix<T> operator*(const TDynamicMatrix& m)
   {
       if (sz != m.sz) {
           throw length_error("bad sizes");

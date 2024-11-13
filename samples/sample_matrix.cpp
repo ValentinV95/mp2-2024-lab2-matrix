@@ -196,7 +196,7 @@ void solverAA(O& res, T1& arg1, T2& arg2, int operation) {	//AA - All Aддит�
 // 
 
 template <class T>	//Понятно, что не все операции определены (к примеру v+m)
-void solver_decor(TDynamicVector<T>& res_v, TDynamicMatrix<T>& res_m, int& res_s, int cur_op, int op1, int op2,TDynamicVector<T>& arg1_v,TDynamicVector<T>& arg2_v,TDynamicMatrix<T>& arg1_m,TDynamicMatrix<T>& arg2_m,int arg1_s, int arg2_s,_Notnull_ string op_arr[]) {
+void solver_decor(TDynamicVector<T>& res_v, TDynamicMatrix<T>& res_m, T& res_s, int cur_op, int op1, int op2,TDynamicVector<T>& arg1_v,TDynamicVector<T>& arg2_v,TDynamicMatrix<T>& arg1_m,TDynamicMatrix<T>& arg2_m,T arg1_s, T arg2_s,_Notnull_ string op_arr[]) {
 	if (!check(cur_op, op1, op2)) {		//check for allowed operations between types
 		cout << "UNDEFINED OPERATION " << op_arr[cur_op] << " FOR ";
 		arg_type(op1, op2);
@@ -270,13 +270,14 @@ void solver_decor(TDynamicVector<T>& res_v, TDynamicMatrix<T>& res_m, int& res_s
 	return;
 	
 }
-
+#define TYPE_ int
 signed main()
 {
 
-	TDynamicVector<int> vector1(4),vector2(4), res_v(4);
-	TDynamicMatrix<int> matrix1(4), matrix2(4), res_m(4);
-	int s1 = 0, s2 = 0, res_s = 0;
+	TDynamicVector<TYPE_> vector1(4),vector2(4), res_v(4);
+	TDynamicMatrix<TYPE_> matrix1(4), matrix2(4), res_m(4);
+	TYPE_ s1 = 0, s2 = 0;
+	TYPE_ res_s = 0;
 
 	int op1 = 0, op2 = 0;
 	int do_;
