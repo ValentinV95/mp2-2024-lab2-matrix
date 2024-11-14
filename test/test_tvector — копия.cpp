@@ -3,6 +3,25 @@
 #include <gtest.h>
 #include <ctime>
 
+template <typename T>
+void Declare_Vector(TDynamicVector<T>& v, int offset = 0, int scale = 1)
+{
+	size_t sz = v.size();
+	for (size_t i = 0; i < sz; i++)
+		v[i] = static_cast<T>(offset + i * scale);
+	return;
+}
+
+template <typename T>
+void Randomize_Vector(TDynamicVector<T>& v, unsigned int mod = 100, int offset = 0)
+{
+	srand(time(NULL));
+	size_t sz = v.size();
+	for (size_t i = 0; i < sz; i++)
+		v[i] = rand % mod + offset;
+	return;
+}
+
 TEST(TDynamicVector, can_create_vector_with_positive_length)
 {
   ASSERT_NO_THROW(TDynamicVector<int> v(5));
@@ -30,7 +49,7 @@ TEST(TDynamicVector, copied_vector_is_equal_to_source_one)
 	size_t sz = v.size();
 	int offset = 0, scale = 1;
 	for (size_t i = 0; i < sz; i++)
-		v[i] = (offset + i * scale);
+		v[i] = static_cast<int>(offset + i * scale);
 	TDynamicVector<int> w(v);
 	EXPECT_EQ(v, w);
 }
@@ -41,7 +60,7 @@ TEST(TDynamicVector, copied_vector_has_its_own_memory)
 	size_t sz = v.size();
 	int offset = 0, scale = 1;
 	for (size_t i = 0; i < sz; i++)
-		v[i] = (offset + i * scale);
+		v[i] = static_cast<int>(offset + i * scale);
 	TDynamicVector<int> w(v);
 	for (size_t i = 0; i < sz; i++)
 	{
@@ -82,7 +101,7 @@ TEST(TDynamicVector, can_assign_vector_to_itself)
 	size_t sz = v.size();
 	int offset = 0, scale = 1;
 	for (size_t i = 0; i < sz; i++)
-		v[i] = (offset + i * scale);
+		v[i] = static_cast<int>(offset + i * scale);
 	TDynamicVector<int> w(v);
 	ASSERT_NO_THROW(v = v);
 	EXPECT_EQ(w, v);
@@ -94,7 +113,7 @@ TEST(TDynamicVector, can_assign_vectors_of_equal_size)
 	size_t sz = v.size();
 	int offset = 0, scale = 1;
 	for (size_t i = 0; i < sz; i++)
-		v[i] = (offset + i * scale);
+		v[i] = static_cast<int>(offset + i * scale);
 	ASSERT_NO_THROW(w = v);
 	EXPECT_EQ(v, w);
 }
@@ -114,7 +133,7 @@ TEST(TDynamicVector, can_assign_vectors_of_different_size)
 	size_t sz = v.size();
 	int offset = 0, scale = 1;
 	for (size_t i = 0; i < sz; i++)
-		v[i] = (offset + i * scale);
+		v[i] = static_cast<int>(offset + i * scale);
 	ASSERT_NO_THROW(w = v);
 	EXPECT_EQ(v, w);
 }
@@ -125,7 +144,7 @@ TEST(TDynamicVector, compare_equal_vectors_return_true)
 	size_t sz = v.size();
 	int offset = 0, scale = 1;
 	for (size_t i = 0; i < sz; i++)
-		v[i] = (offset + i * scale);
+		v[i] = static_cast<int>(offset + i * scale);
 	w = v;
 	ASSERT_NO_THROW(v == w);
 	EXPECT_EQ(true, v == w);
@@ -137,7 +156,7 @@ TEST(TDynamicVector, compare_vector_with_itself_return_true)
 	size_t sz = v.size();
 	int offset = 0, scale = 1;
 	for (size_t i = 0; i < sz; i++)
-		v[i] = (offset + i * scale);
+		v[i] = static_cast<int>(offset + i * scale);
 	ASSERT_NO_THROW(v == v);
 	EXPECT_EQ(true, v == v);
 }
@@ -149,10 +168,10 @@ TEST(TDynamicVector, vectors_with_different_size_are_not_equal)
 	size_t sz = v.size();
 	int offset = 0, scale = 1;
 	for (size_t i = 0; i < sz; i++)
-		v[i] = (offset + i * scale);
+		v[i] = static_cast<int>(offset + i * scale);
 	sz = w.size();
 	for (size_t i = 0; i < sz; i++)
-		w[i] = (offset + i * scale);
+		w[i] = static_cast<int>(offset + i * scale);
 	ASSERT_NO_THROW(v == w);
 	EXPECT_NE(true, v == w);
 }
@@ -163,10 +182,10 @@ TEST(TDynamicVector, can_add_scalar_to_vector)
 	size_t sz = v.size();
 	int offset = 0, scale = 1, a=5;
 	for (size_t i = 0; i < sz; i++)
-		v[i] = (offset + i * scale);
+		v[i] = static_cast<int>(offset + i * scale);
 	offset = a;
 	for (size_t i = 0; i < sz; i++)
-		w[i] = (offset + i * scale);
+		w[i] = static_cast<int>(offset + i * scale);
 	ASSERT_NO_THROW(v + a);
 	EXPECT_EQ(w, v + a);
 }
@@ -177,10 +196,10 @@ TEST(TDynamicVector, can_subtract_scalar_from_vector)
 	size_t sz = v.size();
 	int offset = 0, scale = 1, a = 7;
 	for (size_t i = 0; i < sz; i++)
-		v[i] = (offset + i * scale);
+		v[i] = static_cast<int>(offset + i * scale);
 	offset = -a;
 	for (size_t i = 0; i < sz; i++)
-		w[i] = (offset + i * scale);
+		w[i] = static_cast<int>(offset + i * scale);
 	ASSERT_NO_THROW(v -= a);
 	EXPECT_EQ(w, v);
 }
@@ -191,29 +210,29 @@ TEST(TDynamicVector, can_multiply_scalar_by_vector)
 	size_t sz = v.size();
 	int offset = 0, scale = 1, a = 3;
 	for (size_t i = 0; i < sz; i++)
-		v[i] = (offset + i * scale);
+		v[i] = static_cast<int>(offset + i * scale);
 	scale = a;
 	for (size_t i = 0; i < sz; i++)
-		w[i] = (offset + i * scale);
+		w[i] = static_cast<int>(offset + i * scale);
 	ASSERT_NO_THROW(v * a);
 	EXPECT_EQ(w, v * a);
 }
 
 TEST(TDynamicVector, can_add_vectors_with_equal_size)
 {
-	TDynamicVector<int> v(10), w(10), s(10);
+	TDynamicVector<int> v(10), w(10), u(10);
 	size_t sz = v.size();
 	int offset = 1, scale = 1;
 	for (size_t i = 0; i < sz; i++)
-		v[i] = (offset + i * scale);
+		v[i] = static_cast<int>(offset + i * scale);
 	offset = -2, scale = 4;
 	for (size_t i = 0; i < sz; i++)
-		w[i] = (offset + i * scale);
+		w[i] = static_cast<int>(offset + i * scale);
 	offset = -1, scale = 5;
 	for (size_t i = 0; i < sz; i++)
-		s[i] = (offset + i * scale);
+		u[i] = static_cast<int>(offset + i * scale);
 	ASSERT_NO_THROW(v + w);
-	EXPECT_EQ(s, v + w);
+	EXPECT_EQ(u, v + w);
 }
 
 TEST(TDynamicVector, cant_add_vectors_with_not_equal_size)
@@ -222,28 +241,28 @@ TEST(TDynamicVector, cant_add_vectors_with_not_equal_size)
 	size_t sz = v.size();
 	int offset = 1, scale = 1;
 	for (size_t i = 0; i < sz; i++)
-		v[i] = (offset + i * scale);
+		v[i] = static_cast<int>(offset + i * scale);
 	offset = -2, scale = 4;
 	for (size_t i = 0; i < sz; i++)
-		w[i] = (offset + i * scale);
+		w[i] = static_cast<int>(offset + i * scale);
 	ASSERT_ANY_THROW(v + w);
 }
 
 TEST(TDynamicVector, can_subtract_vectors_with_equal_size)
 {
-	TDynamicVector<int> v(10), w(10), s(10);
+	TDynamicVector<int> v(10), w(10), u(10);
 	size_t sz = v.size();
 	int offset = 1, scale = 1;
 	for (size_t i = 0; i < sz; i++)
-		v[i] = (offset + i * scale);
+		v[i] = static_cast<int>(offset + i * scale);
 	offset = -2, scale = 4;
 	for (size_t i = 0; i < sz; i++)
-		w[i] = (offset + i * scale);
+		w[i] = static_cast<int>(offset + i * scale);
 	offset = -3, scale = 3;
 	for (size_t i = 0; i < sz; i++)
-		s[i] = (offset + i * scale);
+		u[i] = static_cast<int>(offset + i * scale);
 	ASSERT_NO_THROW(w-=v);
-	EXPECT_EQ(s, w);
+	EXPECT_EQ(u, w);
 }
 
 TEST(TDynamicVector, cant_subtract_vectors_with_not_equal_size)
@@ -252,10 +271,10 @@ TEST(TDynamicVector, cant_subtract_vectors_with_not_equal_size)
 	size_t sz = v.size();
 	int offset = 1, scale = 1;
 	for (size_t i = 0; i < sz; i++)
-		v[i] = (offset + i * scale);
+		v[i] = static_cast<int>(offset + i * scale);
 	offset = -2, scale = 4;
 	for (size_t i = 0; i < sz; i++)
-		w[i] = (offset + i * scale);
+		w[i] = static_cast<int>(offset + i * scale);
 	ASSERT_ANY_THROW(v - w);
 }
 
@@ -265,10 +284,10 @@ TEST(TDynamicVector, can_multiply_vectors_with_equal_size)
 	size_t sz = v.size();
 	int offset = 0, scale = 1, res=0;
 	for (size_t i = 0; i < sz; i++)
-		v[i] = (offset + i * scale);
+		v[i] = static_cast<int>(offset + i * scale);
 	offset = -2, scale = 2;
 	for (size_t i = 0; i < sz; i++)
-		w[i] = (offset + i * scale);
+		w[i] = static_cast<int>(offset + i * scale);
 	for (size_t i = 0; i < sz; i++)
 		res += (i * (i * 2 - 2));
 	ASSERT_NO_THROW(v * w);
@@ -281,9 +300,9 @@ TEST(TDynamicVector, cant_multiply_vectors_with_not_equal_size)
 	size_t sz = v.size();
 	int offset = 1, scale = 1;
 	for (size_t i = 0; i < sz; i++)
-		v[i] = (offset + i * scale);
+		v[i] = static_cast<int>(offset + i * scale);
 	offset = -2, scale = 4;
 	for (size_t i = 0; i < sz; i++)
-		w[i] = (offset + i * scale);
+		w[i] = static_cast<int>(offset + i * scale);
 	ASSERT_ANY_THROW(v * w);
 }
