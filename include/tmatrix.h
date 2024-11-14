@@ -46,7 +46,7 @@ public:
       pMem = new T[sz];
       std::copy(v.pMem, v.pMem + sz, pMem);
   }
-  TDynamicVector(TDynamicVector&& v) noexcept
+  TDynamicVector(TDynamicVector&& v) noexcept 
   {
       pMem = nullptr;
       swap(*this, v);
@@ -62,9 +62,10 @@ public:
           return *this;
       }
       if (sz != v.sz) {
-              delete[] pMem;
-              sz = v.sz;
-              pMem = new T[sz];
+          T* tmp = new T[v.sz];
+          delete[] pMem;
+          sz = v.sz;
+          pMem = tmp;
       }
       std::copy(v.pMem, v.pMem + sz, pMem);
       return *this;

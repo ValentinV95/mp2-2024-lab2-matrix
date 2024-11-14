@@ -296,3 +296,38 @@ TEST(TDynamicVector, cant_multiply_vectors_with_not_equal_size)
 	}
 	ASSERT_ANY_THROW(vec1 * vec2);
 }
+TEST(TDynamicVector, can_construct_vector_with_T_pointer)//my
+{
+	TDynamicVector<int> vec1(1000);
+	int* mas = new int[1000];
+	for (int i = 0; i < 1000; i++) {
+		vec1[i] = i;
+		mas[i] = i;
+	}
+	TDynamicVector<int> vec2(mas, 1000);
+	EXPECT_EQ(vec1, vec2);
+}
+
+TEST(TDynamicVector, moved_vector_is_equal_to_source_one)//my
+{
+	TDynamicVector<int> vec1(1000), vec2(1000), vec3(1000);
+	for (int i = 0; i < 1000; i++) {
+		vec1[i] = i;
+		vec2[i] = i * 2;
+		vec3[i] = i + i * 2;
+	}
+	TDynamicVector<int> vec4 = vec1 + vec2;
+	EXPECT_EQ(vec4, vec3);
+}
+
+TEST(TDynamicVector, assign_moved_vector_is_equal_to_source_one)//my
+{
+	TDynamicVector<int> vec1(1000), vec2(1000), vec3(1000);
+	for (int i = 0; i < 1000; i++) {
+		vec1[i] = i;
+		vec2[i] = i * 2;
+		vec3[i] = i + i * 2;
+	}
+	ASSERT_NO_THROW(vec1 = vec1 + vec2);
+	EXPECT_EQ(vec1, vec3);
+}

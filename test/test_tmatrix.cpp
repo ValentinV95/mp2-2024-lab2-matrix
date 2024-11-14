@@ -270,3 +270,53 @@ TEST(TDynamicMatrix, cant_subtract_matrixes_with_not_equal_size)
 	ASSERT_ANY_THROW(mat1 - mat2);
 }
 
+TEST(TDynamicVector, can_multiply_scalar_by_matrix) 
+{
+	TDynamicMatrix<int> mat1(1000), mat2(1000);
+	for (int i = 0; i < 1000; i++) {
+		for (int j = 0; j < 1000; j++) {
+			mat1[i][j] = i + j;
+			mat2[i][j] = (i + j) * 2;
+		}
+	}
+	ASSERT_NO_THROW(mat1 * 2);
+	EXPECT_EQ(mat1 * 2, mat2);
+}
+
+TEST(TDynamicVector, can_multiply_vector_by_matrix) 
+{
+	TDynamicMatrix<int> mat1(3);
+	TDynamicVector<int> vec1(3), vec2(3);
+	for (int i = 0; i < 3; i++) {
+		vec1[i] = i;
+	}
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			mat1[i][j] = i + j;
+		}
+	}
+	vec2[0] = 5;
+	vec2[1] = 8;
+	vec2[2] = 11;
+
+	ASSERT_NO_THROW(vec1 = mat1 * vec1);
+	EXPECT_EQ(vec1, vec2);
+}
+
+TEST(TDynamicVector, can_multiply_matrixes) 
+{
+	TDynamicMatrix<int> mat1(2), mat2(2), mat3(2);
+	for (int i = 0; i < 2; i++) {
+		for (int j = 0; j < 2; j++) {
+			mat1[i][j] = i + j;
+			mat2[i][j] = (i + j) * 2;
+		}
+	}
+	mat3[0][0] = 2;
+	mat3[0][1] = 4;
+	mat3[1][0] = 4;
+	mat3[1][1] = 10;
+
+	ASSERT_NO_THROW(mat1 = mat1 * mat2);
+	EXPECT_EQ(mat1, mat3);
+}
