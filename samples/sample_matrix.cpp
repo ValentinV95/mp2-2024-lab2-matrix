@@ -6,14 +6,6 @@
 
 #include <iostream>
 #include "tmatrix.h"
-template <typename U, typename V>
-auto ADD(const U& lhs, const V& rhs) { return lhs + rhs };
-template <typename U, typename V>
-auto SUB(const U& lhs, const V& rhs) { return lhs - rhs};
-template <typename U, typename V>
-auto MUL(const U& lhs, const V& rhs) { return lhs * rhs};
-template <typename U>
-auto DIV(const U& lhs, const double& rhs) { return lhs / rhs };
 int main()
 {
     setlocale(LC_ALL, "Russian");

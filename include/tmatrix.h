@@ -268,36 +268,6 @@ public:
         for (size_t i = 0; i < sz; i++)
             pMem[i] = TDynamicVector<T>(sz);
     }
-    /*TDynamicMatrix(TDynamicVector<T>* arr, size_t s) : TDynamicVector<TDynamicVector<T>>(s)
-    {
-        if (sz > MAX_MATRIX_SIZE)
-            throw length_error("Matrix size is too big");
-        for (size_t i = 0; i < sz; i++)
-            pMem[i] = arr[i];
-    }
-    TDynamicMatrix(const TDynamicMatrix& m) : TDynamicVector<TDynamicVector<T>>(m.sz)
-    {
-        for (size_i = 0; i < sz; i++)
-            pMem[i] = m.pMem[i];
-    }
-    TDynamicMatrix(const TDynamicMatrix&& m)
-    {
-        pMem = 0;
-        swap(*this, M);
-    }
-    ~TDynamicMatrix()
-    {
-        delete[] pMem;
-        pMem = 0;
-    }
-    TDynamicMatrix& operator=(const TDynamicMatrix& m)
-    {
-        return TDynamicVector<TDynamicVector<T>>::operator=(m);
-    }
-    TDynamicMatrix<T>& operator=(TDynamicMatrix&& m)
-    {
-        return TDynamicVector<TDynamicVector<T>>::operator=(m);
-    }*/
 
     friend void swap(TDynamicMatrix& lhs, TDynamicMatrix& rhs) noexcept
     {
