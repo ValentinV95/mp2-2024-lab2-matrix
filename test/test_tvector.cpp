@@ -320,6 +320,7 @@ TEST(TDynamicVector, arr_ptr_constructor) {
 	k[2] = 3;
 	k[3] = 104232;
 	TDynamicVector<int> v1(k, 4);
+	delete k;
 	EXPECT_EQ(v1, v);
 }
 
