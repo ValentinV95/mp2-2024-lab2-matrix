@@ -9,12 +9,12 @@ TEST(TDynamicMatrix, can_create_matrix_with_positive_length)
 
 TEST(TDynamicMatrix, cant_create_too_large_matrix)
 {
-  ASSERT_ANY_THROW(TDynamicMatrix<int> m(MAX_MATRIX_SIZE + 1));
+	ASSERT_ANY_THROW(TDynamicMatrix<int> m(MAX_MATRIX_SIZE + 1));
 }
 
 TEST(TDynamicMatrix, throws_when_create_matrix_with_negative_length)
 {
-  ASSERT_ANY_THROW(TDynamicMatrix<int> m(-5));
+	ASSERT_ANY_THROW(TDynamicMatrix<int> m(-5));
 }
 
 TEST(TDynamicMatrix, can_create_copied_matrix)
