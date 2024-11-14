@@ -64,7 +64,7 @@ TEST(TDynamicMatrix, can_set_and_get_element)
 }
 
 //<set negative index>------------------------>
-TEST(TDynamicMatrix, throws_when_set_element_with_negative_index_out)
+TEST(TDynamicMatrix, throws_when_set_element_with_negative_index_out)	//get таким образом как бы тоже проверяется
 {
 	TDynamicMatrix<int> m(1000);
 	ASSERT_ANY_THROW(m.at(-1).at(32) = 5);
