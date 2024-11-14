@@ -203,41 +203,40 @@ TEST(TDynamicMatrix, assign_operator_change_matrix_size)
 {
   //ADD_FAILURE();
 
-	TEST(TDynamicMatrix, can_assign_matrices_of_different_size) {
-		TDynamicMatrix<int> matrix(3);
-		TDynamicMatrix<int> matrix_new(2);
+	TDynamicMatrix<int> matrix(3);
+	TDynamicMatrix<int> matrix_new(2);
 
-		int* pMem_0 = new int [3] { 5, 1, 5};
-		int* pMem_1 = new int [3] { 6, 1, 9};
-		int* pMem_2 = new int [3] {7, 1, 8};
+	int* pMem_0 = new int [3] { 5, 1, 5};
+	int* pMem_1 = new int [3] { 6, 1, 9};
+	int* pMem_2 = new int [3] { 7, 1, 8};
 
-		int* pMem_new_0 = new int [2] { 5, 1};
-		int* pMem_new_1 = new int [2] { 5, 1};
+	int* pMem_new_0 = new int [2] { 5, 1};
+	int* pMem_new_1 = new int [2] { 5, 1};
 
-		TDynamicVector<int> v_0(pMem_0, 3);
-		TDynamicVector<int> v_1(pMem_1, 3);
-		TDynamicVector<int> v_2(pMem_2, 3);
+	TDynamicVector<int> v_0(pMem_0, 3);
+	TDynamicVector<int> v_1(pMem_1, 3);
+	TDynamicVector<int> v_2(pMem_2, 3);
 
-		TDynamicVector<int> v_new_0(pMem_new_0, 2);
-		TDynamicVector<int> v_new_1(pMem_new_1, 2);
+	TDynamicVector<int> v_new_0(pMem_new_0, 2);
+	TDynamicVector<int> v_new_1(pMem_new_1, 2);
 
-		delete[] pMem_0;
-		delete[] pMem_1;
-		delete[] pMem_2;
+	delete[] pMem_0;
+	delete[] pMem_1;
+	delete[] pMem_2;
 
-		delete[] pMem_new_0;
-		delete[] pMem_new_1;
+	delete[] pMem_new_0;
+	delete[] pMem_new_1;
 
-		matrix[0] = v_0;
-		matrix[1] = v_1;
-		matrix[2] = v_2;
+	matrix[0] = v_0;
+	matrix[1] = v_1;
+	matrix[2] = v_2;
 
-		matrix_new[0] = v_new_0;
-		matrix_new[1] = v_new_1;
+	matrix_new[0] = v_new_0;
+	matrix_new[1] = v_new_1;
 
-		matrix = matrix_new;
+	matrix = matrix_new;
 
-		EXPECT_EQ(matrix.size(), 2);
+	EXPECT_EQ(matrix.size(), 2);
 }
 
 TEST(TDynamicMatrix, can_assign_matrices_of_different_size)
