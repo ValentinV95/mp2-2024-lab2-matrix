@@ -67,12 +67,12 @@ TEST(TDynamicMatrix, can_set_and_get_element)
 TEST(TDynamicMatrix, throws_when_set_element_with_negative_index_out)
 {
 	TDynamicMatrix<int> m(1000);
-	ASSERT_ANY_THROW(m.at(-1).at(32));
+	ASSERT_ANY_THROW(m.at(-1).at(32) = 5);
 }
 TEST(TDynamicMatrix, throws_when_set_element_with_negative_index_in)
 {
 	TDynamicMatrix<int> m(1000);
-	ASSERT_ANY_THROW(m.at(2).at(-4));
+	ASSERT_ANY_THROW(m.at(2).at(-4) = 5);
 }
 //end----------------------------------------->
 
@@ -80,22 +80,22 @@ TEST(TDynamicMatrix, throws_when_set_element_with_negative_index_in)
 TEST(TDynamicMatrix, throws_when_set_element_with_too_large_index_out_eq_sz)
 {
 	TDynamicMatrix<int> m(1000);
-	ASSERT_ANY_THROW(m.at(1000).at(32));
+	ASSERT_ANY_THROW(m.at(1000).at(32) = 5);
 }
 TEST(TDynamicMatrix, throws_when_set_element_with_too_large_index_in_eq_sz)
 {
 	TDynamicMatrix<int> m(1000);
-	ASSERT_ANY_THROW(m.at(102).at(1000));
+	ASSERT_ANY_THROW(m.at(102).at(1000) = 5);
 }
 TEST(TDynamicMatrix, throws_when_set_element_with_too_large_index_out_gr_sz)
 {
 	TDynamicMatrix<int> m(1000);
-	ASSERT_ANY_THROW(m.at(10000).at(32));
+	ASSERT_ANY_THROW(m.at(10000).at(32) = 8);
 }
 TEST(TDynamicMatrix, throws_when_set_element_with_too_large_index_in_gr_sz)
 {
 	TDynamicMatrix<int> m(1000);
-	ASSERT_ANY_THROW(m.at(102).at(10000));
+	ASSERT_ANY_THROW(m.at(102).at(10000) = 8);
 }
 //end---------------------------------------->
 
