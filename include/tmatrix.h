@@ -7,6 +7,7 @@
 #ifndef __TDynamicMatrix_H__
 #define __TDynamicMatrix_H__
 #include <iostream>
+#include <cassert>
 
 using namespace std;
 
@@ -41,7 +42,6 @@ public:
       if (arr == nullptr) {
           throw exception("nullptr array");
       }
-      assert(arr != nullptr && "TDynamicVector ctor requires non-nullptr arg");
     pMem = new T[sz];
     std::copy(arr, arr + sz, pMem);
   }
