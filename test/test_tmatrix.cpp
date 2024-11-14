@@ -1,6 +1,7 @@
 #include "tmatrix.h"
 #include <ctime>
 #include <gtest.h>
+#include <random>
 
 TEST(TDynamicMatrix, can_create_matrix_with_positive_length)
 {
@@ -262,3 +263,56 @@ TEST(TDynamicMatrix, cant_subtract_matrixes_with_not_equal_size)
 	ASSERT_ANY_THROW(m - m1);
 }
 
+TEST(TDynamicMatrix, scalar_mult_matrix)
+{
+	TDynamicMatrix<int> m(10);
+	TDynamicMatrix<int> m1(10);
+	srand(time(0));
+	auto el = rand() % 2738;
+	for (auto i = 0; i < 10; i++) for (auto j = 0; j < 10; j++) {
+		m[i][j] = i + j * 10;
+		m1[i][j] = (i + j * 10)*el;
+	}
+
+	ASSERT_NO_THROW(m*el);
+	EXPECT_EQ(m * el, m1);
+}
+TEST(TDynamicMatrix, matrix_mult_vector)
+{
+	TDynamicMatrix<int> m(3);
+	TDynamicVector<int> r1(3);
+	TDynamicVector<int> r(3);
+	for (auto i = 0; i < 3; i++) {
+		r[i] = i+23;
+	}
+	for (auto i = 0; i < 3; i++)
+	{
+		for (auto j = 0; j < 3; j++) {
+			m[i][j] = j+i*10;
+		}
+	}
+	r1[0] = 74;
+	r1[1] = 794;
+	r1[2] = 1514;
+
+	ASSERT_NO_THROW(r = m * r);
+	EXPECT_EQ(r, r1);
+
+}
+TEST(TDynamicMatrix, matrix_mult_matrix) {
+	TDynamicMatrix<int> m(2);
+	TDynamicMatrix<int> m1(2);
+	TDynamicMatrix<int> mr(2);
+	for (auto i = 1; i <= 2; i++) for (auto j = 1; j <= 2; j++) {
+		m[i-1][j-1] = i * 13 + j;
+		m1[i-1][j-1] = i + j * 73;
+	}
+
+	mr[0][0] = 2161;
+	mr[0][1] = 4278;
+	mr[1][0] = 4098;
+	mr[1][1] = 8113;
+	
+	ASSERT_NO_THROW(m = m * m1);
+	EXPECT_EQ(m, mr);
+}

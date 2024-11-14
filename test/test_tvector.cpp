@@ -287,4 +287,39 @@ TEST(TDynamicVector, cant_multiply_vectors_with_not_equal_size)
 
 	ASSERT_ANY_THROW(v1 * v);
 }
+TEST(TDynamicVector, assign_operator_r_val) {
+	TDynamicVector<int> v(100), v1(100), v3(100);
+	for (auto i = 0; i < 100; i++) {
+		v3[i] =  i + i*5;
+		v[i] = i;
+		v1[i] = i*5;
+	}
+	TDynamicVector<int> v4;
+	ASSERT_NO_THROW(v4 = v1 + v);
+	EXPECT_EQ(v4, v3);
+}
+TEST(TDynamicVector, assign_construct_r_val) {
+	TDynamicVector<int> v(100), v1(100), v3(100);
+	for (auto i = 0; i < 100; i++) {
+		v3[i] = i + i * 5;
+		v[i] = i;
+		v1[i] = i * 5;
+	}
+	TDynamicVector<int> v4 = v1 + v;
+	EXPECT_EQ(v4, v3);
+}
+TEST(TDynamicVector, arr_ptr_constructor) {
+	TDynamicVector<int> v(4);
+	v[0] = 1;
+	v[1] = 2;
+	v[2] = 3;
+	v[3] = 104232;
+	int* k = new int[4];
+	k[0] = 1;
+	k[1] = 2;
+	k[2] = 3;
+	k[3] = 104232;
+	TDynamicVector<int> v1(k, 4);
+	EXPECT_EQ(v1, v);
+}
 
