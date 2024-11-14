@@ -62,6 +62,13 @@ TEST(TDynamicVector, can_set_and_get_element)
 	EXPECT_EQ(4, v[0]);
 }
 
+TEST(TDynamicVector, get_and_set_at)//my
+{
+	TDynamicVector<int> vec1(1000);
+	ASSERT_NO_THROW(vec1.at(0) = 500);
+	EXPECT_EQ(500, vec1.at(0));
+}
+
 TEST(TDynamicVector, throws_when_set_element_with_negative_index)
 {
 	TDynamicVector<int> v(1000);
@@ -136,6 +143,17 @@ TEST(TDynamicVector, compare_equal_vectors_return_true)
 	}
 	ASSERT_NO_THROW(vec2 == vec1);
 	EXPECT_EQ(vec1 == vec2, true);
+}
+
+TEST(TDynamicVector, compare_equal_vectors_return_false)//my
+{
+	TDynamicVector<int> vec1(1000), vec2(1000);
+	for (int i = 0; i < 1000; i++) {
+		vec1[i] = i;
+		vec2[i] = i;
+	}
+	ASSERT_NO_THROW(vec2 != vec1);
+	EXPECT_EQ(vec1 != vec2, false);
 }
 
 TEST(TDynamicVector, compare_not_equal_vectors_return_false)//my
@@ -278,4 +296,3 @@ TEST(TDynamicVector, cant_multiply_vectors_with_not_equal_size)
 	}
 	ASSERT_ANY_THROW(vec1 * vec2);
 }
-
