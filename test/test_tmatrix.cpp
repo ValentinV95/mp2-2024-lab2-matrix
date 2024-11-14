@@ -227,7 +227,6 @@ TEST(TDynamicMatrix, cant_add_matrices_with_not_equal_size)
 {
 	TDynamicMatrix<int> m(1000);
 	TDynamicMatrix<int> m1(1001);
-	TDynamicMatrix<int> res(1000);
 	for (auto i = 0; i < 1000; i++) for (auto j = 0; j < 1000; j++) {
 		m[i][j] = i + j * 10;
 		m1[i][j] = i + j * 10;
@@ -255,7 +254,6 @@ TEST(TDynamicMatrix, cant_subtract_matrixes_with_not_equal_size)
 {
 	TDynamicMatrix<int> m(1000);
 	TDynamicMatrix<int> m1(1001);
-	TDynamicMatrix<int> res(1000);
 	for (auto i = 0; i < 1000; i++) for (auto j = 0; j < 1000; j++) {
 		m[i][j] = i + j * 10;
 		m1[i][j] = i + j * 10;
