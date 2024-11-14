@@ -9,7 +9,7 @@ TEST(TDynamicVector, can_create_vector_with_positive_length)
 
 TEST(TDynamicVector, cant_create_too_large_vector)
 {
-  ASSERT_ANY_THROW(TDynamicVector<int> v(MAX_VECTOR_SIZE + 1));
+	ASSERT_ANY_THROW(TDynamicVector<int> v(MAX_VECTOR_SIZE + 1));
 }
 
 TEST(TDynamicVector, throws_when_create_vector_with_negative_length)
