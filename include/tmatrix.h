@@ -147,7 +147,7 @@ public:
     {
         TDynamicVector Res(sz);
         if (val == 0) 
-            throw runtime_error("Division by zero. TDV operator /T");
+            throw runtime_error("Vector division by zero is not allowed. Code = 1");
         for (size_t i = 0; i < sz; i++)
             Res.pMem[i] = pMem[i] / val;
         return Res;
@@ -174,8 +174,8 @@ public:
     }
     TDynamicVector<T>& operator/=(const T& val)
     {
-        if (T == 0)
-            throw runtime_error("Division by zero. TDV operator /=T");
+        if (val == 0)
+            throw runtime_error("Vector division by zero is not allowed. Code = 2");
         for (size_t i = 0; i < sz; i++)
             pMem[i] /= val;
         return *this;
@@ -330,20 +330,20 @@ public:
     }
 
     // матрично-скалярные операции
-    TDynamicMatrix<T> operator*(const T& val)
+    TDynamicMatrix<T> operator*(const T& val) const
     {
         TDynamicMatrix<T> Res(sz);
         for (size_t i = 0; i < sz; i++)
             Res.pMem[i] = pMem[i] * val;
         return Res;
     }
-    TDynamicMatrix<T> operator/(const T& val)
+    TDynamicMatrix<T> operator/(const T& val) const
     {
         if (val == 0)
-            throw runtime_error("Division by zero. TDM operator /T");
+            throw runtime_error("Matrix division by zero is not allowed. Code = 1");
         TDynamicMatrix Res(sz);
         for (size_t i = 0; i < sz; i++)
-            Res.pMem[i] = pMem[i] * val;
+            Res.pMem[i] = pMem[i] / val;
         return Res;
     }
 
@@ -357,14 +357,14 @@ public:
     TDynamicMatrix<T>& operator/=(const T& val)
     {
         if (val == 0)
-            throw runtime_error("Division by zero. TDM operator /=T");
+            throw runtime_error("Matrix division by zero is not allowed. Code = 2");
         for (size_t i = 0; i < sz; i++)
             pMem[i] /= val;
         return *this;
     }
 
     // матрично-векторные операции
-    TDynamicVector<T> operator*(const TDynamicVector<T>& v)
+    TDynamicVector<T> operator*(const TDynamicVector<T>& v) const
     {
         if(sz != v.size())
             throw exception("Can not operate with matrix and vector of different size. Operator mat*vec");
@@ -375,7 +375,7 @@ public:
     }
 
     // матрично-матричные операции
-    TDynamicMatrix<T> operator+(const TDynamicMatrix<T>& m)
+    TDynamicMatrix<T> operator+(const TDynamicMatrix<T>& m) const
     {
         if (sz != m.sz)
             throw exception("Can not operate with matrixes of different size. Operator +");
@@ -384,7 +384,7 @@ public:
             Res[i] = pMem[i] + m.pMem[i];
         return Res;
     }
-    TDynamicMatrix<T> operator-(const TDynamicMatrix<T>& m)
+    TDynamicMatrix<T> operator-(const TDynamicMatrix<T>& m) const
     {
         if (sz != m.sz)
             throw exception("Can not operate with matrixes of different size. Operator -");
@@ -393,7 +393,7 @@ public:
             Res[i] = pMem[i] - m.pMem[i];
         return Res;
     }
-    TDynamicMatrix<T> operator*(const TDynamicMatrix<T>& m)
+    TDynamicMatrix<T> operator*(const TDynamicMatrix<T>& m) const
     {
         if (sz != m.sz)
             throw exception("Can not operate with matrixes of different size. Operator *");

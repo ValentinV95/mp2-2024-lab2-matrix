@@ -168,6 +168,21 @@ TEST(TDynamicMatrix, matrices_with_different_size_are_not_equal)
 	EXPECT_NE(true, m == n);
 }
 
+TEST(TDynamicMatrix, can_negate_matrix) //My test
+{
+	TDynamicMatrix<int> m(5), n(5);
+	size_t sz = m.size();
+	for (size_t i = 0; i < sz; i++)
+		for (size_t j = 0; j < sz; j++)
+			m[i][j] = j - i;
+	for (size_t i = 0; i < sz; i++)
+		for (size_t j = 0; j < sz; j++)
+			n[i][j] = i - j;
+	ASSERT_NO_THROW(-m);
+	EXPECT_EQ(n, -m);
+}
+
+
 TEST(TDynamicMatrix, can_add_matrices_with_equal_size)
 {
 	TDynamicMatrix<int> m(5), n(5), r(5);
@@ -181,8 +196,10 @@ TEST(TDynamicMatrix, can_add_matrices_with_equal_size)
 	for (size_t i = 0; i < sz; i++)
 		for (size_t j = 0; j < sz; j++)
 			r[i][j] = 2 * j;
-	ASSERT_NO_THROW(m + n);
-	EXPECT_EQ(r, m + n);
+	ASSERT_NO_THROW(n + m);
+	EXPECT_EQ(r, n + m);
+	ASSERT_NO_THROW(n += m);
+	EXPECT_EQ(r, n);
 }
 
 TEST(TDynamicMatrix, cant_add_matrices_with_not_equal_size)
@@ -211,6 +228,8 @@ TEST(TDynamicMatrix, can_subtract_matrices_with_equal_size)
 	for (size_t i = 0; i < sz; i++)
 		for (size_t j = 0; j < sz; j++)
 			r[i][j] = 2 * i;
+	ASSERT_NO_THROW(n - m);
+	EXPECT_EQ(r, n - m);
 	ASSERT_NO_THROW(n -= m);
 	EXPECT_EQ(r, n);
 }
@@ -239,6 +258,8 @@ TEST(TDynamicMatrix, can_multiply_matrix_by_itself)
 	for (size_t i = 0; i < sz; i++)
 		for (size_t j = 0; j < sz; j++)
 			n[i][j] = 30 + i * 10 + j * (10 + 5 * i);
+	ASSERT_NO_THROW(m * m);
+	EXPECT_EQ(n, m * m);
 	ASSERT_NO_THROW(m *= m);
 	EXPECT_EQ(n, m);
 }
@@ -286,7 +307,37 @@ TEST(TDynamicMatrix, can_multiply_matrix_by_scalar)
 			n[i][j] = 3 * (j + i);
 	ASSERT_NO_THROW(m * a);
 	EXPECT_EQ(n, m * a);
+	ASSERT_NO_THROW(m *= a);
+	EXPECT_EQ(n, m);
 }
+
+TEST(TDynamicMatrix, can_divide_matrix_by_scalar)
+{
+	TDynamicMatrix<int> m(5), n(5);
+	int a = 2;
+	size_t sz = m.size();
+	for (size_t i = 0; i < sz; i++)
+		for (size_t j = 0; j < sz; j++)
+			m[i][j] = 2*(j + i);
+	for (size_t i = 0; i < sz; i++)
+		for (size_t j = 0; j < sz; j++)
+			n[i][j] = (j + i);
+	ASSERT_NO_THROW(m / a);
+	EXPECT_EQ(n, m / a);
+	ASSERT_NO_THROW(m /= a);
+	EXPECT_EQ(n, m);
+}
+
+TEST(TDynamicMatrix, throws_when_division_by_zero_encountered)
+{
+	TDynamicMatrix<int> m(5);
+	size_t sz = m.size();
+	for (size_t i = 0; i < sz; i++)
+		for (size_t j = 0; j < sz; j++)
+			m[i][j] = j + i;
+	ASSERT_ANY_THROW(m / 0);
+}
+
 
 TEST(TDynamicMatrix, can_right_multiply_matrix_by_vector_with_equal_size)
 {

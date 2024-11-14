@@ -157,6 +157,19 @@ TEST(TDynamicVector, vectors_with_different_size_are_not_equal)
 	EXPECT_NE(true, v == w);
 }
 
+TEST(TDynamicVector, can_negate_vector)
+{
+	TDynamicVector<int> v(10), w(10);
+	size_t sz = v.size();
+	int offset = 0, scale = 1, a = 5;
+	for (size_t i = 0; i < sz; i++)
+		v[i] = (offset + i * scale);
+	scale = -1;
+	for (size_t i = 0; i < sz; i++)
+		w[i] = (offset + i * scale);
+	ASSERT_NO_THROW(-v);
+	EXPECT_EQ(w, -v);
+}
 TEST(TDynamicVector, can_add_scalar_to_vector)
 {
 	TDynamicVector<int> v(10), w(10);
@@ -169,6 +182,8 @@ TEST(TDynamicVector, can_add_scalar_to_vector)
 		w[i] = (offset + i * scale);
 	ASSERT_NO_THROW(v + a);
 	EXPECT_EQ(w, v + a);
+	ASSERT_NO_THROW(v += a);
+	EXPECT_EQ(w, v);
 }
 
 TEST(TDynamicVector, can_subtract_scalar_from_vector)
@@ -181,11 +196,13 @@ TEST(TDynamicVector, can_subtract_scalar_from_vector)
 	offset = -a;
 	for (size_t i = 0; i < sz; i++)
 		w[i] = (offset + i * scale);
+	ASSERT_NO_THROW(v - a);
+	EXPECT_EQ(w, v - a);
 	ASSERT_NO_THROW(v -= a);
 	EXPECT_EQ(w, v);
 }
 
-TEST(TDynamicVector, can_multiply_scalar_by_vector)
+TEST(TDynamicVector, can_multiply_vector_by_scalar)
 {
 	TDynamicVector<int> v(10), w(10);
 	size_t sz = v.size();
@@ -197,6 +214,34 @@ TEST(TDynamicVector, can_multiply_scalar_by_vector)
 		w[i] = (offset + i * scale);
 	ASSERT_NO_THROW(v * a);
 	EXPECT_EQ(w, v * a);
+	ASSERT_NO_THROW(v *= a);
+	EXPECT_EQ(w, v);
+}
+
+TEST(TDynamicVector, can_devide_vector_by_scalar)
+{
+	TDynamicVector<int> v(10), w(10);
+	size_t sz = v.size();
+	int offset = 0, scale = 3, a = 3;
+	for (size_t i = 0; i < sz; i++)
+		v[i] = (offset + i * scale);
+	scale = 1;
+	for (size_t i = 0; i < sz; i++)
+		w[i] = (offset + i * scale);
+	ASSERT_NO_THROW(v / a);
+	EXPECT_EQ(w, v / a);
+	ASSERT_NO_THROW(v /= a);
+	EXPECT_EQ(w, v);
+}
+
+TEST(TDynamicVector, throws_when_division_by_zero_encountered)
+{
+	TDynamicVector<int> v(10);
+	size_t sz = v.size();
+	int offset = 0, scale = 1, a = 3;
+	for (size_t i = 0; i < sz; i++)
+		v[i] = (offset + i * scale);
+	ASSERT_ANY_THROW(v / 0);
 }
 
 TEST(TDynamicVector, can_add_vectors_with_equal_size)
@@ -214,6 +259,8 @@ TEST(TDynamicVector, can_add_vectors_with_equal_size)
 		s[i] = (offset + i * scale);
 	ASSERT_NO_THROW(v + w);
 	EXPECT_EQ(s, v + w);
+	ASSERT_NO_THROW(v += w);
+	EXPECT_EQ(s, v);
 }
 
 TEST(TDynamicVector, cant_add_vectors_with_not_equal_size)
@@ -239,11 +286,13 @@ TEST(TDynamicVector, can_subtract_vectors_with_equal_size)
 	offset = -2, scale = 4;
 	for (size_t i = 0; i < sz; i++)
 		w[i] = (offset + i * scale);
-	offset = -3, scale = 3;
+	offset = 3, scale = -3;
 	for (size_t i = 0; i < sz; i++)
 		s[i] = (offset + i * scale);
-	ASSERT_NO_THROW(w-=v);
-	EXPECT_EQ(s, w);
+	ASSERT_NO_THROW(v - w);
+	EXPECT_EQ(s, v - w);
+	ASSERT_NO_THROW(v -= w);
+	EXPECT_EQ(s, v);
 }
 
 TEST(TDynamicVector, cant_subtract_vectors_with_not_equal_size)
