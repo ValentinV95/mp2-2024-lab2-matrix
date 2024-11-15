@@ -62,7 +62,7 @@ public:
         {
             if (sz != v.sz)
             {
-                T* tmp = new T[sz];
+                T* tmp = new T[v.sz];
                 sz = v.sz;
                 delete[] pMem;
                 pMem = tmp;

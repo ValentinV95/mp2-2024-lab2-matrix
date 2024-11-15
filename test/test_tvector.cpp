@@ -21,7 +21,7 @@ TEST(TDynamicVector, throws_when_create_vector_with_negative_length)
 TEST(TDynamicVector, can_create_copied_vector)
 {
   TDynamicVector<int> v(10);
-  ASSERT_NO_THROW(TDynamicVector<int> v1(v));
+  ASSERT_NO_THROW(TDynamicVector<int> w(v));
 }
 
 TEST(TDynamicVector, copied_vector_is_equal_to_source_one)
@@ -37,18 +37,106 @@ TEST(TDynamicVector, copied_vector_is_equal_to_source_one)
 
 TEST(TDynamicVector, copied_vector_has_its_own_memory)
 {
-	TDynamicVector<int> v(10);
+	TDynamicVector<int> v(10), t(10);
 	size_t sz = v.size();
 	int offset = 0, scale = 1;
 	for (size_t i = 0; i < sz; i++)
+	{
 		v[i] = (offset + i * scale);
+		t[i] = v[i];
+	}
 	TDynamicVector<int> w(v);
 	for (size_t i = 0; i < sz; i++)
 	{
-		v[i] *= 2;
-		v[i] += 1;
+		w[i] *= 2;
+		w[i] += 1;
 	}
+	EXPECT_EQ(t, v);
 	EXPECT_NE(v, w);
+}
+
+TEST(TDynamicVector, can_create_vector_with_T_pointer)
+{
+	int sz = 10;
+	int* arr = new int[sz];
+	ASSERT_NO_THROW(TDynamicVector<int> v(arr, sz));
+}
+
+TEST(TDynamicVector, elements_of_vector_created_with_T_point_are_equal_to_el_from_array)
+{
+	int sz = 10, offset = 0, scale = 1;
+	int* arr = new int[sz];
+	TDynamicVector<int> w(sz);
+	for (size_t i = 0; i < sz; i++)
+	{
+		arr[i] = (offset + i * scale);
+		w[i] = (offset + i * scale);
+	}
+	TDynamicVector<int> v(arr, sz);
+	EXPECT_EQ(w, v);
+}
+
+TEST(TDynamicVector, vector_created_with_T_pointer_has_its_own_memory)
+{
+	int sz = 10, offset = 0, scale = 1;
+	int* arr = new int[sz];
+	TDynamicVector<int> w(sz), t(sz);
+	for (size_t i = 0; i < sz; i++)
+	{
+		arr[i] = (offset + i * scale);
+		w[i] = arr[i];
+	}
+	TDynamicVector<int> v(arr, sz);
+	offset = 1, scale = 2;
+	for (size_t i = 0; i < sz; i++)
+		v[i] = (offset + i * scale);
+	for (size_t i = 0; i < sz; i++)
+		t[i] = arr[i];
+	EXPECT_EQ(w, t);
+	EXPECT_NE(w, v);
+}
+
+TEST(TDynamicVector, can_move_vectors)
+{
+	TDynamicVector<int> w(10), t(10);
+	int sz = w.size();
+	for (size_t i = 0; i < sz; i++)
+	{
+		w[i] = -1 + i;
+		t[i] = 2 + 3 * i;
+	}
+	ASSERT_NO_THROW(TDynamicVector<int> v(t - w));
+}
+
+TEST(TDynamicVector, moved_vector_is_equal_to_source_one)
+{
+	TDynamicVector<int> w(10), t(10), s(10);
+	int sz = w.size();
+	for (size_t i = 0; i < sz; i++)
+	{
+		w[i] = -1 + i;
+		t[i] = 2 + 3 * i;
+		s[i] = 3 + 2 * i;
+	}
+	TDynamicVector<int> v(t - w);
+	EXPECT_EQ(s, v);
+}
+
+TEST(TDynamicVector, assigned_moved_vector_is_equal_to_source_one)
+{
+	TDynamicVector<int> v(10), w(10), t(10), s(10), r(10);
+	int sz = v.size();
+	for (size_t i = 0; i < sz; i++)
+	{
+		w[i] = -1 + i;
+		t[i] = 2 + 3 * i;
+		s[i] = 3 + 2 * i;
+		r[i] = 0;
+	}
+	ASSERT_NO_THROW(v = t - w);
+	EXPECT_EQ(s, v);
+	ASSERT_NO_THROW(r += t - w);
+	EXPECT_EQ(s, r);
 }
 
 TEST(TDynamicVector, can_get_size)
