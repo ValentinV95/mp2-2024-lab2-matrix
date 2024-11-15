@@ -43,7 +43,7 @@ TEST(TDynamicVector, copied_vector_has_its_own_memory)
 	for (size_t i = 0; i < sz; i++)
 	{
 		v[i] = (offset + i * scale);
-		t[i] = v[i];
+		t[i] = (offset + i * scale);
 	}
 	TDynamicVector<int> w(v);
 	for (size_t i = 0; i < sz; i++)
@@ -60,6 +60,7 @@ TEST(TDynamicVector, can_create_vector_with_T_pointer)
 	int sz = 10;
 	int* arr = new int[sz];
 	ASSERT_NO_THROW(TDynamicVector<int> v(arr, sz));
+	delete[] arr;
 }
 
 TEST(TDynamicVector, elements_of_vector_created_with_T_point_are_equal_to_el_from_array)
@@ -74,6 +75,7 @@ TEST(TDynamicVector, elements_of_vector_created_with_T_point_are_equal_to_el_fro
 	}
 	TDynamicVector<int> v(arr, sz);
 	EXPECT_EQ(w, v);
+	delete[] arr;
 }
 
 TEST(TDynamicVector, vector_created_with_T_pointer_has_its_own_memory)
@@ -84,7 +86,7 @@ TEST(TDynamicVector, vector_created_with_T_pointer_has_its_own_memory)
 	for (size_t i = 0; i < sz; i++)
 	{
 		arr[i] = (offset + i * scale);
-		w[i] = arr[i];
+		w[i] = (offset + i * scale);
 	}
 	TDynamicVector<int> v(arr, sz);
 	offset = 1, scale = 2;
@@ -94,6 +96,7 @@ TEST(TDynamicVector, vector_created_with_T_pointer_has_its_own_memory)
 		t[i] = arr[i];
 	EXPECT_EQ(w, t);
 	EXPECT_NE(w, v);
+	delete[] arr;
 }
 
 TEST(TDynamicVector, can_move_vectors)
@@ -131,12 +134,12 @@ TEST(TDynamicVector, assigned_moved_vector_is_equal_to_source_one)
 		w[i] = -1 + i;
 		t[i] = 2 + 3 * i;
 		s[i] = 3 + 2 * i;
-		r[i] = 0;
+		r[i] = 1 - i;;
 	}
 	ASSERT_NO_THROW(v = t - w);
 	EXPECT_EQ(s, v);
-	ASSERT_NO_THROW(r += t - w);
-	EXPECT_EQ(s, r);
+	ASSERT_NO_THROW(r += s - 5);
+	EXPECT_EQ(w, r);
 }
 
 TEST(TDynamicVector, can_get_size)

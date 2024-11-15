@@ -37,18 +37,22 @@ TEST(TDynamicMatrix, copied_matrix_is_equal_to_source_one)
 
 TEST(TDynamicMatrix, copied_matrix_has_its_own_memory)
 {
-	TDynamicMatrix<int> m(5);
+	TDynamicMatrix<int> m(5), r(5);
 	size_t sz = m.size();
 	for (size_t i = 0; i < sz; i++)
 		for (size_t j = 0; j < sz; j++)
+		{
 			m[i][j] = j - i;
+			r[i][j] = j - i;
+		}
 	TDynamicMatrix<int> n(m);
 	for (size_t i = 0; i < sz; i++)
 		for (size_t j = 0; j < sz; j++)
 		{
-			m[i][j] *= 2;
-			m[i][j] += 1;
+			n[i][j] *= 2;
+			n[i][j] += 1;
 		}
+	EXPECT_EQ(r, m);
 	EXPECT_NE(m, n);
 }
 
