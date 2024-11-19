@@ -9,7 +9,7 @@
 #define __TDynamicMatrix_H__
 
 #include <iostream>
-
+#include <assert.h>
 using namespace std;
 
 const int MAX_VECTOR_SIZE = 100000000;
@@ -81,8 +81,6 @@ public:
     }
     TDynamicVector& operator=(TDynamicVector&& v) noexcept
     {
-        delete[] pMem;
-        pMem = nullptr;
         swap(*this, v);
         return (*this);
     }
@@ -119,8 +117,6 @@ public:
     // сравнение
     bool operator==(const TDynamicVector& v) const noexcept
     {
-        if (*this == v)
-            return 1;
         if (sz != v.sz)
             return 0;
         for (size_t i = 0; i < sz; i++) {
@@ -138,23 +134,23 @@ public:
     // скалярные операции
     TDynamicVector operator+(T val)
     {
-        DynamicVector Temp(sz);
+        TDynamicVector Temp(sz);
         for (size_t i = 0; i < sz; i++)
-            Temp[i] = pMem[i] + val;
+            Temp.pMem[i] = pMem[i] + val;
         return Temp;
     }
     TDynamicVector operator-(T val)
     {
         TDynamicVector Temp(sz);
         for (size_t i = 0; i < sz; i++)
-            Temp[i] = pMem[i] - val;
+            Temp.pMem[i] = pMem[i] - val;
         return Temp;
     }
     TDynamicVector operator*(T val)
     {
         TDynamicVector Temp(sz);
         for (size_t i = 0; i < sz; i++) {
-            Temp[i] = Temp[i] * val;
+            Temp.pMem[i] = pMem[i] * val;
         }
         return Temp;
     }
@@ -250,7 +246,7 @@ public:
     }
 
     // матрично-скалярные операции
-    TDynamicVector<T> operator*(const T& val)
+    TDynamicMatrix<T> operator*(const T& val)
     {
         TDynamicMatrix Temp(sz);
         for (size_t i = 0; i < sz; i++)
