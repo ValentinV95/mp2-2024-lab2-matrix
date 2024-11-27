@@ -210,7 +210,7 @@ public:
   }
 
   using TDynamicVector<TDynamicVector<T>>::operator[];
-  using TdynamicVector<TDynamicVector<T>>::size;
+  using TDynamicVector<TDynamicVector<T>>::size;
 
   // сравнение
   bool operator==(const TDynamicMatrix& m) const noexcept
