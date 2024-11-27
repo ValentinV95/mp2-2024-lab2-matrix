@@ -199,13 +199,24 @@ public:
       for (size_t i = 0; i < sz; i++)
         pMem[i] = TDynamicVector<T>(sz);
   }
+  TDynamicMatrix(const TDynamicMtrix& m) : TDynamicVector<TDynamicVector<T>>(m.sz) {
+      for (size_t i = 0; i < sz; i++) {
+          pMem[i] = m.pMem[i];
+      }
+  }
 
   using TDynamicVector<TDynamicVector<T>>::operator[];
 
   // сравнение
   bool operator==(const TDynamicMatrix& m) const noexcept
   {
-      return TDynamicVector<TDynamicVector<T>>::operator==(m);
+      if (sz != m.sz)
+          return false;
+      for (size_t i = 0; i < sz; i++) {
+          if (pMem[i] != m.pMem[i])
+              return false;
+      }
+      return true;
   }
 
   // матрично-скалярные операции
