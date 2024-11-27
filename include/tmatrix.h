@@ -9,6 +9,7 @@
 #define __TDynamicMatrix_H__
 
 #include <iostream>
+
 #include <assert.h>
 using namespace std;
 
@@ -275,7 +276,7 @@ public:
 
         TDynamicMatrix<T> Temp(sz);
         for (size_t i = 0; i < sz; i++)
-            Temp[i] = pMem[i] + m.pMem[i];
+            Temp.pMem[i] = pMem[i] + m.pMem[i];
         return Temp;
     }
     TDynamicMatrix operator-(const TDynamicMatrix& m)
@@ -285,7 +286,7 @@ public:
 
         TDynamicMatrix<T> Temp(sz);
         for (size_t i = 0; i < sz; i++)
-            Temp[i] = pMem[i] - m.pMem[i];
+            Temp.pMem[i] = pMem[i] - m.pMem[i];
         return Temp;
     }
     TDynamicMatrix operator*(const TDynamicMatrix& m)
