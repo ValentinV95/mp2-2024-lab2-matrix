@@ -199,7 +199,7 @@ public:
       for (size_t i = 0; i < sz; i++)
         pMem[i] = TDynamicVector<T>(sz);
   }
-  TDynamicMatrix(const TDynamicMtrix& m) : TDynamicVector<TDynamicVector<T>>(m.sz) {
+  TDynamicMatrix(const TDynamicMatrix& m) : TDynamicVector<TDynamicVector<T>>(m.sz) {
       for (size_t i = 0; i < sz; i++) {
           pMem[i] = m.pMem[i];
       }
