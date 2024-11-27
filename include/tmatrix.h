@@ -55,6 +55,8 @@ public:
   {
       if (this == &v)
           return *this;
+      if (v.sz == 0)
+          throw out_of_range("size should be greater than zero");
       TDynamicVector tmp(v);
       swap(*this, tmp);
       return *this;
@@ -103,7 +105,7 @@ public:
   // сравнение
   bool operator==(const TDynamicVector& v) const noexcept
   {
-      return (sz == v.sz) && std::equal(pMem, pMem + sz, v.pMem)
+      return (sz == v.sz) && std::equal(pMem, pMem + sz, v.pMem);
   }
   bool operator!=(const TDynamicVector& v) const noexcept
   {
@@ -114,7 +116,7 @@ public:
   TDynamicVector operator+(T val)
   {
       TDynamicVector result(*this);
-      for (size_t i = 0 i < sz; ++i)
+      for (size_t i = 0; i < sz; ++i)
           result[i] += val;
       return result;
   }
@@ -194,6 +196,8 @@ class TDynamicMatrix : private TDynamicVector<TDynamicVector<T>>
 public:
   TDynamicMatrix(size_t s = 1) : TDynamicVector<TDynamicVector<T>>(s)
   {
+      if (s == 0)
+          throw out_of_range("size should be greater than zero");
       if (s > MAX_MATRIX_SIZE)
           throw out_of_range("The matrix size is larger");
       for (size_t i = 0; i < sz; i++)
