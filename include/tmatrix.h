@@ -227,6 +227,8 @@ public:
   // матрично-скалярные операции
   TDynamicVector<T> operator*(const T& val)
   {
+      if (val == T())
+          throw invalid_argument("Scalar value must be non-zero");
       TDynamicVector<T>result(sz);
       for (size_t i = 0; i < sz; ++i)
           result[i] = pMem[i] * val;
@@ -280,14 +282,20 @@ public:
   // ввод/вывод
   friend istream& operator>>(istream& istr, TDynamicMatrix& v)
   {
-      for (size_t i = 0; i < v.sz; ++i)
-          istr >> v.pMem[i];
+      for (size_t i = 0; i < v.sz; ++i) {
+          if (!(istr >> v.pMem[i]))
+              throw invalid_argument("Invalid input data for matrix");
+      }
       return istr;
   }
   friend ostream& operator<<(ostream& ostr, const TDynamicMatrix& v)
   {
-      for (size_t i = 0; i < v.sz; ++i)
-          ostr << v.pMem[i] << endl;
+      for (size_t i = 0; i < v.sz; ++i) {
+          for (size_t j = 0; j < v.sz; ++j) {
+              ostr << v.pMem[i][j] << '';
+          }
+          ostr << endl;
+      }
       return ostr;
   }
 };
