@@ -156,24 +156,16 @@ public:
           result[i] = pMem[i] - v.pMem[i];
       return result;
   }
-  T operator*(const TDynamicVector& v) noexcept(noexcept(T()))
+  int operator*(const TDynamicVector<int>& v) const
   {
       if (sz != v.sz)
           throw  invalid_argument("Vectors must be same size");
-      T result = T();
+      int result = 0;
       for (size_t i = 0; i < sz; ++i)
           result += pMem[i] * v.pMem[i];
       return result;
   }
 
-  TDynamicVector operator*(const TDynamicVector& v) {
-      if (sz != v.sz)
-          throw invalid_argument("Vectors must be the same size");
-      TDynamicVector result(sz);
-      for (size_t i = 0; i < sz; ++i)
-          result[i] = pMem[i] * v.pMem[i];
-      return result;
-  }
 
   friend void swap(TDynamicVector& lhs, TDynamicVector& rhs) noexcept
   {
