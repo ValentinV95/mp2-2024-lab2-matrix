@@ -133,7 +133,6 @@ TEST(TDynamicVector, can_multiply_scalar_by_vector) {
     EXPECT_EQ(4, res[2]);
 }
 
-Ãûãû, [28.11.2024 6:07]
 TEST(TDynamicVector, can_add_vectors_with_equal_size) {
     TDynamicVector<int> v1(3), v2(3);
     for (size_t i = 0; i < v1.size(); ++i) {
