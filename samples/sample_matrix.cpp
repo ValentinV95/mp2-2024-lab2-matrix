@@ -12,7 +12,7 @@ int main() {
     cin >> n;
 
     if (n == 0 || n > MAX_MATRIX_SIZE) {
-        throw out_of_range("Размер матрицы должен быть больше нуля и не превышать " + to_string(MAX_MATRIX_SIZE));
+        throw out_of_range("Размер матрицы должен быть больше нуля и не превышать ");
     }
 
     try {
