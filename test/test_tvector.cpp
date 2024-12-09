@@ -74,7 +74,7 @@ TEST(TDynamicVector, assign_moved_vector_is_equal_to_source_one) // my test
 	v1[4] = 5;
 	v1[9] = 2;
 	TDynamicVector<int> v2;
-	v2 = TDynamicVector<int>(v1);
+	v2 = v1 + v1 - v1;
 
 	EXPECT_EQ(v1, v2);
 }
@@ -115,6 +115,15 @@ TEST(TDynamicVector, can_assign_vector_to_itself)
 	TDynamicVector<int> w = v;
 
 	ASSERT_NO_THROW(v = v);
+}
+
+TEST(TDynamicVector, assign_vector_to_itself_is_correct)
+{
+	TDynamicVector<int> v(10);
+	for (int i = 0; i < 10; ++i) v[i] = i;
+	TDynamicVector<int> w = v;
+
+	v = v;
 	EXPECT_EQ(v, w);
 }
 
@@ -142,6 +151,33 @@ TEST(TDynamicVector, assign_operator_change_vector_size)
 	w[11] = 11;
 
 	EXPECT_EQ((v = w).size(), 12);
+}
+
+TEST(TDynamicVector, assign_operator_is_correct)
+{
+	TDynamicVector<int> v(10);
+	TDynamicVector<int> w(12);
+	for (int i = 0; i < 10; ++i) {
+		v[i] = i;
+		w[i] = 2 * i;
+	}
+	w[10] = 10;
+	w[11] = 11;
+
+	v = w;
+	EXPECT_EQ(v, w);
+}
+
+TEST(TDynamicVector, assign_operator_of_equal_sized_vectors_is_correct)
+{
+	TDynamicVector<int> v(10);
+	TDynamicVector<int> w(10);
+	for (int i = 0; i < 10; ++i) {
+		v[i] = i;
+		w[i] = 2 * i;
+	}
+
+	v = w;
 	EXPECT_EQ(v, w);
 }
 
@@ -215,10 +251,17 @@ TEST(TDynamicVector, can_add_scalar_to_vector)
 	}
 
 	ASSERT_NO_THROW(v + 10);
-	//v = v + 10;
-	//for (int i = 0; i < 10; ++i) { // just create additional res variable
-	//	EXPECT_EQ(v[i], i + 10);
-	//}
+}
+
+TEST(TDynamicVector, add_scalar_to_vector_is_correct)
+{
+	TDynamicVector<int> v(10);
+	TDynamicVector<int> res(10);
+	for (int i = 0; i < 10; ++i) {
+		v[i] = i;
+		res[i] = i + 10;
+	}
+
 	EXPECT_EQ(v + 10, res);
 }
 
@@ -232,10 +275,17 @@ TEST(TDynamicVector, can_subtract_scalar_from_vector)
 	}
 
 	ASSERT_NO_THROW(v - 10);
-	//v = v - 10;
-	//for (int i = 0; i < 10; ++i) { // just create additional res variable
-	//	EXPECT_EQ(v[i], i - 10);
-	//}
+}
+
+TEST(TDynamicVector, subtract_scalar_from_vector_is_correct)
+{
+	TDynamicVector<int> v(10);
+	TDynamicVector<int> res(10);
+	for (int i = 0; i < 10; ++i) {
+		v[i] = i;
+		res[i] = i - 10;
+	}
+
 	EXPECT_EQ(v - 10, res);
 }
 
@@ -249,10 +299,17 @@ TEST(TDynamicVector, can_multiply_scalar_by_vector)
 	}
 
 	ASSERT_NO_THROW(v * 10);
-	//v = v * 10;
-	//for (int i = 0; i < 10; ++i) { // just create additional res variable
-	//	EXPECT_EQ(v[i], i * 10);
-	//}
+}
+
+TEST(TDynamicVector, multiply_scalar_by_vector_is_correct)
+{
+	TDynamicVector<int> v(10);
+	TDynamicVector<int> res(10);
+	for (int i = 0; i < 10; ++i) {
+		v[i] = i;
+		res[i] = i * 10;
+	}
+
 	EXPECT_EQ(v * 10, res);
 }
 
@@ -266,6 +323,17 @@ TEST(TDynamicVector, can_add_vectors_with_equal_size)
 	}
 
 	ASSERT_NO_THROW(v + w);
+}
+
+TEST(TDynamicVector, add_vectors_with_equal_size_is_correct)
+{
+	TDynamicVector<int> v(10);
+	TDynamicVector<int> w(10);
+	for (int i = 0; i < 10; ++i) {
+		v[i] = i;
+		w[i] = 2 * i;
+	}
+
 	EXPECT_EQ(v + w, v * 3);
 }
 
@@ -293,6 +361,17 @@ TEST(TDynamicVector, can_subtract_vectors_with_equal_size)
 	}
 
 	ASSERT_NO_THROW(v - w);
+}
+
+TEST(TDynamicVector, subtract_vectors_with_equal_size_is_correct)
+{
+	TDynamicVector<int> v(10);
+	TDynamicVector<int> w(10);
+	for (int i = 0; i < 10; ++i) {
+		v[i] = i;
+		w[i] = 2 * i;
+	}
+
 	EXPECT_EQ(v - w, v * (-1));
 }
 
@@ -320,6 +399,17 @@ TEST(TDynamicVector, can_multiply_vectors_with_equal_size)
 	}
 
 	ASSERT_NO_THROW(v * w);
+}
+
+TEST(TDynamicVector, multiply_vectors_with_equal_size_is_correct)
+{
+	TDynamicVector<int> v(10);
+	TDynamicVector<int> w(10);
+	for (int i = 0; i < 10; ++i) {
+		v[i] = i;
+		w[i] = 2 * i;
+	}
+
 	EXPECT_EQ(v * w, 570);
 }
 

@@ -111,12 +111,7 @@ public:
     }
     bool operator!=(const TDynamicVector& v) const noexcept
     {
-        if (sz != v.sz) return true;
-        for (size_t i = 0; i < sz; ++i)
-            if (pMem[i] != v.pMem[i])
-                return true;
-
-        return false;
+        return !(*this == v);
     }
 
     // скалярные операции
