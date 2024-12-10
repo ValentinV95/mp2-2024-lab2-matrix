@@ -1,18 +1,20 @@
 ﻿#include <iostream>
 #include <stdexcept>
-#include <locale>
+
+
+#include "tmatrix.h"
 
 using namespace std;
 
 int main() {
-    setlocale(LC_ALL, "Russian");
+
 
     size_t n;
-    cout << "Введите размерность матриц: ";
+    cout << "enter the matrix dimension ";
     cin >> n;
 
     if (n == 0 || n > MAX_MATRIX_SIZE) {
-        throw out_of_range("Размер матрицы должен быть больше нуля и не превышать ");
+        throw out_of_range("the matrix size must be greater than 0 and not exceed the max");
     }
 
     try {
@@ -26,35 +28,35 @@ int main() {
             }
         }
 
-        cout << "Матрица A:\n" << a << endl;
-        cout << "Матрица B:\n" << b << endl;
+        cout << "Matrix A:\n" << a << endl;
+        cout << "Matrix B:\n" << b << endl;
 
         c = a + b;
-        cout << "Результат сложения (A + B):\n" << c << endl;
+        cout << "result of addition (A + B):\n" << c << endl;
 
         c = a - b;
-        cout << "Результат вычитания (A - B):\n" << c << endl;
+        cout << "result of subtraction (A - B):\n" << c << endl;
 
         int scalar = 5;
         c = a * scalar;
-        cout << "Результат умножения (A * " << scalar << "):\n" << c << endl;
+        cout << "result of multiplication (A * " << scalar << "):\n" << c << endl;
 
         TDynamicVector<int> v(n, 1);
         TDynamicVector<int> result = a * v;
-        cout << "Результат умножения матрицы на вектор:\n" << result << endl;
+        cout << "result of multiplying a matrix by a vector:\n" << result << endl;
 
         c = a * b;
-        cout << "Результат умножения матриц (A * B):\n" << c << endl;
+        cout << "result of matix multiplication (A * B):\n" << c << endl;
 
     }
     catch (const out_of_range& e) {
-        cout << "Ошибка: " << e.what() << endl;
+        cout << "error: " << e.what() << endl;
     }
     catch (const invalid_argument& e) {
-        cout << "Ошибка: " << e.what() << endl;
+        cout << "error: " << e.what() << endl;
     }
     catch (const exception& e) {
-        cout << "Произошла непредвиденная ошибка: " << e.what() << endl;
+        cout << "error: " << e.what() << endl;
     }
 
     return 0;
