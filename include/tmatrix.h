@@ -8,7 +8,7 @@
 #define TDynamicMatrix_H
 
 
-#define _CRT_SECURE_NO_WARNINGS
+#define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING
 
 #include <cassert>
 #include <algorithm>
@@ -190,7 +190,6 @@ public:
     }
 };
 
-
 // Динамическая матрица - 
 // шаблонная матрица на динамической памяти
 template<typename T>
@@ -239,7 +238,7 @@ public:
     }
 
     // матрично-векторные операции
-    TDynamicVector<T> operator*(const TDynamicVector<T>& v)
+    TDynamicVector<T> operator*(const TDynamicVector<T>& v) const
     {
         if (sz != v.size())
             throw invalid_argument("Matrix and vector sizes mismatch");
@@ -248,61 +247,61 @@ public:
             result[i] = (*this)[i] * v;
         return result;
     }
-
     // матрично-матричные операции
-    TDynamicMatrix operator+(const TDynamicMatrix& m)
-    {
-        if (sz != m.sz)
-            throw invalid_argument("Matrix sizes mismatch");
-        TDynamicMatrix result(sz);
-        for (size_t i = 0; i < sz; ++i)
-            result[i] = (*this)[i] + m[i];
-        return result;
-    }
-    TDynamicMatrix operator-(const TDynamicMatrix& m)
-    {
-        if (sz != m.sz)
-            throw invalid_argument("Matrix sizes mismatch");
-        TDynamicMatrix result(sz);
-        for (size_t i = 0; i < sz; ++i)
-            result[i] = (*this)[i] - m[i];
-        return result;
-    }
-    TDynamicMatrix operator*(const TDynamicMatrix& m)
-    {
-        if (sz != m.sz)
-            throw invalid_argument("Matrix sizes mismatch");
-        TDynamicMatrix result(sz);
-        for (size_t i = 0; i < sz; ++i)
-            for (size_t j = 0; j < sz; ++j) {
-                result[i][j] = T();
-                for (size_t k = 0; k < sz; ++k)
-                    result[i][j] += (*this)[i][k] * m[k][j];
-            }
-        return result;
-    }
-    TDynamicMatrix operator*(const T& val) {
-        TDynamicMatrix result(sz);
-        for (size_t i = 0; i < sz; ++i) {
-            result[i] = pMem[i] * static_cast<T>(val);
+    TDynamicMatrix operator*(const TDynamicMatrix& m) const {
+        {
+            if (sz != m.sz)
+                throw invalid_argument("Matrix sizes mismatch");
+            TDynamicMatrix result(sz);
+            for (size_t i = 0; i < sz; ++i)
+                result[i] = (*this)[i] + m[i];
+            return result;
         }
-        return result;
+        TDynamicMatrix operator-(const TDynamicMatrix & m)
+        {
+            if (sz != m.sz)
+                throw invalid_argument("Matrix sizes mismatch");
+            TDynamicMatrix result(sz);
+            for (size_t i = 0; i < sz; ++i)
+                result[i] = (*this)[i] - m[i];
+            return result;
+        }
+        TDynamicMatrix operator*(const TDynamicMatrix & m)
+        {
+            if (sz != m.sz)
+                throw invalid_argument("Matrix sizes mismatch");
+            TDynamicMatrix result(sz);
+            for (size_t i = 0; i < sz; ++i)
+                for (size_t j = 0; j < sz; ++j) {
+                    result[i][j] = T();
+                    for (size_t k = 0; k < sz; ++k)
+                        result[i][j] += (*this)[i][k] * m[k][j];
+                }
+            return result;
+        }
 
-    }
+        TDynamicMatrix operator*(const T & val) {
+            TDynamicMatrix result(sz);
+            for (size_t i = 0; i < sz; ++i) {
+                result[i] = pMem[i] * static_cast<T>(val);
+            }
+            return result;
 
-    // ввод/вывод
-    friend istream& operator>>(istream& istr, TDynamicMatrix& v)
-    {
-        for (size_t i = 0; i < v.sz; ++i)
-            istr >> v.pMem[i];
-        return istr;
-    }
-    friend ostream& operator<<(ostream& ostr, const TDynamicMatrix& v)
-    {
-        for (size_t i = 0; i < v.sz; ++i)
-            ostr << v.pMem[i] << endl;
-        return ostr;
-    }
-};
+        }
+
+        // ввод/вывод
+        friend istream& operator>>(istream & istr, TDynamicMatrix & v)
+        {
+            for (size_t i = 0; i < v.sz; ++i)
+                istr >> v.pMem[i];
+            return istr;
+        }
+        friend ostream& operator<<(ostream & ostr, const TDynamicMatrix & v)
+        {
+            for (size_t i = 0; i < v.sz; ++i)
+                ostr << v.pMem[i] << endl;
+            return ostr;
+        }
+    };
 
 #endif
