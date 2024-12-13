@@ -36,17 +36,43 @@ int main() {
 
         c = a - b;
         cout << "result of subtraction (A - B):\n" << c << endl;
+        cout << "a == b? true - 1, false - 0" << endl << (a == b) << endl;
 
         int scalar = 5;
         c = a * scalar;
+
         cout << "result of multiplication (A * " << scalar << "):\n" << c << endl;
 
-        TDynamicVector<int> v(n, 1);
+        c = a * b;
+        cout << "result of matrix multiplication (A * B):\n" << c << endl;
+
+
+        TDynamicVector<int> v(n);
+        TDynamicVector<int> r(n);
+        for (size_t i = 0; i < v.size(); ++i) {
+            v[i] = 1;
+        }
+
         TDynamicVector<int> result = a * v;
         cout << "result of multiplying a matrix by a vector:\n" << result << endl;
 
-        c = a * b;
-        cout << "result of matix multiplication (A * B):\n" << c << endl;
+        int k;
+        cout << "scalar?" << endl;
+        cin >> k;
+        r = result + k;
+        cout << "result of addition (vector + scalar) \n" << r << endl;
+        r = result - k;
+        cout << "result of subtraction (vector - scalar)\n" << r << endl;
+        r = result * k;
+        cout << "result of multiplication (vector * scalar)\n" << r << endl;
+
+        TDynamicVector<int> s = r;
+        cout << "true - 1, false - 0" << endl << (r == v) << endl << (s == r) << endl;
+        result = r + v;
+        cout << "result of addition (vector + vector) \n" << result << endl;
+        result = r - v;
+        cout << "result of subtraction (vector - vector) \n" << result << endl;
+
 
     }
     catch (const out_of_range& e) {
